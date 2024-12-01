@@ -424,7 +424,7 @@ class FabricDuckDBConnection:
 
         response = client.get(f"v1/workspaces/{workspace_id}/lakehouses")
         response.raise_for_status()
-        lakehouse_properties = response["value"]
+        lakehouse_properties = response.json()["value"]
 
         selected_lakehouses = [
             lakehouse
