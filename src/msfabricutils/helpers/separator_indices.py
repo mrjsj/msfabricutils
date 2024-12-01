@@ -1,5 +1,3 @@
-
-
 def _separator_indices(string: str, separator: str):
     """Find indices of a separator character in a string, ignoring separators inside quotes.
 
@@ -23,7 +21,7 @@ def _separator_indices(string: str, separator: str):
             inside_double_quotes = not inside_double_quotes
         elif char == "'" and not inside_double_quotes:
             inside_single_quotes = not inside_single_quotes
-        elif (inside_double_quotes or inside_single_quotes):
+        elif inside_double_quotes or inside_single_quotes:
             continue
         elif char == separator:
             indices.append(idx)
