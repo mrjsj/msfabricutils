@@ -74,10 +74,12 @@ class FabricDuckDBConnection:
         if name == "sql" or name == "execute":
 
             def wrapper(*args, **kwargs):
+
+                original_method = getattr(self._connection, name)
+                
                 # Modify the query/parameters here before passing to the actual method
                 modified_args, modified_kwargs = self._modify_input_query(args, kwargs)
-                # Call the original method using super()
-                original_method = getattr(self._connection, name)
+
                 return original_method(*modified_args, **modified_kwargs)
 
             return wrapper
@@ -130,6 +132,10 @@ class FabricDuckDBConnection:
         replace_by = {}
         for table in tables_in_query:
             table_name = str(table)
+
+            # Skip functions, i.e. `read_parquet`.
+            if isinstance(table.this, exp.Anonymous):
+                continue
 
             table_alias_indices = _separator_indices(table_name, " ")
 
