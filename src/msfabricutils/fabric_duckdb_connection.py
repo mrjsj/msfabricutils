@@ -8,8 +8,11 @@ from deltalake import write_deltalake
 import sqlglot
 from sqlglot import exp
 
-from sempy import fabric
-
+# Avoid import errors outside Fabric environments
+try: 
+    from sempy import fabric
+except ModuleNotFoundError:
+    pass
 
 class FabricDuckDBConnection:
     """A DuckDB connection wrapper for Microsoft Fabric Lakehouses.
