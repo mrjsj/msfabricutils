@@ -10,7 +10,7 @@ from sqlglot import exp
 
 # Avoid import errors outside Fabric environments
 try:
-    from sempy import fabric
+    from sempy import fabric #noqa: F401
 except ModuleNotFoundError:
     pass
 
