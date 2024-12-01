@@ -11,6 +11,7 @@ from sqlglot import exp
 # Avoid import errors outside Fabric environments
 try: 
     from sempy import fabric
+    import notebookutils
 except ModuleNotFoundError:
     pass
 
