@@ -3,6 +3,9 @@ name: Continuous Integration
 on:
   pull_request:
     branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'tests/**'
 
 jobs:
   test:
