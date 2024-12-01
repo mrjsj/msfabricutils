@@ -373,7 +373,7 @@ class FabricDuckDBConnection:
                 }
 
                 self._registered_tables.append(table_information)
-            print(f"Table `{workspace_name}.{lakehouse_name}.{self._default_schema}.{table["name"]}` registered ...")
+            print(f"Table `{workspace_name}.{lakehouse_name}.{self._default_schema}.{table['name']}` registered ...")
 
     def register_workspace_lakehouses(self, workspace_id: str, lakehouses: str | list[str] = None):
         """Register one or more lakehouses from a workspace for querying.
