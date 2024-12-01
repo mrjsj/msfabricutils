@@ -1,0 +1,70 @@
+site_name: MSFabricUtils
+site_description: A DuckDB connection wrapper for Microsoft Fabric Lakehouses
+repo_url: https://github.com/mrjsj/msfabricutils
+repo_name: mrjsj/msfabricutils
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_object_full_path: false
+            heading_level: 1
+            members_order: source
+            separate_signature: true
+            show_signature_annotations: true
+
+nav:
+  - Home: index.md
+  - API Reference:
+    - FabricDuckDBConnection: reference/msfabricutils/fabric_duckdb_connection.md
+    #- Helpers:
+    #  - Overview: reference/msfabricutils/helpers/index.md
+    #  - Separator Indices: reference/msfabricutils/helpers/separator_indices.md
+
+# Formatting options
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets:
+      base_path: ['.','docs/source/src/']
+      check_paths: true
+      dedent_subsections: true
+  - footnotes
+  - pymdownx.arithmatex:
+      generic: true

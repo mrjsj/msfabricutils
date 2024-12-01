@@ -1,0 +1,52 @@
+name: Build and Upload to PyPI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel build toml ruff
+
+    - name: Run lint
+      run: |
+        ruff check     
+
+    - name: Run tests
+      run: |
+        pip install pytest
+        pytest -vvvv
+
+    - name: Extract version from pyproject.toml
+      id: get_version
+      run: |
+        echo "VERSION=$(python -c 'import toml; pyproject = toml.load("pyproject.toml"); print(pyproject["project"]["version"])')" >> $GITHUB_ENV
+            
+    - name: Build package
+      run: python -m build --wheel
+
+    - name: Create a Release
+      uses: elgohr/Github-Release-Action@v5
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        title: Release v${{ env.VERSION }}
+
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        packages_dir: dist
+        package_name: msfabricutils
+        version: ${{ env.VERSION }}
