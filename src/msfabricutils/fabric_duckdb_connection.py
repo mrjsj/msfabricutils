@@ -131,18 +131,11 @@ class FabricDuckDBConnection:
         for table in tables_in_query:
             table_name = str(table)
 
-            print(f">>{table_name}<<")
-
             table_alias_indices = _separator_indices(table_name, " ")
-            table_alias_start_index = table_alias_indices[0]
-
-            # table_alias = ""
 
             if table_alias_indices:
-                # table_alias = table_name[table_alias_start_index:]
+                table_alias_start_index = table_alias_indices[0]
                 table_name = table_name[:table_alias_start_index]
-                print(f">>{table_name}<<")
-                # print(f">>{table_alias}<<")
 
             separator_indices = _separator_indices(table_name, ".")
 
@@ -380,6 +373,7 @@ class FabricDuckDBConnection:
                 }
 
                 self._registered_tables.append(table_information)
+            print(f"Table `{workspace_name}.{lakehouse_name}.{self._default_schema}.{table["name"]}` registered ...")
 
     def register_workspace_lakehouses(self, workspace_id: str, lakehouses: str | list[str] = None):
         """Register one or more lakehouses from a workspace for querying.
