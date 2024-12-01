@@ -328,7 +328,14 @@ class FabricDuckDBConnection:
     def _register_lakehouse_tables(
         self, workspace_name: str, workspace_id: str, lakehouse_id: str, lakehouse_name: str
     ) -> None:
-        tables = notebookutils.lakehouse.listTables(lakehouse_name, workspace_id)  # noqa: F821
+        from sempy import fabric
+
+        client = fabric.FabricRestClient()
+
+        response = client.get(f"v1/workspaces/{workspace_id}/lakehouses/{lakehouse_id}/tables")
+        response.raise_for_status()
+
+        tables = response.json()["data"]
 
         if not tables:
             table_information = {
@@ -401,33 +408,46 @@ class FabricDuckDBConnection:
         ...     lakehouses=['sales_lakehouse', 'marketing_lakehouse']
         ... )
         ```
-        """        
-        workspaces = fabric.list_workspaces()
-
-        workspace_name = workspaces[workspaces.Id == workspace_id]["Name"].iat[0]
+        """
 
         if isinstance(lakehouses, str):
             lakehouses = [lakehouses]
 
-        for lakehouse in lakehouses:
-            lakehouse_properties = notebookutils.lakehouse.getWithProperties(  # noqa: F821
-                lakehouse, workspace_id
-            )
+        from sempy import fabric
 
-            is_schema_enabled = (
-                lakehouse_properties.get("properties").get("defaultSchema") is not None
-            )
-            lakehouse_id = lakehouse_properties.get("id")
+        workspaces = fabric.list_workspaces()
+
+        workspace_name = workspaces[workspaces.Id == workspace_id]["Name"].iat[0]
+
+        client = fabric.FabricRestClient()
+
+        response = client.get(f"v1/workspaces/{workspace_id}/lakehouses")
+        response.raise_for_status()
+        lakehouse_properties = response["value"]
+
+        selected_lakehouses = [
+            lakehouse
+            for lakehouse in lakehouse_properties
+            if lakehouse["displayName"] in lakehouses
+        ]
+
+        for lakehouse in selected_lakehouses:
+            is_schema_enabled = lakehouse.get("properties").get("defaultSchema") is not None
+
+            lakehouse_name = lakehouse.get("displayName")
+            lakehouse_id = lakehouse.get("id")
 
             if is_schema_enabled:
                 raise Exception(f"""
-                    The lakehouse `{lakehouse}` is using the schema-enabled preview feature.\n
+                    The lakehouse `{lakehouse_name}` is using the schema-enabled preview feature.\n
                     This utility class does support schema-enabled lakehouses (yet).
                 """)
 
-            self._attach_lakehouse(workspace_name, lakehouse)
-            self._create_or_replace_fabric_lakehouse_secret(f"{workspace_name}{lakehouse}")
-            self._register_lakehouse_tables(workspace_name, workspace_id, lakehouse_id, lakehouse)
+            self._attach_lakehouse(workspace_name, lakehouse_name)
+            self._create_or_replace_fabric_lakehouse_secret(f"{workspace_name}{lakehouse_name}")
+            self._register_lakehouse_tables(
+                workspace_name, workspace_id, lakehouse_id, lakehouse_name
+            )
 
     def print_lakehouse_catalog(self):
         """Print a hierarchical view of all registered lakehouses, schemas, and tables.
