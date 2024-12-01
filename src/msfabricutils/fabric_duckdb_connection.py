@@ -9,11 +9,11 @@ import sqlglot
 from sqlglot import exp
 
 # Avoid import errors outside Fabric environments
-try: 
+try:
     from sempy import fabric
-    import notebookutils
 except ModuleNotFoundError:
     pass
+
 
 class FabricDuckDBConnection:
     """A DuckDB connection wrapper for Microsoft Fabric Lakehouses.
@@ -28,7 +28,7 @@ class FabricDuckDBConnection:
         - Delta Lake table support
 
     Args:
-        access_token (str): The Microsoft Fabric access token for authentication. 
+        access_token (str): The Microsoft Fabric access token for authentication.
             In a notebook, use `notebookutils.credentials.getToken('storage')`.
         config (dict, optional): DuckDB configuration options. Defaults to {}.
 
@@ -37,7 +37,7 @@ class FabricDuckDBConnection:
     >>> # Initialize connection
     >>> access_token = notebookutils.credentials.getToken('storage')
     >>> conn = FabricDuckDBConnection(access_token=access_token)
-    >>> 
+    >>>
     >>> # Register lakehouses from different workspaces
     >>> conn.register_workspace_lakehouses(
     ...     workspace_id='12345678-1234-5678-1234-567812345678',
@@ -46,23 +46,24 @@ class FabricDuckDBConnection:
     >>> conn.register_workspace_lakehouses(
     ...     workspace_id='87654321-8765-4321-8765-432187654321',
     ...     lakehouses=['marketing']
-    ... )        
-    >>> 
+    ... )
+    >>>
     >>> # Query across workspaces using fully qualified names
     >>> df = conn.sql('''
-    ...     SELECT 
+    ...     SELECT
     ...         c.customer_id,
     ...         c.name,
     ...         c.region,
     ...         s.segment,
     ...         s.lifetime_value
     ...     FROM sales_workspace.sales.main.customers c
-    ...     JOIN marketing_workspace.marketing.main.customer_segments s 
+    ...     JOIN marketing_workspace.marketing.main.customer_segments s
     ...         ON c.customer_id = s.customer_id
     ...     WHERE c.region = 'EMEA'
     ... ''').df()
     ```
-    """    
+    """
+
     def __init__(self, access_token: str, config: dict = {}):
         self._registered_tables = []
         self._connection = duckdb.connect(config=config)
@@ -95,11 +96,11 @@ class FabricDuckDBConnection:
         ```python
         >>> # Initialize connection
         >>> conn = FabricDuckDBConnection(access_token='old_token')
-        >>> 
+        >>>
         >>> # When token expires, refresh it
         >>> new_token = notebookutils.credentials.getToken('storage')
-        >>> conn.refresh_access_token(new_token)  
-        ```      
+        >>> conn.refresh_access_token(new_token)
+        ```
         """
         self._access_token = access_token
 
@@ -123,7 +124,7 @@ class FabricDuckDBConnection:
 
         Raises:
             Exception: If table references are ambiguous or tables don't exist
-        """        
+        """
         parsed = sqlglot.parse_one(sql=query, read="duckdb")
         tables_in_query = parsed.find_all(exp.Table)
         replace_by = {}
@@ -276,7 +277,7 @@ class FabricDuckDBConnection:
 
         Returns:
             tuple: Modified (args, kwargs)
-        """        
+        """
         modified_args = list(args)
 
         if "query" in kwargs:
@@ -295,7 +296,7 @@ class FabricDuckDBConnection:
 
         Returns:
             str: The preprocessed SQL statements
-        """        
+        """
         query_separator_indices = _separator_indices(query, ";")
         query_separator_indices = [0] + [idx + 1 for idx in query_separator_indices]
 
@@ -395,13 +396,13 @@ class FabricDuckDBConnection:
         >>> # Initialize connection with access token
         >>> access_token = notebookutils.credentials.getToken('storage')
         >>> conn = FabricDuckDBConnection(access_token=access_token)
-        >>> 
+        >>>
         >>> # Register a single lakehouse
         >>> conn.register_workspace_lakehouses(
         ...     workspace_id='12345678-1234-5678-1234-567812345678',
         ...     lakehouses='sales_lakehouse'
         ... )
-        >>> 
+        >>>
         >>> # Register multiple lakehouses
         >>> conn.register_workspace_lakehouses(
         ...     workspace_id='12345678-1234-5678-1234-567812345678',
@@ -500,7 +501,7 @@ class FabricDuckDBConnection:
         workspace_id: str = None,
         workspace_name: str = None,
         *args: Any,
-        **kwargs: Any
+        **kwargs: Any,
     ):
         """Write a DataFrame to a Fabric Lakehouse table.
 
