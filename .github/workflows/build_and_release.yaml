@@ -42,6 +42,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         title: Release v${{ env.VERSION }}
+        tag: v${{ env.VERSION }}
 
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
