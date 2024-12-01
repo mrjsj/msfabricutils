@@ -445,7 +445,7 @@ class FabricDuckDBConnection:
                 """)
 
             self._attach_lakehouse(workspace_name, lakehouse_name)
-            self._create_or_replace_fabric_lakehouse_secret(f"{workspace_name}{lakehouse_name}")
+            self._create_or_replace_fabric_lakehouse_secret(f"{workspace_name}.{lakehouse_name}")
             self._register_lakehouse_tables(
                 workspace_name, workspace_id, lakehouse_id, lakehouse_name
             )
