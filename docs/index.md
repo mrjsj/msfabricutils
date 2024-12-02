@@ -1,6 +1,6 @@
 # MSFabricUtils
 
-A collection of **Spark-free** Python utilities for working with Microsoft Fabric.
+A collection of **Spark-free** Python utilities for working with Microsoft Fabric in the Python Notebook experience.
 
 ## Features
 
@@ -21,6 +21,10 @@ pip install msfabricutils
 ```
 
 ## Quick Start
+
+Ensure you are working in a Python Notebook:
+
+![Select Python Notebook](images/select-python-notebooks.png)
 
 ```python
 from msfabricutils import FabricDuckDBConnection
