@@ -1,12 +1,15 @@
 # MSFabricUtils
-A collection of Spark-free Python utilities for working with Microsoft Fabric.
+A collection of Spark-free Python utilities for working with Microsoft Fabric in Python Notebooks.
+
+![How to select Python Notebook](docs/images/select-python-notebooks.png)
+
 ## Features
-### DuckDB Connection Wrapper
+### Fabric DuckDB Connection
 Seamless integration between DuckDB and Microsoft Fabric Lakehouses
-Cross-workspace and cross-lakehouse querying capabilities
-Automatic table registration and authentication
-Support for Delta Lake tables
-Flexible table name referencing (1-part to 4-part names)
+- Cross-workspace and cross-lakehouse querying capabilities
+- Automatic table registration and authentication
+- Support for Delta Lake tables
+- Flexible table name referencing (1-part to 4-part names)
 ## Installation
 ```bash
 pip install msfabricutils
@@ -59,10 +62,10 @@ The DuckDB Connection wrapper supports multiple table name formats (if unambiguo
 
 # Contributing
 Contributions are welcome! Here are some ways you can contribute:
-Report bugs and feature requests through GitHub issues
-Submit pull requests for bug fixes or new features
-Improve documentation
-Share ideas for new utilities
+- Report bugs and feature requests through GitHub issues
+- Submit pull requests for bug fixes or new features
+- Improve documentation
+- Share ideas for new utilities
 
 # License
 This project is licensed under the MIT License - see the LICENSE file for details.
