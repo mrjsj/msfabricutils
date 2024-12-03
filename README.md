@@ -4,10 +4,15 @@ A collection of Spark-free Python utilities for working with Microsoft Fabric in
 ![How to select Python Notebook](docs/images/select-python-notebooks.png)
 
 ## Features
+
+### Local development first
+- Aim to provide a local development "within" Fabric
+
 ### Fabric DuckDB Connection
 Seamless integration between DuckDB and Microsoft Fabric Lakehouses
 - Cross-workspace and cross-lakehouse querying capabilities
-- Automatic table registration and authentication
+- Automatic table registration
+- Reading and writing to Onelake outside and inside Fabric
 - Support for Delta Lake tables
 - Flexible table name referencing (1-part to 4-part names)
 ## Installation
@@ -16,9 +21,10 @@ pip install msfabricutils
 ```
 ## Quick Start
 ```python
-from msfabricutils import FabricDuckDBConnection
-# Initialize connection
-access_token = notebookutils.credentials.getToken('storage')
+from msfabricutils import FabricDuckDBConnection, get_onelake_access_token
+
+#Initialize connection
+access_token = get_onelake_access_token()
 conn = FabricDuckDBConnection(access_token=access_token)
 
 # Register lakehouses from different workspaces
