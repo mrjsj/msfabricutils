@@ -49,9 +49,11 @@ nav:
   - Home: index.md
   - API Reference:
     - FabricDuckDBConnection: reference/msfabricutils/fabric_duckdb_connection.md
-    #- Helpers:
-    #  - Overview: reference/msfabricutils/helpers/index.md
-    #  - Separator Indices: reference/msfabricutils/helpers/separator_indices.md
+    - Core:
+      - Authentication: reference/msfabricutils/core/auth.md
+      - Utilities: 
+          - Lakehouse: reference/msfabricutils/core/lakehouse.md
+          - Workspace: reference/msfabricutils/core/workspace.md
 
 # Formatting options
 markdown_extensions:
