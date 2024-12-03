@@ -1,7 +1,7 @@
 from msfabricutils.core.generic import get_paginated
 
 
-def get_workspace_lakehouses(workspace_id: str):
+def get_workspace_lakehouses(workspace_id: str) -> list[dict]:
     """
     Retrieves lakehouses for a specified workspace.
 
@@ -24,7 +24,7 @@ def get_workspace_lakehouses(workspace_id: str):
     return get_paginated(endpoint, data_key)
 
 
-def get_workspace_lakehouse_tables(workspace_id: str, lakehouse_id: str):
+def get_workspace_lakehouse_tables(workspace_id: str, lakehouse_id: str) -> list[dict]:
     """
     Retrieves tables for a specified lakehouse within a workspace.
 

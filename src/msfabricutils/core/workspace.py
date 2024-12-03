@@ -1,7 +1,7 @@
 from msfabricutils.core.generic import get_paginated, get_page
 
 
-def get_workspaces():
+def get_workspaces() -> list[dict]:
     """
     Retrieves a list of workspaces.
 
@@ -21,7 +21,7 @@ def get_workspaces():
     return get_paginated(endpoint, data_key)
 
 
-def get_workspace(workspace_id: str):
+def get_workspace(workspace_id: str) -> dict:
     """
     Retrieves details of a specified workspace.
 
