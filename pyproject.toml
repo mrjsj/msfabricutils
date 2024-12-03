@@ -22,6 +22,7 @@ license.file = "LICENSE"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "azure-identity>=1.17.1",
     "duckdb>=1.1.3",
     "deltalake>=0.22.0",
     "sqlglot>=25.32.1",
@@ -31,9 +32,6 @@ dependencies = [
 Repository = "https://github.com/mrjsj/msfabricutils"
 
 [project.optional-dependencies]
-sempy = [
-    "semantic-link>=0.8.0",
-]
 docs = [
     "mkdocs==1.6.1",
     "mkdocs-material==9.5.47",

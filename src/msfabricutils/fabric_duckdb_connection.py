@@ -1,18 +1,18 @@
 from typing import Any
 
 from msfabricutils.helpers import _separator_indices
+from msfabricutils.core import (
+    get_workspace,
+    get_workspace_lakehouses,
+    get_workspace_lakehouse_tables,
+)
+
 
 import duckdb
 from deltalake import write_deltalake
 
 import sqlglot
 from sqlglot import exp
-
-# Avoid import errors outside Fabric environments
-try:
-    from sempy import fabric  # noqa: F401
-except ModuleNotFoundError:
-    pass
 
 
 class FabricDuckDBConnection:
@@ -74,9 +74,8 @@ class FabricDuckDBConnection:
         if name == "sql" or name == "execute":
 
             def wrapper(*args, **kwargs):
-
                 original_method = getattr(self._connection, name)
-                
+
                 # Modify the query/parameters here before passing to the actual method
                 modified_args, modified_kwargs = self._modify_input_query(args, kwargs)
 
@@ -328,14 +327,7 @@ class FabricDuckDBConnection:
     def _register_lakehouse_tables(
         self, workspace_name: str, workspace_id: str, lakehouse_id: str, lakehouse_name: str
     ) -> None:
-        from sempy import fabric
-
-        client = fabric.FabricRestClient()
-
-        response = client.get(f"v1/workspaces/{workspace_id}/lakehouses/{lakehouse_id}/tables")
-        response.raise_for_status()
-
-        tables = response.json()["data"]
+        tables = get_workspace_lakehouse_tables(workspace_id, lakehouse_id)
 
         if not tables:
             table_information = {
@@ -416,17 +408,11 @@ class FabricDuckDBConnection:
         if isinstance(lakehouses, str):
             lakehouses = [lakehouses]
 
-        from sempy import fabric
+        workspace_info = get_workspace(workspace_id)
 
-        workspaces = fabric.list_workspaces()
+        workspace_name = workspace_info["displayName"]
 
-        workspace_name = workspaces[workspaces.Id == workspace_id]["Name"].iat[0]
-
-        client = fabric.FabricRestClient()
-
-        response = client.get(f"v1/workspaces/{workspace_id}/lakehouses")
-        response.raise_for_status()
-        lakehouse_properties = response.json()["value"]
+        lakehouse_properties = get_workspace_lakehouses(workspace_id)
 
         selected_lakehouses = [
             lakehouse
