@@ -13,7 +13,7 @@ def get_workspaces() -> list[dict]:
         list[dict]: A list of dictionaries containing data for the available workspaces.
 
     See Also:
-        get_paginated: A helper function that handles paginated API requests.
+        `get_paginated`: A helper function that handles paginated API requests.
     """    
     endpoint = "workspaces"
     data_key = "value"
@@ -35,7 +35,7 @@ def get_workspace(workspace_id: str) -> dict:
         dict: A dictionary containing the details of the specified workspace.
 
     See Also:
-        get_page: A helper function that retrieves a single page of data from the API.
+        `get_page`: A helper function that retrieves a single page of data from the API.
     """    
     endpoint = f"workspaces/{workspace_id}"
 

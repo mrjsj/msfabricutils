@@ -16,7 +16,7 @@ def get_workspace_lakehouses(workspace_id: str) -> list[dict]:
         list[dict]: A list of dictionaries containing lakehouse data for the specified workspace.
 
     See Also:
-        get_paginated: A helper function that handles paginated API requests.
+        `get_paginated`: A helper function that handles paginated API requests.
     """    
     endpoint = f"workspaces/{workspace_id}/lakehouses"
     data_key = "value"
@@ -40,7 +40,7 @@ def get_workspace_lakehouse_tables(workspace_id: str, lakehouse_id: str) -> list
         list[dict]: A list of dictionaries containing table data for the specified lakehouse.
 
     See Also:
-        get_paginated: A helper function that handles paginated API requests.
+        `get_paginated`: A helper function that handles paginated API requests.
     """    
     endpoint = f"workspaces/{workspace_id}/lakehouses/{lakehouse_id}/tables"
     data_key = "data"
