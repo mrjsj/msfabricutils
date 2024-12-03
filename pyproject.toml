@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "msfabricutils"
-version = "0.1.8"
+version = "0.2.0"
 description = "A Python library exposes additional functionality to work with Python Notebooks in Microsoft Fabric."
 authors = [
     { name = "Jimmy Jensen" },
