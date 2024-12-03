@@ -16,7 +16,7 @@ def get_onelake_access_token() -> str:
     """    
     audience = "https://storage.azure.com"
     try:
-        import notebookutils
+        import notebookutils # type: ignore
 
         token = notebookutils.credentials.getToken(audience)
     except ModuleNotFoundError:
@@ -40,7 +40,7 @@ def get_fabric_bearer_token() -> str:
     """    
     audience = "https://analysis.windows.net/powerbi/api"
     try:
-        import notebookutils
+        import notebookutils # type: ignore
 
         token = notebookutils.credentials.getToken(audience)
     except ModuleNotFoundError:
