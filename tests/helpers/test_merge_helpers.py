@@ -1,5 +1,11 @@
-from msfabricutils.helpers.merge_helpers import build_merge_predicate, build_when_matched_update_predicate, build_when_matched_update_columns
 import re
+
+from msfabricutils.etl.helpers.merge_helpers import (
+    build_merge_predicate,
+    build_when_matched_update_columns,
+    build_when_matched_update_predicate,
+)
+
 
 def test_build_merge_predicate():
     columns = ["column1", "column2"]

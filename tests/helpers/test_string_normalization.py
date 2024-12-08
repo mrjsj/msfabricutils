@@ -1,5 +1,6 @@
-from msfabricutils.helpers.string_normalization import to_snake_case, character_translation
+from msfabricutils.common.string_normalization import character_translation, to_snake_case
 from msfabricutils.etl import get_default_config
+
 
 def test_to_snake_case():
     assert to_snake_case("CustomerID") == "customer_id"
@@ -15,6 +16,7 @@ def test_to_snake_case():
     assert to_snake_case("__modified_at") == "__modified_at"
     assert to_snake_case("__valid_from") == "__valid_from"
     assert to_snake_case("__valid_to") == "__valid_to"
+    assert to_snake_case("this-contains_ ALLKinds OfWord_Boundaries") == "this_contains_all_kinds_of_word_boundaries"
 
 def test_special_character_translation():
     assert character_translation("Profit&Loss", {"&": "_and_"}) == "Profit_and_Loss"

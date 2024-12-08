@@ -1,4 +1,4 @@
-from msfabricutils.helpers import _separator_indices
+from msfabricutils.common import _separator_indices
 
 
 def test_seperator_indices_simple_string():
