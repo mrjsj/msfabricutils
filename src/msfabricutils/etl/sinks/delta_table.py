@@ -51,12 +51,16 @@ def upsert_scd_type_1(
     dynamic_audit_columns = config.get_dynamic_audit_columns() if config else []
     static_audit_columns = config.get_static_audit_columns() if config else []
 
-    if exclude_columns is None:
-        exclude_columns = []
-
     if isinstance(primary_key_columns, str):
         primary_key_columns = [primary_key_columns]
-    primary_key_columns = [config.normalization_strategy(column) for column in primary_key_columns]
+
+    if config:
+        primary_key_columns = [
+            config.normalization_strategy(column) for column in primary_key_columns
+        ]
+
+    if exclude_columns is None:
+        exclude_columns = []
 
     if isinstance(exclude_columns, str):
         exclude_columns = [exclude_columns]
