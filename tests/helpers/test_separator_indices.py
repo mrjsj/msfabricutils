@@ -19,3 +19,8 @@ def test_seperator_indices_string_with_both_quotes():
 def test_seperator_indices_only_dots():
     chars = "..."
     assert _separator_indices(chars, ".") == [0, 1, 2]
+
+
+def test_seperator_indices_start_and_end_with_dots():
+    chars = ".my-text."
+    assert _separator_indices(chars, ".") == [0, 8]
