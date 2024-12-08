@@ -8,5 +8,5 @@ __all__ = (
     "get_workspace_lakehouses",
     "get_workspace_lakehouse_tables",
     "get_onelake_access_token",
-    "get_fabric_bearer_token"
+    "get_fabric_bearer_token",
 )
