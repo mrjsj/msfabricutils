@@ -1,4 +1,4 @@
-def _separator_indices(string: str, separator: str):
+def _separator_indices(string: str, separator: str) -> list[int]:
     """Find indices of a separator character in a string, ignoring separators inside quotes.
 
     Args:
@@ -6,7 +6,7 @@ def _separator_indices(string: str, separator: str):
         separator (str): The separator character to find
 
     Returns:
-        list[int]: List of indices where the separator character appears outside of quotes
+        A list of indices where the separator character appears outside of quotes
 
     Example:
         >>> separator_indices('a,b,"c,d",e', ',')

@@ -16,7 +16,7 @@ def get_paginated(endpoint: str, data_key: str) -> list[dict]:
         data_key (str): The key in the response JSON that contains the list of data to be returned.
 
     Returns:
-        list[dict]: A list of dictionaries containing the data from all pages.
+        A list of dictionaries containing the data from all pages.
 
     Raises:
         requests.exceptions.RequestException: If the HTTP request fails or returns an error.
@@ -55,7 +55,7 @@ def get_page(endpoint: str) -> list[dict]:
         endpoint (str): The API endpoint to send the GET request to.
 
     Returns:
-        list[dict]: A list of dictionaries containing the data returned from the API.
+        A list of dictionaries containing the data returned from the API.
 
     Raises:
         requests.exceptions.RequestException: If the HTTP request fails or returns an error.
