@@ -1,4 +1,4 @@
-from msfabricutils.fabric_duckdb_connection import FabricDuckDBConnection
+from msfabricutils.common.fabric_duckdb_connection import FabricDuckDBConnection
 from msfabricutils.core import (
     get_fabric_bearer_token,
     get_onelake_access_token,
