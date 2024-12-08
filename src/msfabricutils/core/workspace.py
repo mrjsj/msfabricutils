@@ -1,5 +1,7 @@
-from msfabricutils.core.generic import get_paginated, get_page
 from typing import Any
+
+from msfabricutils.core.generic import get_page, get_paginated
+
 
 def get_workspaces() -> list[dict[str, Any]]:
     """
@@ -12,8 +14,12 @@ def get_workspaces() -> list[dict[str, Any]]:
     Returns:
         A list of dictionaries containing data for the available workspaces.
 
-    See Also:
-        `get_paginated`: A helper function that handles paginated API requests.
+    Example:
+        ```python
+        from msfabricutils.core import get_workspaces
+
+        workspaces = get_workspaces()
+        ```
     """    
     endpoint = "workspaces"
     data_key = "value"
@@ -34,8 +40,12 @@ def get_workspace(workspace_id: str) -> dict[str, Any]:
     Returns:
         A dictionary containing the details of the specified workspace.
 
-    See Also:
-        `get_page`: A helper function that retrieves a single page of data from the API.
+    Example:
+        ```python
+        from msfabricutils.core import get_workspace
+
+        workspace = get_workspace("12345678-1234-1234-1234-123456789012")
+        ```
     """    
     endpoint = f"workspaces/{workspace_id}"
 

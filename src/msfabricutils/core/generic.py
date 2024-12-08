@@ -1,4 +1,5 @@
 import requests
+
 from msfabricutils.core.auth import get_fabric_bearer_token
 
 
