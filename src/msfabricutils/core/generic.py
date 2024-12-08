@@ -7,9 +7,9 @@ def get_paginated(endpoint: str, data_key: str) -> list[dict]:
     """
     Retrieves paginated data from the specified API endpoint.
 
-    This function makes repeated GET requests to the specified endpoint of the 
-    Fabric REST API, handling pagination automatically. It uses a bearer token 
-    for authentication and retrieves data from each page, appending the results 
+    This function makes repeated GET requests to the specified endpoint of the
+    Fabric REST API, handling pagination automatically. It uses a bearer token
+    for authentication and retrieves data from each page, appending the results
     to a list. Pagination continues until no `continuationToken` is returned.
 
     Args:
@@ -48,8 +48,8 @@ def get_page(endpoint: str) -> list[dict]:
     """
     Retrieves data from a specified API endpoint.
 
-    This function makes a GET request to the specified endpoint of the Azure Fabric API, 
-    using a bearer token for authentication. It returns the JSON response as a list of 
+    This function makes a GET request to the specified endpoint of the Azure Fabric API,
+    using a bearer token for authentication. It returns the JSON response as a list of
     dictionaries containing the data returned by the API.
 
     Args:

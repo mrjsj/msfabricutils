@@ -1,6 +1,7 @@
 """Generate the code reference pages."""
 
 from pathlib import Path
+
 import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
@@ -26,7 +27,7 @@ for path in sorted(Path("src").rglob("*.py")):
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         identifier = ".".join(parts)
-        #print(f"# {identifier}", file=fd)
+        # print(f"# {identifier}", file=fd)
         print("::: " + identifier, file=fd)
 
     mkdocs_gen_files.set_edit_path(full_doc_path, path)

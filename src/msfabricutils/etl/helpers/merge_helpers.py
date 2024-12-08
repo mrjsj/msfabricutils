@@ -5,7 +5,7 @@ def build_merge_predicate(columns: list[str]) -> str:
     """
     Constructs a SQL merge predicate based on the provided column names.
 
-    This function generates a string that represents the condition for merging 
+    This function generates a string that represents the condition for merging
     records based on equality of the specified columns.
 
     Args:
@@ -36,7 +36,7 @@ def build_when_matched_update_predicate(columns: list[str]) -> str:
     """
     Constructs a SQL predicate for when matched update conditions.
 
-    This function generates a string that represents the conditions for updating 
+    This function generates a string that represents the conditions for updating
     records when a match is found based on the specified columns.
 
     Args:
@@ -52,7 +52,7 @@ def build_when_matched_update_predicate(columns: list[str]) -> str:
         \"\"\"
             (
                 (target."id" != source."id")
-                OR (target."id" IS NULL AND source."id" IS NOT NULL) 
+                OR (target."id" IS NULL AND source."id" IS NOT NULL)
                 OR (target."id" IS NOT NULL AND source."id" IS NULL)
             ) OR ...
         \"\"\"
@@ -75,7 +75,7 @@ def build_when_matched_update_columns(columns: list[str]) -> dict[str, str]:
     """
     Constructs a mapping of columns to be updated when a match is found.
 
-    This function generates a dictionary where the keys are the target column 
+    This function generates a dictionary where the keys are the target column
     names and the values are the corresponding source column names.
 
     Args:
@@ -95,6 +95,6 @@ def build_when_matched_update_columns(columns: list[str]) -> dict[str, str]:
         ```
     """
     return {
-        f"target.{quote_identifier(column)}": f"source.{quote_identifier(column)}" 
+        f"target.{quote_identifier(column)}": f"source.{quote_identifier(column)}"
         for column in columns
     }

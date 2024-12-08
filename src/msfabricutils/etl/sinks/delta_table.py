@@ -10,7 +10,13 @@ from msfabricutils.etl.helpers.merge_helpers import (
 from msfabricutils.etl.types import PolarsFrame
 
 
-def upsert_scd_type_1(table_uri: str, df: PolarsFrame, primary_key_columns: str | list[str], config: Config | None = None, exclude_columns: str | list[str] | None = None) -> dict[str: str]:
+def upsert_scd_type_1(
+    table_uri: str,
+    df: PolarsFrame,
+    primary_key_columns: str | list[str],
+    config: Config | None = None,
+    exclude_columns: str | list[str] | None = None,
+) -> dict[str:str]:
     """
     Upserts dataframe into a Delta table using Slowly Changing Dimension (SCD) Type 1.
 
@@ -52,10 +58,9 @@ def upsert_scd_type_1(table_uri: str, df: PolarsFrame, primary_key_columns: str 
         primary_key_columns = [primary_key_columns]
     primary_key_columns = [config.normalization_strategy(column) for column in primary_key_columns]
 
-
     if isinstance(exclude_columns, str):
         exclude_columns = [exclude_columns]
-   
+
     if isinstance(df, pl.LazyFrame):
         df = df.collect()
 
@@ -69,13 +74,16 @@ def upsert_scd_type_1(table_uri: str, df: PolarsFrame, primary_key_columns: str 
     merge_predicate = build_merge_predicate(primary_key_columns)
 
     predicate_update_columns = [
-        column for column in df.column_names
-        if column not in primary_key_columns + exclude_columns + static_audit_columns + dynamic_audit_columns
+        column
+        for column in df.column_names
+        if column
+        not in primary_key_columns + exclude_columns + static_audit_columns + dynamic_audit_columns
     ]
 
     when_matched_update_predicates = build_when_matched_update_predicate(predicate_update_columns)
     update_columns = [
-        column for column in df.column_names 
+        column
+        for column in df.column_names
         if column not in primary_key_columns + exclude_columns + static_audit_columns
     ]
 
@@ -83,16 +91,14 @@ def upsert_scd_type_1(table_uri: str, df: PolarsFrame, primary_key_columns: str 
     table_merger = (
         dt.merge(
             df,
-            source_alias = "source",
-            target_alias = "target",
-            predicate = merge_predicate,
+            source_alias="source",
+            target_alias="target",
+            predicate=merge_predicate,
         )
         .when_matched_update(
-            predicate = when_matched_update_predicates,
-            updates = when_matched_update_columns
+            predicate=when_matched_update_predicates, updates=when_matched_update_columns
         )
         .when_not_matched_insert_all()
     )
 
     return table_merger.execute()
-

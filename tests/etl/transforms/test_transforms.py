@@ -1,4 +1,3 @@
-
 from datetime import datetime, timezone
 
 import polars as pl
@@ -12,12 +11,8 @@ from msfabricutils.etl.transforms.transforms import add_audit_columns_transform
 @freeze_time("2024-12-06 12:00:00")
 def test_add_audit_columns():
     config = get_default_config()
-    
-    df = pl.DataFrame(
-        {
-            "data": [1, 2, 3]
-        }
-    )
+
+    df = pl.DataFrame({"data": [1, 2, 3]})
 
     actual_df = add_audit_columns_transform(df, config)
 
@@ -34,8 +29,8 @@ def test_add_audit_columns():
         },
         schema_overrides={
             "__deleted_at": pl.Datetime(time_zone="UTC"),
-            "__valid_to": pl.Datetime(time_zone="UTC")
-        }
+            "__valid_to": pl.Datetime(time_zone="UTC"),
+        },
     )
 
     assert_frame_equal(actual_df, expected_df)

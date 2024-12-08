@@ -6,5 +6,4 @@ def test_quote_character():
     assert quote_identifier("my_object", "'") == "'my_object'"
     assert quote_identifier('"my_object"') == '"my_object"'
     assert quote_identifier("'''my_object'''", "'") == "'my_object'"
-    assert quote_identifier("") == '""' 
-
+    assert quote_identifier("") == '""'

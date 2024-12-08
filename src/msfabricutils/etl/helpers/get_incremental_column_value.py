@@ -28,5 +28,10 @@ def get_incremental_column_value(table_uri: str, incremental_column: str) -> int
     if not DeltaTable.is_deltatable(table_uri, storage_options=storage_options):
         return 0
 
-    return pl.scan_delta(table_uri, storage_options=storage_options).select(pl.col(incremental_column)).max().collect().item()
-
+    return (
+        pl.scan_delta(table_uri, storage_options=storage_options)
+        .select(pl.col(incremental_column))
+        .max()
+        .collect()
+        .item()
+    )

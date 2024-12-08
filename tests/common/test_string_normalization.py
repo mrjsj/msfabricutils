@@ -16,7 +16,11 @@ def test_to_snake_case():
     assert to_snake_case("__modified_at") == "__modified_at"
     assert to_snake_case("__valid_from") == "__valid_from"
     assert to_snake_case("__valid_to") == "__valid_to"
-    assert to_snake_case("this-contains_ ALLKinds OfWord_Boundaries") == "this_contains_all_kinds_of_word_boundaries"
+    assert (
+        to_snake_case("this-contains_ ALLKinds OfWord_Boundaries")
+        == "this_contains_all_kinds_of_word_boundaries"
+    )
+
 
 def test_special_character_translation():
     assert character_translation("Profit&Loss", {"&": "_and_"}) == "Profit_and_Loss"
@@ -28,7 +32,6 @@ def test_special_character_translation():
 
 
 def test_default_normalization_strategy():
-
     config = get_default_config()
 
     def combined_normalization(text: str) -> str:
@@ -41,4 +44,7 @@ def test_default_normalization_strategy():
     assert combined_normalization("Profit\\Loss") == "profit_or_loss"
     assert combined_normalization("Profit(Loss") == "profit_loss"
     assert combined_normalization("Profit)Loss") == "profit_loss"
-    assert combined_normalization("Growth% and   Loss + EBIDTA") == "growth_percent_and_loss_plus_ebidta"
+    assert (
+        combined_normalization("Growth% &   Loss + EBIDTA")
+        == "growth_percent_and_loss_plus_ebidta"
+    )
