@@ -13,7 +13,7 @@ def get_workspace_lakehouses(workspace_id: str) -> list[dict]:
         workspace_id (str): The ID of the workspace to retrieve lakehouses from.
 
     Returns:
-        list[dict]: A list of dictionaries containing lakehouse data for the specified workspace.
+        A list of dictionaries containing lakehouse data for the specified workspace.
 
     See Also:
         `get_paginated`: A helper function that handles paginated API requests.

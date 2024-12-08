@@ -36,14 +36,17 @@ plugins:
         python:
           paths: [src]
           options:
+            show_root_toc_entry: false
             docstring_style: google
-            show_source: true
+            show_source: false
             show_root_heading: true
+            filters: ["!^_", "^__init__$"]
             show_object_full_path: false
             heading_level: 1
             members_order: source
             separate_signature: true
             show_signature_annotations: true
+            docstring_section_style: table
 
 nav:
   - Home: index.md
