@@ -24,7 +24,11 @@ df.write_parquet("source.parquet")
 source_df = source_parquet("source.parquet")
 
 # Upsert to a target table
-upsert_scd_type_1(dedup_df, "target_table")
+upsert_scd_type_1(
+    table_uri="target_table",
+    df=source_df,
+    primary_key_columns="id"
+)
 ```
 
 
