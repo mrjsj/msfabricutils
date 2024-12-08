@@ -5,8 +5,8 @@ def get_workspace_lakehouses(workspace_id: str) -> list[dict]:
     """
     Retrieves lakehouses for a specified workspace.
 
-    This function fetches a list of lakehouses from a specified workspace using the 
-    `get_paginated` function. It constructs the appropriate endpoint and retrieves 
+    This function fetches a list of lakehouses from a specified workspace using the
+    `get_paginated` function. It constructs the appropriate endpoint and retrieves
     paginated data associated with the workspace ID.
 
     Args:
@@ -21,7 +21,7 @@ def get_workspace_lakehouses(workspace_id: str) -> list[dict]:
 
         lakehouses = get_workspace_lakehouses("12345678-1234-1234-1234-123456789012")
         ```
-    """    
+    """
     endpoint = f"workspaces/{workspace_id}/lakehouses"
     data_key = "value"
 
@@ -32,8 +32,8 @@ def get_workspace_lakehouse_tables(workspace_id: str, lakehouse_id: str) -> list
     """
     Retrieves tables for a specified lakehouse within a workspace.
 
-    This function fetches a list of tables from a specific lakehouse within a given workspace 
-    using the `get_paginated` function. It constructs the appropriate endpoint and retrieves 
+    This function fetches a list of tables from a specific lakehouse within a given workspace
+    using the `get_paginated` function. It constructs the appropriate endpoint and retrieves
     paginated data associated with the workspace and lakehouse IDs.
 
     Args:
@@ -52,7 +52,7 @@ def get_workspace_lakehouse_tables(workspace_id: str, lakehouse_id: str) -> list
             "beefbeef-beef-beef-beef-beefbeefbeef"
         )
         ```
-    """    
+    """
     endpoint = f"workspaces/{workspace_id}/lakehouses/{lakehouse_id}/tables"
     data_key = "data"
 

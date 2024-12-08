@@ -17,16 +17,17 @@ from msfabricutils.etl import (
 
 @freeze_time("2024-01-01")
 def test_end_to_end(tmp_path):
-
     source_table_path = str(tmp_path / "source_table")
     target_table_path = str(tmp_path / "target_table")
 
     # Create a source table
-    source_df = pl.DataFrame({
-        "ID": [1, 2, 3, 1, 2],
-        "FirstName": ["Alice", "Bob", "Charlie", "AliceS", "BobB"],
-        "batch_id": [1, 1, 1, 2, 2]
-    })
+    source_df = pl.DataFrame(
+        {
+            "ID": [1, 2, 3, 1, 2],
+            "FirstName": ["Alice", "Bob", "Charlie", "AliceS", "BobB"],
+            "batch_id": [1, 1, 1, 2, 2],
+        }
+    )
     source_df.write_delta(source_table_path)
 
     # Get the default config
@@ -42,7 +43,9 @@ def test_end_to_end(tmp_path):
     filtered_df = source_df.filter(pl.col("batch_id") > incremental_column_value)
 
     # Deduplicate the source dataframe
-    deduped_df = deduplicate_transform(filtered_df, primary_key_columns="ID", deduplication_order_columns="batch_id")
+    deduped_df = deduplicate_transform(
+        filtered_df, primary_key_columns="ID", deduplication_order_columns="batch_id"
+    )
 
     # Normalize the column names
     normalized_df = normalize_column_names_transform(deduped_df, config)
@@ -76,9 +79,9 @@ def test_end_to_end(tmp_path):
             "__deleted_at": pl.Datetime(time_zone="UTC"),
             "__valid_to": pl.Datetime(time_zone="UTC"),
             "__valid_from": pl.Datetime(time_zone="UTC"),
-        }
-    )  
+        },
+    )
 
     print(target_df)
-    
+
     assert_frame_equal(target_df, expected_df, check_row_order=False)

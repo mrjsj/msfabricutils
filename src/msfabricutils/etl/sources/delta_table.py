@@ -18,7 +18,7 @@ def source_delta(table_uri: str, eager: bool = False) -> PolarsFrame:
     Example:
         ```python
         from msfabricutils.etl import source_delta
-        
+
         workspace_id = "12345678-1234-1234-1234-123456789012"
         lakehouse_id = "beefbeef-beef-beef-beef-beefbeefbeef"
         table_name = "my-delta-table"
@@ -32,13 +32,6 @@ def source_delta(table_uri: str, eager: bool = False) -> PolarsFrame:
     storage_options = get_storage_options() if table_uri.startswith("abfss://") else None
 
     if eager:
-        return pl.read_delta(
-            source=table_uri,
-            storage_options=storage_options
-        )
+        return pl.read_delta(source=table_uri, storage_options=storage_options)
 
-    return pl.scan_delta(
-        source=table_uri,
-        storage_options=storage_options
-    )
-
+    return pl.scan_delta(source=table_uri, storage_options=storage_options)

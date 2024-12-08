@@ -15,14 +15,16 @@ class IncrementalColumn:
     Attributes:
         name (str): The name of the incremental column.
         data_type (pl.DataType): The data type of the incremental column.
-    
+
     Example:
         ```python
         incremental_column = IncrementalColumn("batch_id", pl.Int64)
         ```
     """
+
     name: str
     data_type: pl.DataType
+
 
 @dataclass
 class AuditColumn:
@@ -32,7 +34,7 @@ class AuditColumn:
     Attributes:
         name (str): The name of the audit column.
         default_value (pl.Expr): The default value expression for the audit column.
-    
+
     Example:
         ```python
         audit_column = AuditColumn(
@@ -41,8 +43,10 @@ class AuditColumn:
         )
         ```
     """
+
     name: str
     default_value: pl.Expr
+
 
 @dataclass()
 class Config:
@@ -59,6 +63,7 @@ class Config:
         character_translation_map (dict[str, str]): A mapping of special characters to their translations.
         normalization_strategy (Callable[[str], str]): A function that takes a column name and returns the normalized name.
     """
+
     incremental_column: IncrementalColumn
     column_created_at: AuditColumn
     column_modified_at: AuditColumn
@@ -71,11 +76,21 @@ class Config:
     def __init__(self):
         # TODO: Change to `__run_id`
         self.incremental_column = IncrementalColumn("batch_id", pl.Int64)
-        self.column_created_at = AuditColumn("__created_at", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC")))
-        self.column_modified_at = AuditColumn("__modified_at", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC")))
-        self.column_deleted_at = AuditColumn("__deleted_at", pl.lit(None).cast(pl.Datetime("us", "UTC")))
-        self.column_valid_from = AuditColumn("__valid_from", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC")))
-        self.column_valid_to = AuditColumn("__valid_to", pl.lit(None).cast(pl.Datetime("us", "UTC")))
+        self.column_created_at = AuditColumn(
+            "__created_at", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC"))
+        )
+        self.column_modified_at = AuditColumn(
+            "__modified_at", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC"))
+        )
+        self.column_deleted_at = AuditColumn(
+            "__deleted_at", pl.lit(None).cast(pl.Datetime("us", "UTC"))
+        )
+        self.column_valid_from = AuditColumn(
+            "__valid_from", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC"))
+        )
+        self.column_valid_to = AuditColumn(
+            "__valid_to", pl.lit(None).cast(pl.Datetime("us", "UTC"))
+        )
         self.character_translation_map = {
             " ": "_",
             "-": "_",
@@ -107,7 +122,9 @@ class Config:
             "$": "_dollar",
             "~": "_approximate",
         }
-        self.normalization_strategy = lambda name: to_snake_case(character_translation(name, self.character_translation_map))
+        self.normalization_strategy = lambda name: to_snake_case(
+            character_translation(name, self.character_translation_map)
+        )
 
     def get_static_audit_columns(self) -> list[AuditColumn]:
         """
@@ -115,7 +132,7 @@ class Config:
 
         Returns:
             A list containing the static audit columns.
-        
+
         Example:
             ```python
             static_columns = config.get_static_audit_columns()
@@ -125,14 +142,14 @@ class Config:
             self.column_created_at,
             self.column_valid_from,
         ]
-    
+
     def get_dynamic_audit_columns(self) -> list[AuditColumn]:
         """
         Returns a list of dynamic audit columns, namely the `modified_at` and `valid_to` columns.
 
         Returns:
             A list containing the dynamic audit columns.
-        
+
         Example:
             ```python
             dynamic_columns = config.get_dynamic_audit_columns()
@@ -164,7 +181,15 @@ class Config:
             self.column_valid_to,
         ]
 
-def create_config(incremental_column: IncrementalColumn, created_at: AuditColumn, modified_at: AuditColumn, deleted_at: AuditColumn, valid_from: AuditColumn, valid_to: AuditColumn) -> Config:
+
+def create_config(
+    incremental_column: IncrementalColumn,
+    created_at: AuditColumn,
+    modified_at: AuditColumn,
+    deleted_at: AuditColumn,
+    valid_from: AuditColumn,
+    valid_to: AuditColumn,
+) -> Config:
     """
     Creates a new Config instance with the provided audit and incremental columns.
 
@@ -178,7 +203,7 @@ def create_config(incremental_column: IncrementalColumn, created_at: AuditColumn
 
     Returns:
         A new instance of the Config class.
-    
+
     Example:
         ```python
         incremental_column = IncrementalColumn("batch_id", pl.Int64)
@@ -210,7 +235,7 @@ def get_default_config() -> Config:
 
     Returns:
         A default instance of the Config class.
-    
+
     Example:
         ```python
         default_config = get_default_config()

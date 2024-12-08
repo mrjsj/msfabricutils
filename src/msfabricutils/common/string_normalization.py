@@ -3,7 +3,7 @@ import re
 
 def to_snake_case(text: str) -> str:
     """Convert a string to snake case.
-    
+
     Args:
         text (str): The string to convert to snake case. Can be converted from PascalCase, camelCase, kebab-case, or mixed case. Non-alphanumeric characters are converted to underscores.
 
@@ -26,7 +26,7 @@ def to_snake_case(text: str) -> str:
 
 def character_translation(text: str, translation_map: dict[str, str]) -> str:
     """Translate characters in a string using a translation map.
-    
+
     Args:
         text (str): The string to translate.
         translation_map (dict[str, str]): A dictionary mapping characters to their replacements.

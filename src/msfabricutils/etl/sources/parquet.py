@@ -45,14 +45,9 @@ def source_parquet(table_uri: str, eager: bool = False) -> PolarsFrame:
 
     if eager:
         return pl.read_parquet(
-            source=table_uri,
-            hive_partitioning=True,
-            storage_options=storage_options
+            source=table_uri, hive_partitioning=True, storage_options=storage_options
         )
 
     return pl.scan_parquet(
-        source=table_uri,
-        hive_partitioning=True,
-        storage_options=storage_options
+        source=table_uri, hive_partitioning=True, storage_options=storage_options
     )
-

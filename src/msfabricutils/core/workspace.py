@@ -7,8 +7,8 @@ def get_workspaces() -> list[dict[str, Any]]:
     """
     Retrieves a list of workspaces.
 
-    This function fetches a list of workspaces using the `get_paginated` function. 
-    It constructs the appropriate endpoint and retrieves the paginated data associated 
+    This function fetches a list of workspaces using the `get_paginated` function.
+    It constructs the appropriate endpoint and retrieves the paginated data associated
     with workspaces.
 
     Returns:
@@ -20,7 +20,7 @@ def get_workspaces() -> list[dict[str, Any]]:
 
         workspaces = get_workspaces()
         ```
-    """    
+    """
     endpoint = "workspaces"
     data_key = "value"
 
@@ -31,7 +31,7 @@ def get_workspace(workspace_id: str) -> dict[str, Any]:
     """
     Retrieves details of a specified workspace.
 
-    This function fetches the details of a specific workspace by using the `get_page` 
+    This function fetches the details of a specific workspace by using the `get_page`
     function. It constructs the appropriate endpoint based on the provided workspace ID.
 
     Args:
@@ -46,7 +46,7 @@ def get_workspace(workspace_id: str) -> dict[str, Any]:
 
         workspace = get_workspace("12345678-1234-1234-1234-123456789012")
         ```
-    """    
+    """
     endpoint = f"workspaces/{workspace_id}"
 
     return get_page(endpoint)

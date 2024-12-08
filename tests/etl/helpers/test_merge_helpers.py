@@ -16,10 +16,12 @@ def test_build_merge_predicate():
     """
 
     actual_output = build_merge_predicate(columns)
-    assert re.sub(r"\s+", " ", actual_output.strip()) == re.sub(r"\s+", " ", expected_output.strip())
+    assert re.sub(r"\s+", " ", actual_output.strip()) == re.sub(
+        r"\s+", " ", expected_output.strip()
+    )
+
 
 def test_build_when_matched_update_predicate():
-
     column_names = ["column1", "column2", "column3"]
     expected_output = """
         (
@@ -42,7 +44,9 @@ def test_build_when_matched_update_predicate():
     """
 
     actual_output = build_when_matched_update_predicate(column_names)
-    assert re.sub(r"\s+", " ", actual_output.strip()) == re.sub(r"\s+", " ", expected_output.strip()) 
+    assert re.sub(r"\s+", " ", actual_output.strip()) == re.sub(
+        r"\s+", " ", expected_output.strip()
+    )
 
 
 def test_build_when_matched_update_columns():
@@ -50,7 +54,7 @@ def test_build_when_matched_update_columns():
     expected_output = {
         'target."column1"': 'source."column1"',
         'target."column2"': 'source."column2"',
-        'target."column3"': 'source."column3"'
+        'target."column3"': 'source."column3"',
     }
 
     actual_output = build_when_matched_update_columns(column_names)
