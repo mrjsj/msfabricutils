@@ -13,7 +13,7 @@ def get_access_token(audience: str) -> str:
     """
 
     try:
-        import notebookutils # type: ignore
+        import notebookutils  # type: ignore
         token = notebookutils.credentials.getToken(audience)
     except ModuleNotFoundError:
         token = DefaultAzureCredential().get_token(f"{audience}/.default").token
@@ -22,7 +22,7 @@ def get_access_token(audience: str) -> str:
 
 def get_onelake_access_token() -> str:
     """
-    Retrieves an access token for Azure OneLake storage.
+    Retrieves an access token for OneLake storage.
 
     This function attempts to obtain an access token for accessing Azure storage. 
     It first checks if the code is running in a Microsoft Fabric notebook environment 
@@ -39,16 +39,16 @@ def get_onelake_access_token() -> str:
 
 def get_fabric_bearer_token() -> str:
     """
-    Retrieves a bearer token for Azure Fabric (Power BI) API.
+    Retrieves a bearer token for Fabric (Power BI) API.
 
     This function attempts to obtain a bearer token for authenticating requests to the 
-    Azure Power BI API. It first checks if the code is running in a Microsoft Fabric 
+    Power BI API. It first checks if the code is running in a Microsoft Fabric 
     notebook environment and tries to use the `notebookutils` library to get the token. 
     If the library is not available, it falls back to using the `DefaultAzureCredential` 
     from the Azure SDK to fetch the token.
 
     Returns:
-        The bearer token used for authenticating requests to the Azure Fabric (Power BI) API.
+        The bearer token used for authenticating requests to the Fabric (Power BI) API.
     """    
     audience = "https://analysis.windows.net/powerbi/api"
     return get_access_token(audience)
@@ -56,10 +56,10 @@ def get_fabric_bearer_token() -> str:
 
 def get_azure_devops_access_token() -> str:
     """
-    Retrieves a bearer token for Azure Fabric (Power BI) API.
+    Retrieves a bearer token for Fabric (Power BI) API.
 
     This function attempts to obtain a bearer token for authenticating requests to the 
-    Azure Power BI API. It first checks if the code is running in a Microsoft Fabric 
+    Power BI API. It first checks if the code is running in a Microsoft Fabric 
     notebook environment and tries to use the `notebookutils` library to get the token. 
     If the library is not available, it falls back to using the `DefaultAzureCredential` 
     from the Azure SDK to fetch the token.
@@ -73,7 +73,7 @@ def get_azure_devops_access_token() -> str:
 
 def get_storage_options() -> dict[str, str]:
     """
-    Retrieves storage options including a bearer token for Azure OneLake storage.
+    Retrieves storage options including a bearer token for OneLake storage.
 
     This function calls `get_onelake_access_token` to obtain a bearer token 
     and returns a dictionary containing the token and a flag indicating 
