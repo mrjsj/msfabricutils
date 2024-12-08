@@ -1,18 +1,16 @@
 from typing import Any
 
-from msfabricutils.helpers import _separator_indices
+import duckdb
+import sqlglot
+from deltalake import write_deltalake
+from sqlglot import exp
+
+from msfabricutils.common import _separator_indices
 from msfabricutils.core import (
     get_workspace,
-    get_workspace_lakehouses,
     get_workspace_lakehouse_tables,
+    get_workspace_lakehouses,
 )
-
-
-import duckdb
-from deltalake import write_deltalake
-
-import sqlglot
-from sqlglot import exp
 
 
 class FabricDuckDBConnection:
@@ -34,33 +32,33 @@ class FabricDuckDBConnection:
 
     Example:
     ```python
-    >>> # Initialize connection
-    >>> access_token = notebookutils.credentials.getToken('storage')
-    >>> conn = FabricDuckDBConnection(access_token=access_token)
-    >>>
-    >>> # Register lakehouses from different workspaces
-    >>> conn.register_workspace_lakehouses(
-    ...     workspace_id='12345678-1234-5678-1234-567812345678',
-    ...     lakehouses=['sales', 'marketing']
-    ... )
-    >>> conn.register_workspace_lakehouses(
-    ...     workspace_id='87654321-8765-4321-8765-432187654321',
-    ...     lakehouses=['marketing']
-    ... )
-    >>>
-    >>> # Query across workspaces using fully qualified names
-    >>> df = conn.sql('''
-    ...     SELECT
-    ...         c.customer_id,
-    ...         c.name,
-    ...         c.region,
-    ...         s.segment,
-    ...         s.lifetime_value
-    ...     FROM sales_workspace.sales.main.customers c
-    ...     JOIN marketing_workspace.marketing.main.customer_segments s
-    ...         ON c.customer_id = s.customer_id
-    ...     WHERE c.region = 'EMEA'
-    ... ''').df()
+    # Initialize connection
+    access_token = notebookutils.credentials.getToken('storage')
+    conn = FabricDuckDBConnection(access_token=access_token)
+
+    # Register lakehouses from different workspaces
+    conn.register_workspace_lakehouses(
+        workspace_id='12345678-1234-5678-1234-567812345678',
+        lakehouses=['sales', 'marketing']
+    )
+    conn.register_workspace_lakehouses(
+        workspace_id='87654321-8765-4321-8765-432187654321',
+        lakehouses=['marketing']
+    )
+
+    # Query across workspaces using fully qualified names
+    df = conn.sql(\"\"\"
+        SELECT
+            c.customer_id,
+            c.name,
+            c.region,
+            s.segment,
+            s.lifetime_value
+        FROM sales_workspace.sales.main.customers c
+        JOIN marketing_workspace.marketing.main.customer_segments s
+            ON c.customer_id = s.customer_id
+            WHERE c.region = 'EMEA'
+        \"\"\").df()
     ```
     """
 
@@ -95,12 +93,12 @@ class FabricDuckDBConnection:
 
         Example:
         ```python
-        >>> # Initialize connection
-        >>> conn = FabricDuckDBConnection(access_token='old_token')
-        >>>
-        >>> # When token expires, refresh it
-        >>> new_token = notebookutils.credentials.getToken('storage')
-        >>> conn.refresh_access_token(new_token)
+        # Initialize connection
+        conn = FabricDuckDBConnection(access_token='old_token')
+
+        # When token expires, refresh it
+        new_token = notebookutils.credentials.getToken('storage')
+        conn.refresh_access_token(new_token)
         ```
         """
         self._access_token = access_token
@@ -387,21 +385,21 @@ class FabricDuckDBConnection:
 
         Example:
         ```python
-        >>> # Initialize connection with access token
-        >>> access_token = notebookutils.credentials.getToken('storage')
-        >>> conn = FabricDuckDBConnection(access_token=access_token)
-        >>>
-        >>> # Register a single lakehouse
-        >>> conn.register_workspace_lakehouses(
-        ...     workspace_id='12345678-1234-5678-1234-567812345678',
-        ...     lakehouses='sales_lakehouse'
-        ... )
-        >>>
-        >>> # Register multiple lakehouses
-        >>> conn.register_workspace_lakehouses(
-        ...     workspace_id='12345678-1234-5678-1234-567812345678',
-        ...     lakehouses=['sales_lakehouse', 'marketing_lakehouse']
-        ... )
+        # Initialize connection with access token
+        access_token = notebookutils.credentials.getToken('storage')
+        conn = FabricDuckDBConnection(access_token=access_token)
+
+        # Register a single lakehouse
+        conn.register_workspace_lakehouses(
+            workspace_id='12345678-1234-5678-1234-567812345678',
+            lakehouses='sales_lakehouse'
+        )
+
+        # Register multiple lakehouses
+        conn.register_workspace_lakehouses(
+            workspace_id='12345678-1234-5678-1234-567812345678',
+            lakehouses=['sales_lakehouse', 'marketing_lakehouse']
+        )
         ```
         """
 
@@ -443,7 +441,7 @@ class FabricDuckDBConnection:
 
         Example:
         ```python
-        >>> conn.print_lakehouse_catalog()
+        conn.print_lakehouse_catalog()
         📁 Database: workspace1.sales_lakehouse
         └─📂 Schema: main
             ├─📄 customers
