@@ -48,7 +48,7 @@ dev = [
 line-length = 100
 
 [tool.ruff.lint]
-extend-select = ["Q001"]
+extend-select = ["Q001", "I001"]
 
 [tool.pytest.ini_options]
 pythonpath = [
