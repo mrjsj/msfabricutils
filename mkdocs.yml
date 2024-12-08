@@ -18,15 +18,22 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+  navigation_depth: 3
   features:
-    - navigation.instant
     - navigation.tracking
-    - navigation.sections
+    - navigation.instant
     - navigation.expand
-    - navigation.top
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.tabs.sticky
+    - navigation.footer
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
 
 plugins:
-  - search
+  - search:
+      lang: en
   - gen-files:
       scripts:
         - docs/gen_ref_pages.py
@@ -36,10 +43,10 @@ plugins:
         python:
           paths: [src]
           options:
-            show_root_toc_entry: false
+            show_root_toc_entry: true
             docstring_style: google
             show_source: false
-            show_root_heading: true
+            show_root_heading: false
             filters: ["!^_", "^__init__$"]
             show_object_full_path: false
             heading_level: 1
@@ -49,14 +56,24 @@ plugins:
             docstring_section_style: table
 
 nav:
-  - Home: index.md
+  - Home:
+    - index.md
+  - Usage:
+    - usage/installation.md
+    - usage/etl.md
+    - usage/fabric-api.md
   - API Reference:
-    - FabricDuckDBConnection: reference/msfabricutils/fabric_duckdb_connection.md
+    - Common:
+      - common/fabric-duckdb-connection.md
+      - common/utilities.md
     - Core:
-      - Authentication: reference/msfabricutils/core/auth.md
-      - Utilities: 
-          - Lakehouse: reference/msfabricutils/core/lakehouse.md
-          - Workspace: reference/msfabricutils/core/workspace.md
+      - core/authentication.md
+      - core/fabric-api.md
+    - ETL:
+      - etl/index.md
+      - etl/sources.md
+      - etl/transforms.md
+      - etl/sinks.md
 
 # Formatting options
 markdown_extensions:
@@ -64,6 +81,7 @@ markdown_extensions:
   - pymdownx.details
   - attr_list
   - pymdownx.superfences
+  - tables
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.snippets:
