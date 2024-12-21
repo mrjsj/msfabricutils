@@ -1,7 +1,9 @@
 name: Build and Upload to PyPI
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - "v*"  
 
 jobs:
   build-and-upload:
@@ -12,6 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Print tag
+      run: echo ${{ github.ref_name }}
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -32,25 +37,20 @@ jobs:
       run: |
         pip install pytest
         pytest -vvvv
-
-    - name: Extract version from pyproject.toml
-      id: get_version
-      run: |
-        echo "VERSION=$(python -c 'import toml; pyproject = toml.load("pyproject.toml"); print(pyproject["project"]["version"])')" >> $GITHUB_ENV
             
     - name: Build package
       run: python -m build --wheel
 
-    - name: Publish to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        packages-dir: dist
-        version: ${{ env.VERSION }}
+    # - name: Publish to PyPI
+    #   uses: pypa/gh-action-pypi-publish@release/v1
+    #   with:
+    #     packages-dir: dist
+    #     version: ${{ github.ref_name }}
 
-    - name: Create a Release
-      uses: elgohr/Github-Release-Action@v5
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        title: Release v${{ env.VERSION }}
-        tag: v${{ env.VERSION }}
+    # - name: Create a Release
+    #   uses: elgohr/Github-Release-Action@v5
+    #   env:
+    #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     title: Release ${{ github.ref_name }}
+    #     tag: ${{ github.ref_name }}
