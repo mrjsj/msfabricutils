@@ -9,6 +9,8 @@ jobs:
   build-and-upload:
     runs-on: ubuntu-latest
 
+    environment: release
+
     permissions:
       id-token: write
 
@@ -45,7 +47,6 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         packages-dir: dist
-        version: ${{ github.ref_name }}
 
     - name: Create a Release
       uses: elgohr/Github-Release-Action@v5
