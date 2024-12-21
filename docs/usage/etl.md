@@ -9,7 +9,7 @@ The ETL module provides a set of helper functions for extracting, transforming, 
 ```python
 from msfabricutils.etl import (
     read_parquet,
-    upsert_scd_type_1
+    upsert
 )
 import polars as pl
 
