@@ -1,15 +1,11 @@
 from typing import Any
 
-from msfabricutils.core.generic import get_page, get_paginated
+from msfabricutils.core.generic import get_item_from_paginated, get_page, get_paginated
 
 
 def get_workspaces() -> list[dict[str, Any]]:
     """
     Retrieves a list of workspaces.
-
-    This function fetches a list of workspaces using the `get_paginated` function.
-    It constructs the appropriate endpoint and retrieves the paginated data associated
-    with workspaces.
 
     Returns:
         A list of dictionaries containing data for the available workspaces.
@@ -27,26 +23,42 @@ def get_workspaces() -> list[dict[str, Any]]:
     return get_paginated(endpoint, data_key)
 
 
-def get_workspace(workspace_id: str) -> dict[str, Any]:
+def get_workspace(workspace_id: str | None = None, workspace_name: str | None = None) -> dict[str, Any]:
     """
-    Retrieves details of a specified workspace.
-
-    This function fetches the details of a specific workspace by using the `get_page`
-    function. It constructs the appropriate endpoint based on the provided workspace ID.
+    Retrieves details of a specified workspace by either `workspace_id` or `workspace_name`.
 
     Args:
-        workspace_id (str): The ID of the workspace to retrieve details for.
+        workspace_id (str | None): The ID of the workspace to retrieve details for.
+        workspace_name (str | None): The name of the workspace to retrieve details for.
 
     Returns:
         A dictionary containing the details of the specified workspace.
 
     Example:
+        By `workspace_id`:
         ```python
         from msfabricutils.core import get_workspace
 
         workspace = get_workspace("12345678-1234-1234-1234-123456789012")
         ```
-    """
-    endpoint = f"workspaces/{workspace_id}"
 
-    return get_page(endpoint)
+        By `workspace_name`:
+        ```python
+        from msfabricutils.core import get_workspace
+        workspace = get_workspace(workspace_name="My Workspace")
+        ```
+    """
+
+    if workspace_id is not None:
+        endpoint = f"workspaces/{workspace_id}"
+        return get_page(endpoint)
+    
+    if workspace_name is not None:
+        endpoint = "workspaces"
+        data_key = "value"
+        item_key = "displayName"
+        item_value = workspace_name
+
+        return get_item_from_paginated(endpoint, data_key, item_key, item_value)
+    
+    raise ValueError("Either `workspace_id` or `workspace_name` must be provided")
