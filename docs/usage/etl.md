@@ -8,7 +8,7 @@ The ETL module provides a set of helper functions for extracting, transforming, 
 
 ```python
 from msfabricutils.etl import (
-    source_parquet,
+    read_parquet,
     upsert_scd_type_1
 )
 import polars as pl
@@ -21,10 +21,10 @@ df = pl.DataFrame({
 df.write_parquet("source.parquet")
 
 # Read the source parquet file
-source_df = source_parquet("source.parquet")
+source_df = read_parquet("source.parquet")
 
 # Upsert to a target table
-upsert_scd_type_1(
+upsert(
     table_uri="target_table",
     df=source_df,
     primary_key_columns="id"
@@ -71,7 +71,7 @@ source_df.write_delta(source_table_path)
 config = get_default_config()
 
 # Read the source delta table
-source_df = source_delta(source_table_path)
+source_df = read_delta(source_table_path)
 
 # Get the incremental column value
 incremental_column_value = get_incremental_column_value(target_table_path, "batch_id")
@@ -82,14 +82,19 @@ filtered_df = source_df.filter(pl.col("batch_id") > incremental_column_value)
 # Deduplicate the source dataframe
 deduped_df = deduplicate_transform(filtered_df, primary_key_columns="ID", deduplication_order_columns="batch_id")
 
-# Normalize the column names
-normalized_df = normalize_column_names_transform(deduped_df, config)
+# Normalize the column names using a normalization strategy
+def normalize_column_names(text: str) -> str:
+    return text.lower().replace(" ", "_")
+
+normalized_df = normalize_column_names_transform(deduped_df, normalize_column_names)
 
 # Add audit columns
-audit_df = add_audit_columns_transform(normalized_df, config)
+audit_columns = config.get_audit_columns()
+audit_df = add_audit_columns_transform(normalized_df, audit_columns)
 
 # Upsert to a target table
-upsert_scd_type_1(target_table_path, audit_df, primary_key_columns="ID", config=config)
+static_audit_columns = config.get_static_audit_columns()
+upsert(target_table_path, audit_df, primary_key_columns="id", update_exclusion_columns=static_audit_columns)
 
 
 ```

@@ -27,7 +27,32 @@ class IncrementalColumn:
 
 
 @dataclass
-class AuditColumn:
+class KeyColumn:
+    """
+    Represents a key column in the configuration.
+
+    Attributes:
+        suffix (str): The suffix of the key column.
+        data_type (pl.DataType, optional): The data type of the key column.
+
+    Example:
+        ```python
+        key_column = KeyColumn("_sk", pl.Int64)
+        ```
+    """
+
+    prefix: str | None = None
+    suffix: str | None = None
+    data_type: pl.DataType | None = None
+    default_value: pl.Expr | None = None
+
+    def __post_init__(self):
+        if self.prefix is None and self.suffix is None:
+            raise ValueError("Either prefix or suffix must be provided")
+
+
+@dataclass
+class Column:
     """
     Represents an audit column in the configuration.
 
@@ -63,32 +88,43 @@ class Config:
         character_translation_map (dict[str, str]): A mapping of special characters to their translations.
         normalization_strategy (Callable[[str], str]): A function that takes a column name and returns the normalized name.
     """
+    surrogate_key_column: KeyColumn
+    historical_surrogate_key_calendar_column_base_name: str
+    historical_surrogate_key_column: KeyColumn
+    business_key_column: KeyColumn
+    composite_key_column: KeyColumn
 
     incremental_column: IncrementalColumn
-    column_created_at: AuditColumn
-    column_modified_at: AuditColumn
-    column_deleted_at: AuditColumn
-    column_valid_from: AuditColumn
-    column_valid_to: AuditColumn
+    column_created_at: Column
+    column_modified_at: Column
+    column_deleted_at: Column
+    column_valid_from: Column
+    column_valid_to: Column
     character_translation_map: dict[str, str]
     normalization_strategy: Callable[[str], str]
 
     def __init__(self):
+        self.surrogate_key_column = KeyColumn("_sk", pl.Int64, pl.lit(-1))
+        self.historical_surrogate_key_calendar_column_base_name = "calendar"
+        self.historical_surrogate_key_column = KeyColumn("_hsk", pl.Int64, pl.lit(-1))
+        self.business_key_column = KeyColumn("_bk")
+        self.composite_key_column = KeyColumn("_ck")
+
         # TODO: Change to `__run_id`
         self.incremental_column = IncrementalColumn("batch_id", pl.Int64)
-        self.column_created_at = AuditColumn(
+        self.column_created_at = Column(
             "__created_at", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC"))
         )
-        self.column_modified_at = AuditColumn(
+        self.column_modified_at = Column(
             "__modified_at", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC"))
         )
-        self.column_deleted_at = AuditColumn(
+        self.column_deleted_at = Column(
             "__deleted_at", pl.lit(None).cast(pl.Datetime("us", "UTC"))
         )
-        self.column_valid_from = AuditColumn(
+        self.column_valid_from = Column(
             "__valid_from", pl.lit(datetime.now(timezone.utc)).cast(pl.Datetime("us", "UTC"))
         )
-        self.column_valid_to = AuditColumn(
+        self.column_valid_to = Column(
             "__valid_to", pl.lit(None).cast(pl.Datetime("us", "UTC"))
         )
         self.character_translation_map = {
@@ -126,7 +162,7 @@ class Config:
             character_translation(name, self.character_translation_map)
         )
 
-    def get_static_audit_columns(self) -> list[AuditColumn]:
+    def get_static_audit_columns(self) -> list[Column]:
         """
         Returns a list of static audit columns, namely the `created_at` and `valid_from` columns.
 
@@ -143,7 +179,7 @@ class Config:
             self.column_valid_from,
         ]
 
-    def get_dynamic_audit_columns(self) -> list[AuditColumn]:
+    def get_dynamic_audit_columns(self) -> list[Column]:
         """
         Returns a list of dynamic audit columns, namely the `modified_at` and `valid_to` columns.
 
@@ -161,7 +197,7 @@ class Config:
             self.column_deleted_at,
         ]
 
-    def get_audit_columns(self) -> list[AuditColumn]:
+    def get_audit_columns(self) -> list[Column]:
         """
         Returns a list of all audit columns, namely the `created_at`, `modified_at`, `valid_from`, and `valid_to` columns.
 
@@ -184,11 +220,11 @@ class Config:
 
 def create_config(
     incremental_column: IncrementalColumn,
-    created_at: AuditColumn,
-    modified_at: AuditColumn,
-    deleted_at: AuditColumn,
-    valid_from: AuditColumn,
-    valid_to: AuditColumn,
+    created_at: Column,
+    modified_at: Column,
+    deleted_at: Column,
+    valid_from: Column,
+    valid_to: Column,
 ) -> Config:
     """
     Creates a new Config instance with the provided audit and incremental columns.
@@ -242,3 +278,4 @@ def get_default_config() -> Config:
         ```
     """
     return Config()
+

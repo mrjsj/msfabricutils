@@ -4,7 +4,7 @@ from msfabricutils.core.auth import get_storage_options
 from msfabricutils.etl.types import PolarsFrame
 
 
-def source_delta(table_uri: str, eager: bool = False) -> PolarsFrame:
+def read_delta(table_uri: str, eager: bool = False) -> PolarsFrame:
     """
     Reads a Delta table from the specified abfss URI. Automatically handles the authentication with OneLake.
 
@@ -17,15 +17,15 @@ def source_delta(table_uri: str, eager: bool = False) -> PolarsFrame:
 
     Example:
         ```python
-        from msfabricutils.etl import source_delta
+        from msfabricutils.etl import read_delta
 
         workspace_id = "12345678-1234-1234-1234-123456789012"
         lakehouse_id = "beefbeef-beef-beef-beef-beefbeefbeef"
         table_name = "my-delta-table"
         table_uri = f"abfss://{workspace_id}@onelake.dfs.fabric.microsoft.com/{lakehouse_id}/Tables/{table_name}"
 
-        df = source_delta(table_uri, eager=True)
-        lazy_df = source_delta(table_uri, eager=False)
+        df = read_delta(table_uri, eager=True)
+        lazy_df = read_delta(table_uri, eager=False)
         ```
     """
 
