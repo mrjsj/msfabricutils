@@ -7,7 +7,7 @@ from polars.exceptions import ColumnNotFoundError
 from polars.testing import assert_frame_equal
 
 from msfabricutils.etl import get_default_config
-from msfabricutils.etl.transform.transforms import (
+from msfabricutils.etl.transform import (
     add_audit_columns,
     apply_scd_type_2,
     deduplicate,
