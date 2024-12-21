@@ -251,6 +251,8 @@ def apply_scd_type_2(
     SCD Type 2 maintains historical records by creating new rows for changed data while preserving
     the history through valid_from and valid_to dates.
 
+    The result maintains the full history of changes while ensuring proper date ranges for overlapping records.
+
     Args:
         source_df (PolarsFrame): The new/source DataFrame containing updated records.
         target_df (PolarsFrame): The existing/target DataFrame containing current records.
@@ -259,9 +261,7 @@ def apply_scd_type_2(
         valid_to_column (str): Column name containing the validity end date.
 
     Returns:
-        PolarsFrame: A DataFrame containing both current and historical records with updated
-        validity periods. The result maintains the full history of changes while ensuring
-        proper date ranges for overlapping records.
+        PolarsFrame: A DataFrame containing both current and historical records with updated validity periods.
 
     Example:
         ```python
@@ -290,6 +290,20 @@ def apply_scd_type_2(
             valid_from_column="valid_from",
             valid_to_column="valid_to"
         )
+
+        print(result_df.sort("customer_id", "valid_from"))
+        
+        shape: (4, 4)
+        ┌─────────────┬──────────────┬─────────────────────┬─────────────────────┐
+        │ customer_id ┆ name         ┆ valid_from          ┆ valid_to            │
+        │ ---         ┆ ---          ┆ ---                 ┆ ---                 │
+        │ i64         ┆ str          ┆ datetime[μs]        ┆ datetime[μs]        │
+        ╞═════════════╪══════════════╪═════════════════════╪═════════════════════╡
+        │ 1           ┆ John         ┆ 2023-01-01 00:00:00 ┆ 2024-01-01 00:00:00 │
+        │ 1           ┆ John Updated ┆ 2024-01-01 00:00:00 ┆ null                │
+        │ 2           ┆ Jane         ┆ 2023-01-01 00:00:00 ┆ 2024-01-01 00:00:00 │
+        │ 2           ┆ Jane Updated ┆ 2024-01-01 00:00:00 ┆ null                │
+        └─────────────┴──────────────┴─────────────────────┴─────────────────────┘        
         ```
 
     Notes:
