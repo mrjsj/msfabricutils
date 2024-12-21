@@ -6,8 +6,13 @@ on:
 jobs:
   build-and-upload:
     runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -39,10 +44,7 @@ jobs:
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
-        packages_dir: dist
-        package_name: msfabricutils
+        packages-dir: dist
         version: ${{ env.VERSION }}
 
     - name: Create a Release
