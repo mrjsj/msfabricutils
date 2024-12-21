@@ -71,9 +71,10 @@ nav:
       - etl/read.md
       - etl/transform.md
       - etl/load.md
-    - Common:
-      - common/fabric-duckdb-connection.md
-      - common/utilities.md
+    - Other:
+      - other/index.md
+      - other/fabric-duckdb-connection.md
+      - other/utilities.md
 
 # Formatting options
 markdown_extensions:
