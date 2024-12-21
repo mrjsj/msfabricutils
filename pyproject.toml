@@ -48,7 +48,6 @@ dev = [
 ]
 
 [tool.setuptools_scm]
-version_file = "msfabricutils/_version.py"
 
 [tool.ruff]
 line-length = 100
