@@ -34,19 +34,17 @@ def upsert(
 
     Example:
         ```python
-        from msfabricutils.etl import Config, upsert_scd_type_1
+        from msfabricutils.etl import upsert
         import polars as pl
 
 
         config = get_default_config()
         data = pl.DataFrame({...})
 
-        upsert_scd_type_1(
+        upsert(
             "path/to/delta_table",
             data,
             primary_key_columns=["id"],
-            static_audit_columns=["created_at"],
-            dynamic_audit_columns=["modified_at", "valid_to"],
         )
         ```
     """
