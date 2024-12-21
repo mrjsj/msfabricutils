@@ -44,6 +44,7 @@ dev = [
     "pytest>=6.2.5",
     "ruff>=0.8.1",
     "freezegun>=1.5.1",
+    "python-dotenv>=1.0.0",
 ]
 
 [tool.ruff]
@@ -56,3 +57,4 @@ extend-select = ["Q001", "I001"]
 pythonpath = [
   "src",
 ]
+addopts = "--ignore=tests/internal"
