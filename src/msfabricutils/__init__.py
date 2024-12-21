@@ -1,3 +1,5 @@
+from importlib.metadata import PackageNotFoundError, version
+
 from msfabricutils.common.fabric_duckdb_connection import FabricDuckDBConnection
 from msfabricutils.core import (
     get_fabric_bearer_token,
@@ -18,7 +20,9 @@ __all__ = (
     "get_workspaces",
 )
 
+
 try:
-    from ._version import version as __version__  # type: ignore
-except ImportError:
+    __version__ = version("msfabricutils")
+except PackageNotFoundError:
+    # package is not installed
     __version__ = "0.0.0"
