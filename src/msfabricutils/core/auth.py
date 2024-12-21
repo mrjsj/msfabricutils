@@ -58,16 +58,12 @@ def get_fabric_bearer_token() -> str:
 
 def get_azure_devops_access_token() -> str:
     """
-    Retrieves a bearer token for Fabric (Power BI) API.
+    Retrieves a bearer token for Azure DevOps.
 
-    This function attempts to obtain a bearer token for authenticating requests to the
-    Power BI API. It first checks if the code is running in a Microsoft Fabric
-    notebook environment and tries to use the `notebookutils` library to get the token.
-    If the library is not available, it falls back to using the `DefaultAzureCredential`
-    from the Azure SDK to fetch the token.
+    This function attempts to obtain a bearer token for authenticating requests to Azure DevOps.
 
     Returns:
-        The bearer token used for authenticating requests to the Azure Fabric (Power BI) API.
+        The bearer token used for authenticating requests to Azure DevOps.
     """
     audience = "499b84ac-1321-427f-aa17-267ca6975798"
     return get_access_token(audience)

@@ -2,7 +2,7 @@ from .config import Column, Config, IncrementalColumn, create_config, get_defaul
 from .helpers import get_max_column_value
 from .load import upsert
 from .read import read_delta, read_parquet
-from .transforms import (
+from .transform import (
     add_audit_columns,
     deduplicate,
     normalize_column_names,

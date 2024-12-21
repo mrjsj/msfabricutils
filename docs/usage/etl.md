@@ -25,7 +25,7 @@ source_df = read_parquet("source.parquet")
 
 # Upsert to a target table
 upsert(
-    table_uri="target_table",
+    table_or_uri="target_table",
     df=source_df,
     primary_key_columns="id"
 )
@@ -48,12 +48,12 @@ The result will be a new row for AliceS and BobB in the target table.
 ```python
 from msfabricutils.etl import (
     get_default_config,
-    source_delta,
+    read_delta,
     get_incremental_column_value,
-    deduplicate_transform,
-    normalize_column_names_transform,
-    add_audit_columns_transform,
-    upsert_scd_type_1,
+    deduplicate,
+    normalize_column_names,
+    add_audit_columns,
+    upsert,
 )
 
 source_table_path = "source_table"

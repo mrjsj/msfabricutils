@@ -1,4 +1,0 @@
-# Sources
-
-::: msfabricutils.etl.sources
-

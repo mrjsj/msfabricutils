@@ -24,7 +24,7 @@ def upsert(
     Upserts dataframe into a Delta table using the provided primary key columns.
 
     Args:
-        table_uri (str): The URI of the target Delta table.
+        table_or_uri (str): The URI of the target Delta table.
         df (PolarsFrame): The dataframe to upsert.
         primary_key_columns (str | list[str]): Primary key column(s) for the upsert.
         update_exclusion_columns (str | list[str] | None): Columns which will not be updated in the merge.
@@ -115,7 +115,7 @@ def overwrite(table_or_uri: str | DeltaTable, df: PolarsFrame) -> None:
     Overwrites the entire Delta table with the provided dataframe.
 
     Args:
-        table_uri (str): The URI of the target Delta table.
+        table_or_uri (str): The URI of the target Delta table.
         df (PolarsFrame): The dataframe to write to the Delta table.
 
     Example:
@@ -155,7 +155,7 @@ def replace_range(
     Replaces a range of data in the Delta table based on a specified column.
 
     Args:
-        table_uri (str): The URI of the target Delta table.
+        table_or_uri (str): The URI of the target Delta table.
         df (PolarsFrame): The dataframe to write to the Delta table.
         range_column (str): The column used to determine the range of data to replace. This replaces the data in the range of the `range_column` in the delta table based off the min and max values of the `range_column` in the dataframe.
 
@@ -204,7 +204,7 @@ def append(table_or_uri: str | DeltaTable, df: PolarsFrame) -> None:
     Appends the provided dataframe to the Delta table.
 
     Args:
-        table_uri (str): The URI of the target Delta table.
+        table_or_uri (str): The URI of the target Delta table.
         df (PolarsFrame): The dataframe to append to the Delta table.
 
     Example:
@@ -240,7 +240,7 @@ def incremental(table_or_uri: str | DeltaTable, df: PolarsFrame, incremental_col
     Appends new data to the Delta table based on an incremental column.
 
     Args:
-        table_uri (str): The URI of the target Delta table.
+        table_or_uri (str): The URI of the target Delta table.
         df (PolarsFrame): The dataframe to append to the Delta table.
         incremental_column (str): The column used to determine new data to append. The source dataframe will only append rows where the value of the `incremental_column` is greater than the max value of the `incremental_column` in the delta table.
 

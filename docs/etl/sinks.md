@@ -1,3 +1,0 @@
-# Sinks
-
-::: msfabricutils.etl.sinks
