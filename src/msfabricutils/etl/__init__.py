@@ -1,11 +1,11 @@
-from .config import AuditColumn, Config, IncrementalColumn, create_config, get_default_config
-from .helpers import get_incremental_column_value
-from .sinks import upsert_scd_type_1
-from .sources import source_delta, source_parquet
+from .config import Column, Config, IncrementalColumn, create_config, get_default_config
+from .helpers import get_max_column_value
+from .load import upsert
+from .read import read_delta, read_parquet
 from .transforms import (
-    add_audit_columns_transform,
-    deduplicate_transform,
-    normalize_column_names_transform,
+    add_audit_columns,
+    deduplicate,
+    normalize_column_names,
 )
 
 __all__ = (
@@ -13,12 +13,12 @@ __all__ = (
     "create_config",
     "Config",
     "IncrementalColumn",
-    "AuditColumn",
-    "upsert_scd_type_1",
-    "source_parquet",
-    "source_delta",
-    "deduplicate_transform",
-    "normalize_column_names_transform",
-    "add_audit_columns_transform",
-    "get_incremental_column_value",
+    "Column",
+    "upsert",
+    "read_parquet",
+    "read_delta",
+    "deduplicate",
+    "normalize_column_names",
+    "add_audit_columns",
+    "get_max_column_value",
 )

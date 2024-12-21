@@ -5,13 +5,13 @@ from freezegun import freeze_time
 from polars.testing import assert_frame_equal
 
 from msfabricutils.etl import (
-    add_audit_columns_transform,
-    deduplicate_transform,
+    add_audit_columns,
+    deduplicate,
     get_default_config,
-    get_incremental_column_value,
-    normalize_column_names_transform,
-    source_delta,
-    upsert_scd_type_1,
+    get_max_column_value,
+    normalize_column_names,
+    read_delta,
+    upsert,
 )
 
 
@@ -34,27 +34,35 @@ def test_end_to_end(tmp_path):
     config = get_default_config()
 
     # Read the source delta table
-    source_df = source_delta(source_table_path)
+    source_df = read_delta(source_table_path)
 
     # Get the incremental column value
-    incremental_column_value = get_incremental_column_value(target_table_path, "batch_id")
+    incremental_column_value = get_max_column_value(target_table_path, "batch_id")
 
     # Filter the source dataframe to only get the rows with a modified_at greater than the incremental column value
     filtered_df = source_df.filter(pl.col("batch_id") > incremental_column_value)
 
     # Deduplicate the source dataframe
-    deduped_df = deduplicate_transform(
+    deduped_df = deduplicate(
         filtered_df, primary_key_columns="ID", deduplication_order_columns="batch_id"
     )
 
     # Normalize the column names
-    normalized_df = normalize_column_names_transform(deduped_df, config)
+
+    strategy = config.normalization_strategy
+    normalized_df = normalize_column_names(deduped_df, strategy)
 
     # Add audit columns
-    audit_df = add_audit_columns_transform(normalized_df, config)
+    audit_df = add_audit_columns(normalized_df, config.get_audit_columns())
 
     # Upsert to a target table
-    upsert_scd_type_1(target_table_path, audit_df, primary_key_columns="ID", config=config)
+    upsert(
+        target_table_path,
+        audit_df,
+        primary_key_columns="id",
+        update_exclusion_columns=config.get_static_audit_columns(),
+        predicate_exclusion_columns=config.get_dynamic_audit_columns(),
+    )
 
     # Read the target table
     target_df = pl.read_delta(target_table_path)

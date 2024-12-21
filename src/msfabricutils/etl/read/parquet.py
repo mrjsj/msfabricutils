@@ -4,7 +4,7 @@ from msfabricutils.core.auth import get_storage_options
 from msfabricutils.etl.types import PolarsFrame
 
 
-def source_parquet(table_uri: str, eager: bool = False) -> PolarsFrame:
+def read_parquet(table_uri: str, eager: bool = False) -> PolarsFrame:
     """
     Reads a Parquet file from the specified abfss URI. Automatically handles the authentication with OneLake.
 
@@ -18,7 +18,7 @@ def source_parquet(table_uri: str, eager: bool = False) -> PolarsFrame:
     Example:
         Reading a single file
         ```python
-        from msfabricutils.etl import source_parquet
+        from msfabricutils.etl import read_parquet
 
         workspace_id = "12345678-1234-1234-1234-123456789012"
         lakehouse_id = "beefbeef-beef-beef-beef-beefbeefbeef"
@@ -26,18 +26,18 @@ def source_parquet(table_uri: str, eager: bool = False) -> PolarsFrame:
         file_path = "my-parquet-file.parquet"
         folder_uri = f"abfss://{workspace_id}@onelake.dfs.fabric.microsoft.com/{lakehouse_id}/Files/"
 
-        df = source_parquet(folder_uri + file_path, eager=True)
+        df = read_parquet(folder_uri + file_path, eager=True)
         ```
 
         Reading all Parquet files in a folder
         ```python
-        from msfabricutils.etl import source_parquet
+        from msfabricutils.etl import read_parquet
 
         workspace_id = "12345678-1234-1234-1234-123456789012"
         lakehouse_id = "beefbeef-beef-beef-beef-beefbeefbeef"
 
         folder_uri = f"abfss://{workspace_id}@onelake.dfs.fabric.microsoft.com/{lakehouse_id}/Files/"
-        glob_df = source_parquet(folder_uri + "**/*.parquet", eager=True)
+        glob_df = read_parquet(folder_uri + "**/*.parquet", eager=True)
         ```
     """
 
