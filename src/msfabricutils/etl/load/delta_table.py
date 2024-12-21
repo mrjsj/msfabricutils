@@ -1,4 +1,3 @@
-from typing import Literal
 
 import polars as pl
 from deltalake import DeltaTable, write_deltalake
