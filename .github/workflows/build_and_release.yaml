@@ -41,16 +41,16 @@ jobs:
     - name: Build package
       run: python -m build --wheel
 
-    # - name: Publish to PyPI
-    #   uses: pypa/gh-action-pypi-publish@release/v1
-    #   with:
-    #     packages-dir: dist
-    #     version: ${{ github.ref_name }}
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: dist
+        version: ${{ github.ref_name }}
 
-    # - name: Create a Release
-    #   uses: elgohr/Github-Release-Action@v5
-    #   env:
-    #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     title: Release ${{ github.ref_name }}
-    #     tag: ${{ github.ref_name }}
+    - name: Create a Release
+      uses: elgohr/Github-Release-Action@v5
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        title: Release ${{ github.ref_name }}
+        tag: ${{ github.ref_name }}
