@@ -63,17 +63,17 @@ nav:
     - usage/etl.md
     - usage/fabric-api.md
   - API Reference:
-    - Common:
-      - common/fabric-duckdb-connection.md
-      - common/utilities.md
     - Core:
       - core/authentication.md
       - core/fabric-api.md
     - ETL:
       - etl/index.md
-      - etl/sources.md
-      - etl/transforms.md
-      - etl/sinks.md
+      - etl/read.md
+      - etl/transform.md
+      - etl/load.md
+    - Common:
+      - common/fabric-duckdb-connection.md
+      - common/utilities.md
 
 # Formatting options
 markdown_extensions:

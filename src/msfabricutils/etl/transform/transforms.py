@@ -14,7 +14,7 @@ def add_audit_columns(df: PolarsFrame, audit_columns: list[Column]) -> PolarsFra
 
     Args:
         df (PolarsFrame): The DataFrame or LazyFrame to which audit columns will be added.
-        config (Config): The configuration object that provides the audit column definitions.
+        audit_columns (list[Column]): A list of audit columns to put on the DataFrame.
 
     Returns:
         The DataFrame or LazyFrame with the added audit columns.
@@ -110,7 +110,7 @@ def normalize_column_names(
 
     Args:
         df (PolarsFrame): The DataFrame or LazyFrame whose column names will be normalized.
-        config (Config): The configuration object that provides the normalization strategy.
+        normalization_strategy (Callable[[str], str]): A callable which takes a string and returns a modified string.
 
     Returns:
         PolarsFrame: The DataFrame or LazyFrame with normalized column names.
