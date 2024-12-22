@@ -1,6 +1,8 @@
 from typing import Any
 
-from msfabricutils.core.generic import (
+import requests
+
+from msfabricutils.core.fabric_request import (
     delete_request,
     get_item_from_paginated_get_request,
     get_request,
@@ -81,7 +83,7 @@ def create_workspace(workspace_name: str, description: str | None = None) -> dic
     return post_request(endpoint, data)
 
 
-def assign_workspace_to_capacity(workspace_id: str, capacity_id: str) -> dict[str, Any]:
+def assign_workspace_to_capacity(workspace_id: str, capacity_id: str) -> requests.Response:
     """
     Assigns a workspace to a capacity.
 
@@ -90,7 +92,7 @@ def assign_workspace_to_capacity(workspace_id: str, capacity_id: str) -> dict[st
         capacity_id (str): The ID of the capacity to assign the workspace to.
 
     Returns:
-        A dictionary containing the details of the assigned workspace.
+        The response from the assign request.
     """
     endpoint = f"workspaces/{workspace_id}/assignToCapacity"
     data = {
@@ -121,7 +123,7 @@ def update_workspace(workspace_id: str, workspace_name: str | None = None, descr
     return patch_request(endpoint, data)
 
 
-def delete_workspace(workspace_id: str) -> dict[str, Any]:
+def delete_workspace(workspace_id: str) -> requests.Response:
     """
     Deletes a workspace.
 
@@ -129,7 +131,8 @@ def delete_workspace(workspace_id: str) -> dict[str, Any]:
         workspace_id (str): The ID of the workspace to delete.
 
     Returns:
-        A dictionary containing the details of the deleted workspace.
+        The response from the delete request.
     """
     endpoint = f"workspaces/{workspace_id}"
     return delete_request(endpoint)
+
