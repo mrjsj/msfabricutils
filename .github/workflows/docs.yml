@@ -14,10 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
+
       - run: |
           python -m pip install --upgrade pip
           pip install -e .[docs]
+          mv README.md docs/index.md
+          mv assets/images docs/assets/images
+
       - run: mkdocs gh-deploy --force
