@@ -1,0 +1,3 @@
+# Lakehouse
+
+::: msfabricutils.core.lakehouse

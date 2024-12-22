@@ -49,23 +49,30 @@ plugins:
             show_root_heading: false
             filters: ["!^_", "^__init__$"]
             show_object_full_path: false
-            heading_level: 1
+            heading_level: 2
             members_order: source
             separate_signature: true
             show_signature_annotations: true
             docstring_section_style: table
+            show_if_no_docstring: false
 
 nav:
   - Home:
     - index.md
   - Usage:
     - usage/installation.md
+    - usage/cli.md
     - usage/etl.md
     - usage/fabric-api.md
   - API Reference:
     - Core:
       - core/authentication.md
-      - core/fabric-api.md
+      - Fabric API:
+        - core/fabric-api/index.md
+        - core/fabric-api/workspace.md
+        - core/fabric-api/lakehouse.md
+        - core/fabric-api/notebook.md
+        - core/fabric-api/sql_endpoint.md
     - ETL:
       - etl/index.md
       - etl/read.md
