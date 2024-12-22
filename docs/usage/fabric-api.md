@@ -1,6 +1,6 @@
 # Fabric API
 
-A collection of helper functions for working with the Fabric API. See the [API Reference](../core/fabric-api.md) for more details.
+A collection of helper functions for working with the Fabric API. See the [API Reference](../core/fabric-api/index.md) for more details.
 
 ## List workspaces
 
