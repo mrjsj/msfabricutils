@@ -64,15 +64,24 @@ def create_workspace_command(args: WorkspaceCreateArgs) -> dict[str, str]:
     except ValueError:
         logging.info(f"Workspace {name} does not exist")
 
-    if workspace_id is not None and on_conflict == "error":
-        raise ValueError(f"Workspace {name} already exists")
 
-    if workspace_id is not None and on_conflict == "update":
-        logging.info(f"Updating workspace with `{name}` with description `{description}`")
-        update_workspace(workspace_id, name, description)
-        logging.info(f"Workspace `{name}` successfully updated")
+    if workspace_id is not None:
 
-    if workspace_id is None:
+        if on_conflict == "ignore":
+            logging.info(f"Workspace `{name}` already exists, skipping update")
+            return workspace
+
+        if on_conflict == "error":
+            raise ValueError(f"Workspace {name} already exists")
+        
+        if on_conflict == "update":
+            logging.info(f"Updating workspace with `{name}` with description `{description}`")
+            update_workspace(workspace_id, name, description)
+            workspace = get_workspace(workspace_name=name)
+            workspace_id = workspace["id"]
+            logging.info(f"Workspace `{name}` successfully updated")
+
+    else:
         logging.info(f"Creating workspace with `{name}` with description `{description}`")
         workspace = create_workspace(name, description)
         logging.info(f"Workspace `{name}` successfully created")
@@ -121,5 +130,6 @@ def delete_workspace_command(args: WorkspaceDeleteArgs) -> dict[str, str]:
         return
 
     logging.info(f"Deleting workspace {workspace_id}")
-    delete_workspace(workspace_id)
+    response = delete_workspace(workspace_id)
+    response.raise_for_status()
     logging.info(f"Workspace {workspace_id} successfully deleted")
