@@ -178,11 +178,25 @@ Examples:
                 # workspace_command(args)
                 pass
             case "lakehouse":
-                # lakehouse_command(args)
-                pass
+                match args.lakehouse_command:
+                    case "create":
+                        raise NotImplementedError("lakehouse create command not implemented")
+                        # result = create_lakehouse_command(args)
+                    case "delete":
+                        raise NotImplementedError("lakehouse delete command not implemented")
+                        # result = delete_lakehouse_command(args)
+                    case _:
+                        parser.print_help()
             case "notebook":
-                # notebook_command(args)
-                pass
+                match args.notebook_command:
+                    case "create":
+                        raise NotImplementedError("notebook create command not implemented")
+                        # result = create_notebook_command(args)
+                    case "delete":
+                        raise NotImplementedError("notebook delete command not implemented")
+                        # result = delete_notebook_command(args)
+                    case _:
+                        parser.print_help()
             case _:
                 parser.print_help()
     except Exception as e:
