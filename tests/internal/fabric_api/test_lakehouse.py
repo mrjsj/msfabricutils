@@ -16,32 +16,56 @@ def test_get_workspace_lakehouses():
     assert isinstance(lakehouses, list)
     assert len(lakehouses) > 0
 
+    lakehouse = [lakehouse for lakehouse in lakehouses if lakehouse["id"] == LAKEHOUSE_ID]
+
+    assert len(lakehouse) == 1
+    assert isinstance(lakehouse[0], dict)
+    assert lakehouse[0]["displayName"] == LAKEHOUSE_NAME
+    assert lakehouse[0]["id"] == LAKEHOUSE_ID
+
 def test_get_workspace_lakehouses_by_id():
     lakehouses = get_workspace_lakehouses(workspace_id=WORKSPACE_ID)
     assert isinstance(lakehouses, list)
     assert len(lakehouses) > 0
+
+    lakehouse = [lakehouse for lakehouse in lakehouses if lakehouse["id"] == LAKEHOUSE_ID]
+
+    assert len(lakehouse) == 1
+    assert isinstance(lakehouse[0], dict)
+    assert lakehouse[0]["displayName"] == LAKEHOUSE_NAME
+    assert lakehouse[0]["id"] == LAKEHOUSE_ID
 
 def test_get_workspace_lakehouses_by_name():
     lakehouses = get_workspace_lakehouses(workspace_name=WORKSPACE_NAME)
     assert isinstance(lakehouses, list)
     assert len(lakehouses) > 0
 
+    lakehouse = [lakehouse for lakehouse in lakehouses if lakehouse["id"] == LAKEHOUSE_ID]
+
+    assert len(lakehouse) == 1
+    assert isinstance(lakehouse[0], dict)
+    assert lakehouse[0]["displayName"] == LAKEHOUSE_NAME
+    assert lakehouse[0]["id"] == LAKEHOUSE_ID  
+
 def test_get_workspace_lakehouse_tables_by_workspace_id_and_lakehouse_id():
-    lakehouse = get_workspace_lakehouse_tables(workspace_id=WORKSPACE_ID, lakehouse_id=LAKEHOUSE_ID)
-    assert isinstance(lakehouse, list)
-    assert len(lakehouse) > 0
+    tables = get_workspace_lakehouse_tables(workspace_id=WORKSPACE_ID, lakehouse_id=LAKEHOUSE_ID)
+    assert isinstance(tables, list)
+    assert len(tables) > 0
+
 
 def test_get_workspace_lakehouse_tables_by_workspace_id_and_lakehouse_name():
-    lakehouse = get_workspace_lakehouse_tables(workspace_id=WORKSPACE_ID, lakehouse_name=LAKEHOUSE_NAME)
-    assert isinstance(lakehouse, list)
-    assert len(lakehouse) > 0
+    tables = get_workspace_lakehouse_tables(workspace_id=WORKSPACE_ID, lakehouse_name=LAKEHOUSE_NAME)
+    assert isinstance(tables, list)
+    assert len(tables) > 0
+
 
 def test_get_workspace_lakehouse_tables_by_workspace_name_and_lakehouse_id():
-    lakehouse = get_workspace_lakehouse_tables(workspace_name=WORKSPACE_NAME, lakehouse_id=LAKEHOUSE_ID)
-    assert isinstance(lakehouse, list)
-    assert len(lakehouse) > 0
+    tables = get_workspace_lakehouse_tables(workspace_name=WORKSPACE_NAME, lakehouse_id=LAKEHOUSE_ID)
+    assert isinstance(tables, list)
+    assert len(tables) > 0
+
 
 def test_get_workspace_lakehouse_tables_by_workspace_name_and_lakehouse_name():
-    lakehouse = get_workspace_lakehouse_tables(workspace_name=WORKSPACE_NAME, lakehouse_name=LAKEHOUSE_NAME)
-    assert isinstance(lakehouse, list)
-    assert len(lakehouse) > 0
+    tables = get_workspace_lakehouse_tables(workspace_name=WORKSPACE_NAME, lakehouse_name=LAKEHOUSE_NAME)
+    assert isinstance(tables, list)
+    assert len(tables) > 0
