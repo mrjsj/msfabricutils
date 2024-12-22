@@ -1,4 +1,4 @@
-from msfabricutils.core.generic import paginated_get_request
+from msfabricutils.core.fabric_request import paginated_get_request
 from msfabricutils.core.workspace import get_workspace
 
 
