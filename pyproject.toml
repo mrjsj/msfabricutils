@@ -47,6 +47,9 @@ dev = [
     "python-dotenv>=1.0.0",
 ]
 
+[project.scripts]
+msfu = "msfabricutils.cli.cli:main"
+
 [tool.setuptools_scm]
 
 [tool.ruff]

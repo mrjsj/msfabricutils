@@ -3,7 +3,7 @@ import requests
 from msfabricutils.core.auth import get_fabric_bearer_token
 
 
-def get_paginated(endpoint: str, data_key: str) -> list[dict]:
+def paginated_get_request(endpoint: str, data_key: str) -> list[dict]:
     """
     Retrieves paginated data from the specified API endpoint.
 
@@ -44,7 +44,7 @@ def get_paginated(endpoint: str, data_key: str) -> list[dict]:
     return responses
 
 
-def get_item_from_paginated(endpoint: str, data_key: str, item_key: str, item_value: str) -> list[dict]:
+def get_item_from_paginated_get_request(endpoint: str, data_key: str, item_key: str, item_value: str) -> list[dict]:
     """
     Recursively paginates the API endpoint until specified item is found and returns it.
 
@@ -90,7 +90,7 @@ def get_item_from_paginated(endpoint: str, data_key: str, item_key: str, item_va
     raise ValueError(f"Item with {item_key} {item_value} not found")
 
 
-def get_page(endpoint: str) -> list[dict]:
+def get_request(endpoint: str) -> list[dict]:
     """
     Retrieves data from a specified API endpoint.
 
@@ -116,3 +116,34 @@ def get_page(endpoint: str) -> list[dict]:
     response.raise_for_status()
 
     return response.json()
+
+
+def post_request(endpoint: str, data: dict[str, str]) -> dict[str, str]:
+    base_url = "https://api.fabric.microsoft.com/v1"
+    token = get_fabric_bearer_token()
+    headers = {"Authorization": f"Bearer {token}"}
+
+    response = requests.post(f"{base_url}/{endpoint}", headers=headers, json=data)
+    response.raise_for_status()
+
+    return response.json()
+
+
+def patch_request(endpoint: str, data: dict[str, str]) -> dict[str, str]:
+    base_url = "https://api.fabric.microsoft.com/v1"
+    token = get_fabric_bearer_token()
+    headers = {"Authorization": f"Bearer {token}"}
+
+    response = requests.patch(f"{base_url}/{endpoint}", headers=headers, json=data)
+    response.raise_for_status()
+
+    return response.json()
+
+
+def delete_request(endpoint: str) -> dict[str, str]:
+    base_url = "https://api.fabric.microsoft.com/v1"
+    token = get_fabric_bearer_token()
+    headers = {"Authorization": f"Bearer {token}"}
+
+    response = requests.delete(f"{base_url}/{endpoint}", headers=headers)
+    response.raise_for_status()
