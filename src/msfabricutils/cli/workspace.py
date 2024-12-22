@@ -35,9 +35,9 @@ class WorkspaceDeleteArgs:
         id (str): The ID of the workspace to delete
     """
 
+    on_conflict: str
     id: str | None = None
     name: str | None = None
-    on_conflict: str
 
 def create_workspace_command(args: WorkspaceCreateArgs) -> dict[str, str]:
     """Create a new workspace with the specified configuration.
