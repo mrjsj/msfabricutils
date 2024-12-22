@@ -1,4 +1,4 @@
-from msfabricutils.core.generic import get_paginated
+from msfabricutils.core.generic import paginated_get_request
 from msfabricutils.core.workspace import get_workspace
 
 
@@ -35,11 +35,11 @@ def get_workspace_sql_endpoints(
 
     if workspace_id is not None:
         endpoint = f"workspaces/{workspace_id}/sqlEndpoints"
-        return get_paginated(endpoint, data_key)
+        return paginated_get_request(endpoint, data_key)
 
     if workspace_name is not None:
         workspace_id = get_workspace(workspace_name=workspace_name)["id"]
         endpoint = f"workspaces/{workspace_id}/sqlEndpoints"
-        return get_paginated(endpoint, data_key)
+        return paginated_get_request(endpoint, data_key)
 
     raise ValueError("Either `workspace_id` or `workspace_name` must be provided")

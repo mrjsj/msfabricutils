@@ -1,4 +1,4 @@
-from msfabricutils.core.generic import get_item_from_paginated, get_paginated
+from msfabricutils.core.generic import get_item_from_paginated_get_request, paginated_get_request
 from msfabricutils.core.workspace import get_workspace
 
 
@@ -33,12 +33,12 @@ def get_workspace_lakehouses(
 
     if workspace_id is not None:
         endpoint = f"workspaces/{workspace_id}/lakehouses"
-        return get_paginated(endpoint, data_key)
+        return paginated_get_request(endpoint, data_key)
 
     if workspace_name is not None:
         workspace_id = get_workspace(workspace_name=workspace_name)["id"]
         endpoint = f"workspaces/{workspace_id}/lakehouses"
-        return get_paginated(endpoint, data_key)
+        return paginated_get_request(endpoint, data_key)
 
     raise ValueError("Either `workspace_id` or `workspace_name` must be provided")
 
@@ -117,7 +117,7 @@ def get_workspace_lakehouse_tables(
         item_key = "displayName"
         item_value = lakehouse_name
 
-        lakehouse_id = get_item_from_paginated(
+        lakehouse_id = get_item_from_paginated_get_request(
             endpoint=endpoint,
             data_key=data_key,
             item_key=item_key,
@@ -127,4 +127,4 @@ def get_workspace_lakehouse_tables(
     endpoint = f"workspaces/{workspace_id}/lakehouses/{lakehouse_id}/tables"
     data_key = "data"
 
-    return get_paginated(endpoint, data_key)
+    return paginated_get_request(endpoint, data_key)
