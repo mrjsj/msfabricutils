@@ -1,3 +1,6 @@
+import os
+
+from azure.core.exceptions import ClientAuthenticationError
 from azure.identity import DefaultAzureCredential
 
 
@@ -24,19 +27,38 @@ def get_access_token(audience: str) -> str:
 
 def get_onelake_access_token() -> str:
     """
-    Retrieves an access token for OneLake storage.
+    Alias for `get_azure_storage_access_token`
+    """
+    return get_azure_storage_access_token()
+
+def get_azure_storage_access_token() -> str:
+    """
+    Retrieves an access token for Azure Storage.
 
     This function attempts to obtain an access token for accessing Azure storage.
-    It first checks if the code is running in a Microsoft Fabric notebook environment
-    and attempts to use the `notebookutils` library to get the token. If the library
-    is not available, it falls back to using the `DefaultAzureCredential` from the Azure SDK
-    to fetch the token.
+    It first checks if the `AZURE_STORAGE_TOKEN` environment variable is set.
+    Otherwise, it tries to get the token using `notebookutils.credentials.getToken`.
+    Lastly, it falls back to using the `DefaultAzureCredential`.
 
     Returns:
-        The access token used for authenticating requests to Azure OneLake storage.
+        The access token used for authenticating requests to Azure Storage.
     """
-    audience = "https://storage.azure.com"
-    return get_access_token(audience)
+
+    token = os.environ.get("AZURE_STORAGE_TOKEN")
+    if token:
+        return token
+    
+    try:
+        audience = "https://storage.azure.com"
+        return get_access_token(audience)
+    except ClientAuthenticationError as e:
+        raise ClientAuthenticationError(
+            f"{str(e)}\n\n"
+            "Additional troubleshooting steps:\n"
+            "1. Ensure you can use any of the credentials methods to get an access token\n"
+            "2. Set the `AZURE_STORAGE_TOKEN` environment variable with a valid access token"
+        ) from e
+
 
 
 def get_fabric_bearer_token() -> str:
@@ -71,14 +93,13 @@ def get_azure_devops_access_token() -> str:
 
 def get_storage_options() -> dict[str, str]:
     """
-    Retrieves storage options including a bearer token for OneLake storage.
+    Retrieves storage options including a bearer token for Azure Storage.
 
-    This function calls `get_onelake_access_token` to obtain a bearer token
-    and returns a dictionary containing the token and a flag indicating
-    whether to use the Fabric endpoint.
+    This function calls `get_azure_storage_access_token` to obtain a bearer token
+    and returns a dictionary containing the token.
 
     Returns:
-        A dictionary containing the storage options for OneLake.
+        A dictionary containing the storage options for Azure Storage.
 
     Example:
         **Retrieve storage options**
@@ -87,7 +108,7 @@ def get_storage_options() -> dict[str, str]:
 
         options = get_storage_options()
         options
-        {'bearer_token': 'your_token_here', 'use_fabric_endpoint': 'true'}
+        {"bearer_token": "your_token_here"}
         ```
     """
-    return {"bearer_token": get_onelake_access_token(), "use_fabric_endpoint": "true"}
+    return {"bearer_token": get_azure_storage_access_token()}
