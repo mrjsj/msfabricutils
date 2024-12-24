@@ -325,7 +325,7 @@ class FabricDuckDBConnection:
     def _register_lakehouse_tables(
         self, workspace_name: str, workspace_id: str, lakehouse_id: str, lakehouse_name: str
     ) -> None:
-        tables = get_workspace_lakehouse_tables(workspace_id, lakehouse_id)
+        tables = get_workspace_lakehouse_tables(workspace_id=workspace_id, lakehouse_id=lakehouse_id)
 
         if not tables:
             table_information = {
@@ -406,11 +406,11 @@ class FabricDuckDBConnection:
         if isinstance(lakehouses, str):
             lakehouses = [lakehouses]
 
-        workspace_info = get_workspace(workspace_id)
+        workspace_info = get_workspace(workspace_id=workspace_id)
 
         workspace_name = workspace_info["displayName"]
 
-        lakehouse_properties = get_workspace_lakehouses(workspace_id)
+        lakehouse_properties = get_workspace_lakehouses(workspace_id=workspace_id)
 
         selected_lakehouses = [
             lakehouse
