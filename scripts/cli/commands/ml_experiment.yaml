@@ -1,0 +1,105 @@
+command: ml-experiment
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/mlExperiments
+    method: post
+    description: Create a ml experiment.
+    panel: Ml Experiment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the ml experiment in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the ml experiment.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the ml experiment.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/mlExperiments/{ml_experiment_id}
+    method: get
+    description: Get a ml experiment.
+    panel: Ml Experiment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the ml experiment from.
+      - name: ml-experiment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the ml experiment to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/mlExperiments
+    method: get
+    description: List ml experiments for a workspace.
+    panel: Ml Experiment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list data pipelines for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/mlExperiments/{ml_experiment_id}
+    method: patch
+    description: Update a ml experiment.
+    panel: Ml Experiment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update the ml experiment in.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1         
+        description: The display name of the ml experiment.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1 
+        description: The description of the ml experiment.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/mlExperiments/{ml_experiment_id}
+    method: delete
+    description: Delete a ml experiment.
+    panel: Ml Experiment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete the ml experiment from.
+      - name: ml-experiment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the ml experiment to delete.
+

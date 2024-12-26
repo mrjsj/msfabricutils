@@ -1,0 +1,13 @@
+command: capacity
+subcommands:
+  list:
+    endpoint: capacities
+    method: get
+    description: List capacities for a workspace.
+    panel: Capacity
+    args:
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.

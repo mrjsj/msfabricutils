@@ -1,0 +1,105 @@
+command: ml-model
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/mlModels
+    method: post
+    description: Create a ml model.
+    panel: Ml Model
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the ml model in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the ml model.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the ml model.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/mlModels/{ml_model_id}
+    method: get
+    description: Get a ml model.
+    panel: Ml Model
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the ml model from.
+      - name: ml-model-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the ml model to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/mlModels
+    method: get
+    description: List ml models for a workspace.
+    panel: Ml Model
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list data pipelines for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/mlModels/{ml_model_id}
+    method: patch
+    description: Update a ml model.
+    panel: Ml Model
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update the ml model in.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1         
+        description: The display name of the ml model.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1 
+        description: The description of the ml model.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/mlModels/{ml_model_id}
+    method: delete
+    description: Delete a ml model.
+    panel: Ml Model
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete the ml model from.
+      - name: ml-model-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the ml model to delete.
+

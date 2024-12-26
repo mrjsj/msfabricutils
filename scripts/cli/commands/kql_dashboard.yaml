@@ -1,0 +1,215 @@
+command: kql-dashboard
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/kqlDashboards
+    method: post
+    description: Create a kql dashboard.
+    panel: KqlDashboard
+    custom_payload:
+      value: |
+        "definition": {
+            "parts": [
+              {
+                "path": "RealTimeDashboard.json",
+                "payload": RealTimeDashboard,
+                "payloadType": "InlineBase64"
+              },
+              {
+                "path": ".platform",
+                "payload": platform,
+                "payloadType": "InlineBase64"
+              }
+            ]
+          }
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the kql dashboard in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the kql dashboard.
+      - name: kql-dashboard-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - RealTimeDashboard.json
+          - .platform
+        description: The path to the kql dashboard to load content from.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the kql dashboard.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/kqlDashboards/{kql_dashboard_id}
+    method: get
+    description: Get a kql dashboard.
+    panel: KqlDashboard
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the kql dashboard from.
+      - name: kql-dashboard-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the kql dashboard to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/kqlDashboards
+    method: get
+    description: List kql dashboards for a workspace.
+    panel: KqlDashboard
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list kql dashboards for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/kqlDashboards/{kql_dashboard_id}
+    method: patch
+    description: Update a kql dashboard.
+    panel: KqlDashboard
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: kql-dashboard-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the kql dashboard to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The display name of the kql dashboard.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The description of the kql dashboard.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/kqlDashboards/{kql_dashboard_id}
+    method: delete
+    description: Delete a kql dashboard.
+    panel: KqlDashboard
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete.
+      - name: kql-dashboard-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the kql dashboard to delete.
+
+  get-definition:
+    endpoint: workspaces/{workspace_id}/kqlDashboards/{kql_dashboard_id}/getDefinition
+    method: get
+    description: Get the definition of a kql dashboard.
+    panel: KqlDashboardDefinition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the kql dashboard definition from.
+      - name: kql-dashboard-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the kql dashboard to get the definition from.
+      # - name: format
+      #   type: str
+      #   required: false
+      #   arg_type: query
+      #   description: The format of the KqlDashboard definition. Supported format is \"kqlDashboard\".
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  update-definition:
+    endpoint: workspaces/{workspace_id}/kqlDashboards/{kql_dashboard_id}/updateDefinition
+    method: post
+    description: Update the definition of a kql dashboard.
+    panel: KqlDashboardDefinition
+    custom_payload:
+      value: |
+        "definition": {
+            "parts": [
+              {
+                "path": "RealTimeDashboard.json",
+                "payload": RealTimeDashboard,
+                "payloadType": "InlineBase64"
+              },
+              {
+                "path": ".platform",
+                "payload": platform,
+                "payloadType": "InlineBase64"
+              }
+            ]
+          }    
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: kql-dashboard-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the kql dashboard to update.
+      - name: kql-dashboard-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - RealTimeDashboard.json
+          - .platform
+        description: The path to the kql dashboard to load content from.
+      - name: update-metadata
+        type: bool
+        required: false
+        default: false
+        arg_type: query
+        description: When set to true, the item's metadata is updated using the metadata in the .platform file.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+

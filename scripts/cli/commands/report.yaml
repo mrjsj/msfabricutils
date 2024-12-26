@@ -1,0 +1,227 @@
+command: report
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/reports
+    method: post
+    description: Create a report.
+    panel: report
+    custom_payload:
+      value: |
+        "definition": {
+          "parts": [
+            {
+              "path": "definition.pbir",
+              "payload": definition,
+              "payloadType": "InlineBase64"
+            },
+            {
+              "path": "report.json",
+              "payload": report,
+              "payloadType": "InlineBase64"
+            },
+            {
+              "path": ".platform",
+              "payload": platform,
+              "payloadType": "InlineBase64"
+            }
+          ]
+        }
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the report in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the report.
+      - name: report-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - definition.pbir
+          - report.json
+          - .platform
+        description: The path to the report to load content from.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the report.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/reports/{report_id}
+    method: get
+    description: Get a report.
+    panel: report
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the report from.
+      - name: report-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the report to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/reports
+    method: get
+    description: List reports for a workspace.
+    panel: report
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list reports for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/reports/{report_id}
+    method: patch
+    description: Update a report.
+    panel: report
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: report-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the report to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The display name of the report.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The description of the report.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/reports/{report_id}
+    method: delete
+    description: Delete a report.
+    panel: report
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete.
+      - name: report-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the report to delete.
+
+  get-definition:
+    endpoint: workspaces/{workspace_id}/reports/{report_id}/getDefinition
+    method: get
+    description: Get the definition of a report.
+    panel: reportDefinition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the report definition from.
+      - name: report-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the report to get the definition from.
+      - name: format
+        type: str
+        required: false
+        arg_type: query
+        description: The format of the report definition. Supported format is \"ipynb\".
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  update-definition:
+    endpoint: workspaces/{workspace_id}/reports/{report_id}/updateDefinition
+    method: post
+    description: Update the definition of a report.
+    panel: reportDefinition
+    custom_payload:
+      value: |
+        "definition": {
+          "parts": [
+            {
+              "path": "definition.pbir",
+              "payload": definition,
+              "payloadType": "InlineBase64"
+            },
+            {
+              "path": "report.json",
+              "payload": report,
+              "payloadType": "InlineBase64"
+            },
+            {
+              "path": ".platform",
+              "payload": platform,
+              "payloadType": "InlineBase64"
+            }
+          ]
+        }   
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: report-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the report to update.
+      - name: report-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - definition.pbir
+          - report.json
+          - .platform        
+        description: The path to the report to load content from.
+      - name: update-metadata
+        type: bool
+        required: false
+        default: false
+        arg_type: query
+        description: When set to true, the item's metadata is updated using the metadata in the .platform file.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
