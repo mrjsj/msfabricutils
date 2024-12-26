@@ -4,23 +4,15 @@ The CLI is a way to interact with the Microsoft Fabric REST API. It includes com
 
 For complete documentation, run `msfu --help`.
 
+!!! warning
+    The functions are not fully tested yet.
+    Use with caution.
+    Please report any issues to the [GitHub repository](https://github.com/mrjsj/msfabricutils/issues).
+
+
 ## Examples
 
-### Workspace
+![msfu CLI help](/assets/images/cli-help.png)
 
-```bash
-msfu workspace create --name "My Workspace" --description "My workspace description"
-```
-
-### Lakehouse
-
-```bash
-msfu lakehouse create --name "My Lakehouse" --workspace-id "beefbeef-beef-beef-beef-beefbeefbeef" --enable-schemas
-```
-
-### Notebook
-
-```bash
-msfu notebook create --path "path/to/notebook.Notebook" --workspace-id "beefbeef-beef-beef-beef-beefbeefbeef"
-```
+![msfu CLI lakehouse create](/assets/images/cli-lakehouse-create.png)
 
