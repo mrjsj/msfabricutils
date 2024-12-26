@@ -39,6 +39,7 @@ docs = [
     "mkdocs-material==9.5.47",
     "mkdocs-gen-files==0.5.0",
     "mkdocstrings-python",
+    "mkdocs-include-dir-to-nav==1.2.0",
 ]
 dev = [
     "pytest>=6.2.5",
