@@ -1,0 +1,18 @@
+command: mirrored-warehouse
+subcommands:
+  list:
+    endpoint: workspaces/{workspace_id}/mirroredWarehouses
+    method: get
+    description: List mirrored warehouses for a workspace.
+    panel: MirroredWarehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list mirrored warehouses for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.

@@ -1,0 +1,18 @@
+command: dashboard
+subcommands:
+  list:
+    endpoint: workspaces/{workspace_id}/dashboards
+    method: get
+    description: List dashboards for a workspace.
+    panel: Dashboard
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list dashboards for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.

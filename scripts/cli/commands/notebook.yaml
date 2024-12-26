@@ -1,0 +1,217 @@
+command: notebook
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/notebooks
+    method: post
+    description: Create a notebook.
+    panel: Notebook
+    custom_payload:
+      value: |
+        "definition": {
+            "format": "ipynb",
+            "parts": [
+              {
+                "path": "notebook-content.py",
+                "payload": notebook_content,
+                "payloadType": "InlineBase64"
+              },
+              {
+                "path": ".platform",
+                "payload": platform,
+                "payloadType": "InlineBase64"
+              }
+            ]
+          }
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the notebook in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the notebook.
+      - name: notebook-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - notebook-content.py
+          - .platform
+        description: The path to the notebook to load content from.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the notebook.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/notebooks/{notebook_id}
+    method: get
+    description: Get a notebook.
+    panel: Notebook
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the notebook from.
+      - name: notebook-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the notebook to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/notebooks
+    method: get
+    description: List notebooks for a workspace.
+    panel: Notebook
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list notebooks for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/notebooks/{notebook_id}
+    method: patch
+    description: Update a notebook.
+    panel: Notebook
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: notebook-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the notebook to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The display name of the notebook.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The description of the notebook.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/notebooks/{notebook_id}
+    method: delete
+    description: Delete a notebook.
+    panel: Notebook
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete.
+      - name: notebook-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the notebook to delete.
+
+  get-definition:
+    endpoint: workspaces/{workspace_id}/notebooks/{notebook_id}/getDefinition
+    method: get
+    description: Get the definition of a notebook.
+    panel: NotebookDefinition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the notebook definition from.
+      - name: notebook-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the notebook to get the definition from.
+      - name: format
+        type: str
+        required: false
+        arg_type: query
+        description: The format of the Notebook definition. Supported format is \"ipynb\".
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  update-definition:
+    endpoint: workspaces/{workspace_id}/notebooks/{notebook_id}/updateDefinition
+    method: post
+    description: Update the definition of a notebook.
+    panel: NotebookDefinition
+    custom_payload:
+      value: |
+        "definition": {
+            "format": "ipynb",
+            "parts": [
+              {
+                "path": "notebook-content.py",
+                "payload": notebook_content,
+                "payloadType": "InlineBase64"
+              },
+              {
+                "path": ".platform",
+                "payload": platform,
+                "payloadType": "InlineBase64"
+              }
+            ]
+          }    
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: notebook-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the notebook to update.
+      - name: notebook-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - notebook-content.py
+          - .platform
+        description: The path to the notebook to load content from.
+      - name: update-metadata
+        type: bool
+        required: false
+        default: false
+        arg_type: query
+        description: When set to true, the item's metadata is updated using the metadata in the .platform file.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+

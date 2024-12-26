@@ -1,0 +1,274 @@
+command: lakehouse
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/lakehouses
+    method: post
+    description: Create a lakehouse.
+    panel: Lakehouse
+    custom_payload:
+      condition: enable_schemas is True
+      value: |
+        "enableSchemas": True,
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the lakehouse in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the lakehouse.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the lakehouse.
+      - name: enable-schemas
+        type: bool
+        required: false
+        default: false
+        description: Whether the lakehouse is schema enabled.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/lakehouses/{lakehouse_id}
+    method: get
+    description: Get a lakehouse.
+    panel: Lakehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the lakehouse from.
+      - name: lakehouse-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the lakehouse to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/lakehouses
+    method: get
+    description: List lakehouses for a workspace.
+    panel: Lakehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list lakehouses for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/lakehouses/{lakehouse_id}
+    method: patch
+    description: Update a lakehouse.
+    panel: Lakehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: lakehouse-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the lakehouse to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The display name of the lakehouse.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The description of the lakehouse.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/lakehouses/{lakehouse_id}
+    method: delete
+    description: Delete a lakehouse.
+    panel: Lakehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete.
+      - name: lakehouse-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the lakehouse to delete.
+
+  run-background-job:
+    endpoint: workspaces/{workspace_id}/lakehouses/{lakehouse_id}/jobs/instances
+    method: post
+    description: Run on-demand table maintenance job instance.
+    panel: Job
+    custom_payload:
+      value: |
+        "executionData": {
+          "tableName": table_name,
+          "schemaName": schema_name,
+          "optimizeSettings": {
+            "vOrder": v_order,
+            "zOrderBy": z_order_columns
+          },
+          "vacuumSettings": {
+            "retentionPeriod": retention_period
+          }
+        }
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create a job for.
+      - name: lakehouse-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the lakehouse to create a job for.
+      - name: job-type
+        type: str
+        required: true
+        arg_type: query
+        description: The type of the job to create. Must be \"TableMaintenance\".
+      - name: table-name
+        type: str
+        required: true
+        description: The name of the table to run the job on.
+      - name: schema-name
+        type: str
+        required: false
+        description: The name of the schema to run the job on. Only applicable for schema enabled lakehouses.
+      - name: v-order
+        type: bool
+        required: false
+        description: If table should be v-ordered.
+      - name: z-order-columns
+        type: List[str]
+        required: false
+        description: List of columns to z-order by.
+      - name: retention-period
+        type: str
+        required: false
+        description: Retention periode in format d:hh:mm:ss. Overrides the default retention period.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  list-tables:
+    endpoint: workspaces/{workspace_id}/lakehouses/{lakehouse_id}/tables
+    method: get
+    description: List tables in a lakehouse.
+    panel: Table
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list tables for.
+      - name: lakehouse-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the lakehouse to list tables for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+      - name: max-results
+        type: int
+        required: false
+        arg_type: query
+        description: The maximum number of results to return.
+
+  load-table:
+    endpoint: workspaces/{workspace_id}/lakehouses/{lakehouse_id}/tables/{table_name}/load
+    method: post
+    description: Load a table.
+    panel: Table
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to load the table for.
+      - name: lakehouse-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the lakehouse to load the table for.
+      - name: table-name
+        type: str
+        required: true
+        arg_type: path
+        description: The name of the table to load.
+      - name: relative-path
+        type: str
+        required: true
+        arg_type: payload
+        description: The relative path to the table to load.
+      - name: path-type
+        type: str
+        required: true
+        arg_type: payload
+        description: The type of the path to load. Either \"File\" or \"Folder\".
+      - name: format
+        type: str
+        required: false
+        arg_type: payload
+        description: The format of the files to load. Must be \"Parquet\" or \"Csv\".
+      - name: header
+        type: bool
+        required: false
+        arg_type: payload
+        description: Whether the file has a header row. Only applicable for csv files.
+      - name: delimiter
+        type: str
+        required: false
+        arg_type: payload
+        description: The delimiter of the csv files. Only applicable for csv files.
+      - name: mode
+        type: str
+        required: false
+        arg_type: payload
+        description: The mode to load the table in. Either \"Overwrite\" or \"Append\".
+      - name: file-extension
+        type: str
+        required: false
+        arg_type: payload
+        description: The file extension of the files to load.
+      - name: recursive
+        type: bool
+        required: false
+        arg_type: payload
+        description: Whether to search data files recursively or not, when loading from a folder.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.

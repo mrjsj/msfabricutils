@@ -1,0 +1,35 @@
+command: paginated-report
+subcommands:
+  list:
+    endpoint: paginated-reports
+    method: get
+    description: List paginated reports for a workspace.
+    panel: Paginated Report
+    args:
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: paginated-reports/{paginated_report_id}
+    method: patch
+    description: Update a paginated report.
+    panel: Paginated Report
+    args:
+      - name: paginated-report-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the paginated report to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        description: The display name of the paginated report.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the paginated report.

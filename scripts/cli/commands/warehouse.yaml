@@ -1,0 +1,104 @@
+command: warehouse
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/warehouses
+    method: post
+    description: Create a warehouse.
+    panel: Warehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the warehouse in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the warehouse.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the warehouse.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/warehouses/{warehouse_id}
+    method: get
+    description: Get a warehouse.
+    panel: Warehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the warehouse from.
+      - name: warehouse-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the warehouse to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/warehouses
+    method: get
+    description: List warehouses for a workspace.
+    panel: Warehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list warehouses for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/warehouses/{warehouse_id}
+    method: patch
+    description: Update a warehouse.
+    panel: Warehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update the warehouse in.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1         
+        description: The display name of the warehouse.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1 
+        description: The description of the warehouse.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/warehouses/{warehouse_id}
+    method: delete
+    description: Delete a warehouse.
+    panel: Warehouse
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete the warehouse from.
+      - name: warehouse-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the warehouse to delete.

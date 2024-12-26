@@ -1,0 +1,242 @@
+command: spark-job-definition
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/sparkJobDefinitions
+    method: post
+    description: Create a spark job definition.
+    panel: Spark Job Definition
+    custom_payload:
+      value: |
+        "definition": {
+            "parts": [
+              {
+                "path": "SparkJobDefinitionV1.json",
+                "payload": SparkJobDefinitionV1,
+                "payloadType": "InlineBase64"
+              },
+              {
+                "path": ".platform",
+                "payload": platform,
+                "payloadType": "InlineBase64"
+              }
+            ]
+          }
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the spark job definition in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the spark job definition.
+      - name: spark-job-definition-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - SparkJobDefinitionV1.json
+          - .platform
+        description: The path to the spark job definition to load content from.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the spark job definition.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/sparkJobDefinitions/{spark_job_definition_id}
+    method: get
+    description: Get a spark job definition.
+    panel: Spark Job Definition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the spark job definition from.
+      - name: spark-job-definition-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the spark job definition to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/sparkJobDefinitions
+    method: get
+    description: List spark job definitions for a workspace.
+    panel: Spark Job Definition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list spark job definitions for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/sparkJobDefinitions/{spark_job_definition_id}
+    method: patch
+    description: Update a spark job definition.
+    panel: Spark Job Definition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: spark-job-definition-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the spark job definition to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The display name of the spark job definition.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The description of the spark job definition.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/sparkJobDefinitions/{spark_job_definition_id}
+    method: delete
+    description: Delete a spark job definition.
+    panel: Spark Job Definition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete.
+      - name: spark-job-definition-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the spark job definition to delete.
+
+  get-definition:
+    endpoint: workspaces/{workspace_id}/sparkJobDefinitions/{spark_job_definition_id}/getDefinition
+    method: get
+    description: Get the definition of a spark job definition.
+    panel: Spark Job Definition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the spark job definition definition from.
+      - name: spark-job-definition-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the spark job definition to get the definition from.
+      # - name: format
+      #   type: str
+      #   required: false
+      #   arg_type: query
+      #   description: The format of the spark job definition definition. Supported format is \"SparkJobDefinitionV1\".
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  update-definition:
+    endpoint: workspaces/{workspace_id}/sparkJobDefinitions/{spark_job_definition_id}/updateDefinition
+    method: post
+    description: Update the definition of a spark job definition.
+    panel: Spark Job Definition
+    custom_payload:
+      value: |
+        "definition": {
+            "parts": [
+              {
+                "path": "SparkJobDefinitionV1.json",
+                "payload": SparkJobDefinitionV1,
+                "payloadType": "InlineBase64"
+              },
+              {
+                "path": ".platform",
+                "payload": platform,
+                "payloadType": "InlineBase64"
+              }
+            ]
+          }    
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: spark-job-definition-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the spark job definition to update.
+      - name: spark-job-definition-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - SparkJobDefinitionV1.json
+          - .platform
+        description: The path to the spark job definition to load content from.
+      - name: update-metadata
+        type: bool
+        required: false
+        default: false
+        arg_type: query
+        description: When set to true, the item's metadata is updated using the metadata in the .platform file.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  run-background-job:
+    endpoint: workspaces/{workspace_id}/sparkJobDefinitions/{spark_job_definition_id}/jobs/instances
+    method: post
+    description: Run on-demand spark job instance.
+    panel: Job
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create a job for.
+      - name: spark-job-definition-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the spark job definition to create a job for.
+      - name: job-type
+        type: str
+        required: true
+        arg_type: query
+        description: The type of the job to create. Must be \"sparkJob\".
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.

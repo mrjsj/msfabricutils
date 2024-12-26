@@ -1,0 +1,239 @@
+command: workspace
+subcommands:
+  create:
+    endpoint: workspaces
+    method: post
+    description: Create a workspace.
+    panel: Workspace
+    args:
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the workspace.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the workspace.
+      - name: capacity-id
+        type: str
+        required: false
+        arg_type: payload
+        description: The capacity id to assign the workspace to.
+  
+  get:
+    endpoint: workspaces/{workspace_id}
+    method: get
+    description: Get a workspace.
+    panel: Workspace
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get.
+
+  list:
+    endpoint: workspaces
+    method: get
+    description: List workspaces.
+    panel: Workspace
+    args:
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+      - name: roles
+        type: str
+        required: false
+        arg_type: query
+        description: A list of roles. Separate values using a comma. If not provided, all workspaces are returned.
+
+  update:
+    endpoint: "workspaces/{workspace_id}"
+    method: patch
+    description: Update a workspace.
+    panel: Workspace
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        description: The display name of the workspace.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the workspace.
+
+  delete:
+    endpoint: workspaces/{workspace_id}
+    method: delete
+    description: Delete a workspace.
+    panel: Workspace
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete.
+
+  assign-to-capacity:
+    endpoint: workspaces/{workspace_id}/assignToCapacity
+    method: post
+    description: Assign a workspace to a capacity.
+    panel: Capacity
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to assign to a capacity.
+      - name: capacity-id
+        type: str
+        required: true
+        arg_type: payload
+        description: The id of the capacity to assign the workspace to.
+
+  unassign-from-capacity:
+    endpoint: workspaces/{workspace_id}/unassignFromCapacity
+    method: post
+    description: Unassign a workspace from a capacity.
+    panel: Capacity
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to unassign from a capacity.
+  
+  add-role-assignment:
+    endpoint: workspaces/{workspace_id}/roleAssignments
+    method: post
+    description: Add a role assignment to a workspace.
+    panel: Role Assignment
+    custom_payload:
+      value: |
+        "principal": { 
+          "id": principal_id,
+          "type": principal_type,
+        }
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to add a role assignment to.
+      - name: role
+        type: str
+        required: true
+        arg_type: payload
+        description: The role to add to the workspace.
+      - name: principal-id
+        type: str
+        required: true
+        description: The id of the principal.
+      - name: principal-type
+        type: str
+        required: true
+        description: The type of the principal.
+
+  get-role-assignment:
+    endpoint: workspaces/{workspace_id}/roleAssignments/{role_assignment_id}
+    method: get
+    description: Get a role assignment for a workspace.
+    panel: Role Assignment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get a role assignment for.
+      - name: role-assignment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the role assignment to get.
+
+  list-role-assignments:
+    endpoint: workspaces/{workspace_id}/roleAssignments
+    method: get
+    description: List role assignments for a workspace.
+    panel: Role Assignment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list role assignments for.
+
+  update-role-assignment:
+    endpoint: workspaces/{workspace_id}/roleAssignments/{role_assignment_id}
+    method: patch
+    description: Update a role assignment for a workspace.
+    panel: Role Assignment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The workspace ID.
+      - name: role-assignment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The workspace role assignment ID.
+
+  delete-role-assignment:
+    endpoint: workspaces/{workspace_id}/roleAssignments/{role_assignment_id}
+    method: delete
+    description: Delete a role assignment from a workspace.
+    panel: Role Assignment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to add a role assignment to.
+      - name: role-assignment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the role assignment to delete.
+
+  deprovision-identity:
+    endpoint: workspaces/{workspace_id}/deprovisionIdentity
+    method: post
+    description: Deprovision an identity from a workspace.
+    panel: Identity
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to deprovision an identity from.
+
+  provision-identity:
+    endpoint: workspaces/{workspace_id}/provisionIdentity
+    method: post
+    description: Provision an identity to a workspace.
+    panel: Identity
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The ID of the workspace.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.

@@ -1,0 +1,338 @@
+command: environment
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/environments
+    method: post
+    panel: Environment
+    description: Create an environment.
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the environment in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the environment.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the environment.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}
+    method: get
+    description: Get an environment.
+    panel: Environment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the environment from.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/environments
+    method: get
+    description: List environments for a workspace.
+    panel: Environment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list environments for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}
+    method: patch
+    description: Update an environment.
+    panel: Environment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update the environment in.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1         
+        description: The display name of the environment.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1 
+        description: The description of the environment.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}
+    method: delete
+    description: Delete an environment.
+    panel: Environment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete the environment from.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to delete.
+
+  get-spark-compute-published-settings:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/sparkComputePublishedSettings
+    method: get
+    description: Get spark compute published settings for an environment.
+    panel: Spark Compute
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the spark compute published settings for.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to get the spark compute published settings for.
+  
+  get-spark-compute-staging-settings:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/staging/sparkcompute
+    method: get
+    description: Get spark compute staging settings for an environment.
+    panel: Spark Compute
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the spark compute staging settings for.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to get the spark compute staging settings for.
+
+  update-spark-compute-staging-settings:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/staging/sparkcompute
+    method: patch
+    description: Update spark compute staging settings for an environment.
+    panel: Spark Compute
+    custom_payload:
+      value: |
+        {
+          "instancePool": {
+            "name": instance_pool_name,
+            "type": instance_pool_type
+          },
+          "driverCores": driver_cores,
+          "driverMemory": driver_memory,
+          "executorCores": executor_cores,
+          "executorMemory": executor_memory,
+          "dynamicExecutorAllocation": {
+            "enabled": dynamic_executor_allocation_enabled,
+            "minExecutors": min_executors,
+            "maxExecutors": max_executors
+          },
+          "sparkProperties": {
+            "spark.acls.enable": spark_acls_enable,
+            "spark.admin.acls": spark_admin_acls
+          },
+          "runtimeVersion": runtime_version
+        }
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update the spark compute staging settings for.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to update the spark compute staging settings for.
+      - name: instance-pool-name
+        type: str
+        required: false
+        description: The name of the instance pool to use for Spark Compute settings.
+      - name: instance-pool-type
+        type: str
+        required: false
+        description: The type of the instance pool to use for Spark Compute settings.
+      - name: driver-cores
+        type: int
+        required: false
+        description: The number of cores to use for the driver.
+      - name: driver-memory
+        type: str
+        required: false
+        description: The memory to use for the driver.
+      - name: executor-cores
+        type: int
+        required: false
+        description: The number of cores to use for the executors.
+      - name: executor-memory
+        type: str
+        required: false
+        description: The memory to use for the executors.
+      - name: dynamic-executor-allocation-enabled
+        type: bool
+        required: false
+        description: Whether to enable dynamic executor allocation.
+      - name: min-executors
+        type: int
+        required: false
+        description: The minimum number of executors to use for dynamic executor allocation.
+      - name: max-executors
+        type: int
+        required: false
+        description: The maximum number of executors to use for dynamic executor allocation.
+      - name: spark-acls-enable
+        type: str
+        required: false
+        description: Whether to enable Spark ACLs.
+      - name: spark-admin-acls
+        type: str
+        required: false
+        description: The admin ACLs to use for Spark.
+      - name: runtime-version
+        type: str
+        required: false
+        description: The runtime version to use for Spark Compute settings.
+
+  get-published-libraries:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/libraries
+    method: get
+    description: Get published libraries for an environment.
+    panel: Libraries
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the published libraries for.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to get the published libraries for.
+
+
+  get-staging-libraries:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/staging/libraries
+    method: get
+    description: Get staging libraries for an environment.
+    panel: Libraries
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the staging libraries for.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to get the staging libraries for.
+
+  delete-staging-library:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/staging/libraries
+    method: delete
+    description: Delete a staging library for an environment.
+    panel: Libraries
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete the staging library from.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to delete the staging library from.
+      - name: library-to-delete
+        type: str
+        required: true
+        arg_type: query
+        description: The library file to delete. Must include the file extension.
+
+  upload-staging-library:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/staging/libraries
+    method: post
+    description: Upload a staging library for an environment.
+    panel: Libraries
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to upload the staged library to.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to upload the staging library to.
+
+  publish:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/staging/publish
+    method: post
+    description: Publish an environment.
+    panel: Environment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to publish the environment for.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to publish.
+
+  cancel-publish:
+    endpoint: workspaces/{workspace_id}/environments/{environment_id}/staging/cancelPublish
+    method: post
+    description: Cancel a publish operation for an environment.
+    panel: Environment
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to cancel the publish operation for.
+      - name: environment-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the environment to cancel the publish operation for.

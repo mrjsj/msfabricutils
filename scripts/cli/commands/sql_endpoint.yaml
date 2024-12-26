@@ -1,0 +1,18 @@
+command: sql-endpoint
+subcommands:
+  list:
+    endpoint: workspaces/{workspace_id}/sqlEndpoints
+    method: get
+    description: List SQL endpoints for a workspace.
+    panel: SQL Endpoint
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list SQL endpoints for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.

@@ -1,0 +1,215 @@
+command: eventstream
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/eventstreams
+    method: post
+    description: Create an eventstream.
+    panel: Eventstream
+    custom_payload:
+      value: |
+        "definition": {
+            "parts": [
+              {
+                "path": "eventstream.json",
+                "payload": eventstream,
+                "payloadType": "InlineBase64"
+              },
+              {
+                "path": ".platform",
+                "payload": platform,
+                "payloadType": "InlineBase64"
+              }
+            ]
+          }
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to create the eventstream in.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the eventstream.
+      - name: eventstream-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - eventstream.json
+          - .platform
+        description: The path to the eventstream to load content from.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        description: The description of the eventstream.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  get:
+    endpoint: workspaces/{workspace_id}/eventstreams/{eventstream_id}
+    method: get
+    description: Get an eventstream.
+    panel: Eventstream
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the eventstream from.
+      - name: eventstream-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the eventstream to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/eventstreams
+    method: get
+    description: List eventstreams for a workspace.
+    panel: Eventstream
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to list eventstreams for.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/eventstreams/{eventstream_id}
+    method: patch
+    description: Update an eventstream.
+    panel: Eventstream
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: eventstream-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the eventstream to update.
+      - name: display-name
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The display name of the eventstream.
+      - name: description
+        type: str
+        required: false
+        arg_type: payload
+        arg_group_type_id: at-least-1
+        description: The description of the eventstream.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/eventstreams/{eventstream_id}
+    method: delete
+    description: Delete an eventstream.
+    panel: Eventstream
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to delete.
+      - name: eventstream-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the eventstream to delete.
+
+  get-definition:
+    endpoint: workspaces/{workspace_id}/eventstreams/{eventstream_id}/getDefinition
+    method: get
+    description: Get the definition of an eventstream.
+    panel: EventstreamDefinition
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to get the eventstream definition from.
+      - name: eventstream-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the eventstream to get the definition from.
+      - name: format
+        type: str
+        required: false
+        arg_type: query
+        description: The format of the Eventstream definition. Supported format is \"eventstream\".
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+
+  update-definition:
+    endpoint: workspaces/{workspace_id}/eventstreams/{eventstream_id}/updateDefinition
+    method: post
+    description: Update the definition of an eventstream.
+    panel: EventstreamDefinition
+    custom_payload:
+      value: |
+        "definition": {
+            "parts": [
+              {
+                "path": "eventstream.json",
+                "payload": eventstream,
+                "payloadType": "InlineBase64"
+              },
+              {
+                "path": ".platform",
+                "payload": platform,
+                "payloadType": "InlineBase64"
+              }
+            ]
+          }    
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the workspace to update.
+      - name: eventstream-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the eventstream to update.
+      - name: eventstream-path
+        type: str
+        required: true
+        arg_type: load_content
+        content_files:
+          - eventstream.json
+          - .platform
+        description: The path to the eventstream to load content from.
+      - name: update-metadata
+        type: bool
+        required: false
+        default: false
+        arg_type: query
+        description: When set to true, the item's metadata is updated using the metadata in the .platform file.
+      - name: await-lro
+        type: bool
+        required: false
+        default: false
+        arg_type: lro
+        description: Whether to await the long running operation.
+

@@ -1,0 +1,25 @@
+command: long-running-operation
+subcommands:
+  get-state:
+    endpoint: operations/{operation_id}
+    method: get
+    panel: Long Running Operation
+    description: Get the state of the long running operation.
+    args:
+      - name: operation-id
+        required: true
+        type: str
+        arg_type: path
+        description: The ID of the long running operation.
+
+  get-result:
+    endpoint: operations/{operation_id}/result
+    method: get
+    panel: Long Running Operation
+    description: Get the result of the long running operation. Only available when the operation status is `Succeeded`.
+    args:
+      - name: operation-id
+        required: true
+        type: str
+        arg_type: path
+        description: The ID of the long running operation.
