@@ -21,16 +21,21 @@ pip install msfabricutils
 
 
 
-### Fabric API
-- Create, update, delete workspaces, lakehouses, notebooks using the Fabric REST API.
+### Thin Fabric API wrapper
+Intregate functions to manage workspaces, lakehouses, notebooks, environments, libraries, etc.
+For more details, see the [Fabric API Reference](https://mrjsj.github.io/msfabricutils/core/fabric-api/)
 
-### Command Line Interface
-- Create, update, delete workspaces, lakehouses, notebooks using the built-in CLI.
+### Fabric API as CLI
+CLI for managing workspaces, lakehouses, notebooks, environments, libraries, etc.
 
 To get started, run:
 ```bash
 msfu --help
 ```
+
+![msfu CLI help](assets/images/cli-help.png)
+
+
 
 ### Fabric DuckDB Connection
 Seamless integration between DuckDB and Microsoft Fabric Lakehouses for data exploration and analysis.
