@@ -34,6 +34,7 @@ theme:
 plugins:
   - search:
       lang: en
+  - include_dir_to_nav
   - gen-files:
       scripts:
         - docs/gen_ref_pages.py
@@ -67,12 +68,7 @@ nav:
   - API Reference:
     - Core:
       - core/authentication.md
-      - Fabric API:
-        - core/fabric-api/index.md
-        - core/fabric-api/workspace.md
-        - core/fabric-api/lakehouse.md
-        - core/fabric-api/notebook.md
-        - core/fabric-api/sql_endpoint.md
+      - Fabric API: core/fabric-api
     - ETL:
       - etl/index.md
       - etl/read.md
