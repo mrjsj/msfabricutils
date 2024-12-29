@@ -42,7 +42,7 @@ def show_command_tree(
                 add_commands_to_tree(cmd._commands, cmd_node, filter_args)
 
     add_commands_to_tree(_app._commands, tree, commands)
-    rich.print(tree, markup=True)
+    rich.print(tree)
 
 
 def create_app() -> App:
