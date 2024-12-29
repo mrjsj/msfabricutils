@@ -1,13 +1,10 @@
+import importlib
 import os
-from importlib import import_module
 from pathlib import Path
-from typing import Any, Dict, Literal, List, Optional
-from pydantic import BaseModel, ValidationError
+from typing import Any, List, Literal, Optional
 
 import yaml
-import sys
-
-import importlib
+from pydantic import BaseModel, ValidationError
 
 complex_types_module = importlib.import_module("msfabricutils.types")
 complex_types = complex_types_module.__all__
@@ -110,7 +107,7 @@ def {name}_command(
         sys.exit(1)
 
 '''
-   
+
 
 #     {item_path_str}
 
@@ -143,6 +140,7 @@ TEMPLATE_INIT = """from cyclopts import App
 def kebab_to_snake(name: str) -> str:
     return name.replace("-", "_")
 
+
 def snake_to_kebab(name: str) -> str:
     return name.replace("_", "-")
 
@@ -156,6 +154,7 @@ class Arg(BaseModel):
     required: Optional[bool] = True
     default: Optional[Any] = None
 
+
 class Command(BaseModel):
     name: str
     description: Optional[str] = None
@@ -163,19 +162,20 @@ class Command(BaseModel):
     args: Optional[List[Arg]] = None
     commands: Optional[List["Command"]] = None
 
+
 class Area(BaseModel):
     name: str
     client: Literal["FabricClientCore", "FabricClientAdmin"]
     commands: List[Command]
 
+
 class CommandsFile(BaseModel):
     areas: List[Area]
 
 
-
 def generate_cli_structure(commands: CommandsFile, base_path: Path):
     commands_dir = base_path / "commands"
-    
+
     if os.path.exists(commands_dir):
         shutil.rmtree(commands_dir)
 
@@ -183,14 +183,14 @@ def generate_cli_structure(commands: CommandsFile, base_path: Path):
 
     def process_area(area: Area, area_path: Path):
         area_path.mkdir(exist_ok=True)
-        
+
         # Create __init__.py for area
         imports = []
         command_registrations = []
-        
+
         area_snake_case = snake_to_kebab(area.name)
         area_kebab_case = kebab_to_snake(area.name)
-        
+
         for command in area.commands:
             command_snake_case = kebab_to_snake(command.name)
             command_kebab_case = snake_to_kebab(command.name)
@@ -205,18 +205,18 @@ def generate_cli_structure(commands: CommandsFile, base_path: Path):
                 imports.append(f"from .{command_snake_case} import {command_snake_case}_command")
                 command_registrations.append(f"{area.name}_app.command({command_snake_case}_command)")
                 generate_command_file(command, area_path, client_name=area.client)
-        
+
         init_content = TEMPLATE_INIT.format(
             imports="\n".join(imports),
             app_name=f"{area_snake_case}_app",
             name=area_kebab_case,
             help_text=f"Commands for {area_snake_case}",
-            commands="\n".join(command_registrations)
+            commands="\n".join(command_registrations),
         )
-        
+
         if area.name == "admin":
             return
-        
+
         with open(area_path / "__init__.py", "w") as f:
             f.write(init_content)
 
@@ -231,17 +231,16 @@ def generate_cli_structure(commands: CommandsFile, base_path: Path):
 
         command_snake_case = kebab_to_snake(command.name)
         command_kebab_case = snake_to_kebab(command.name)
-        
+
         if not command.commands:  # Leaf command
             generate_command_file(command, cmd_path.parent, client_name=client_name)
             return
-        
+
         # Has subcommands
         imports = []
         command_registrations = []
-        
-        for subcmd in command.commands:
 
+        for subcmd in command.commands:
             subcmd_snake_case = kebab_to_snake(subcmd.name)
             subcmd_kebab_case = snake_to_kebab(subcmd.name)
             if subcmd.commands:  # Has further subcommands
@@ -253,22 +252,22 @@ def generate_cli_structure(commands: CommandsFile, base_path: Path):
                 imports.append(f"from .{subcmd_snake_case} import {subcmd_snake_case}_command")
                 command_registrations.append(f"{command_snake_case}_app.command({subcmd_snake_case}_command, name='{subcmd_kebab_case}')")
                 generate_command_file(subcmd, cmd_path, client_name=client_name)
-        
+
         init_content = TEMPLATE_INIT.format(
             imports="\n".join(imports),
             app_name=f"{command_snake_case}_app",
             name=command_kebab_case,
             help_text=command.description or f"[yellow]Commands for {command_snake_case}[/yellow]",
-            commands="\n".join(command_registrations)
+            commands="\n".join(command_registrations),
         )
-        
+
         with open(cmd_path / "__init__.py", "w") as f:
             f.write(init_content)
 
     def generate_command_file(command: Command, parent_path: Path, client_name: Literal["FabricClientCore", "FabricClientAdmin"]):
         # if not command.args:
         #     return
-        
+
         if parent_path.name.endswith("external_data_shares"):
             a = 1
 
@@ -276,11 +275,10 @@ def generate_cli_structure(commands: CommandsFile, base_path: Path):
             a = 1
         command_snake_case = kebab_to_snake(command.name)
         command_kebab_case = snake_to_kebab(command.name)
-        
+
         if command.args:
             args_str = "".join(f"{arg.alias or arg.name}: {arg.type}," for arg in command.args)
-            docstring_str = "\n".join(f"        {arg.name} ({arg.type}): {arg.description}"
-                                for arg in command.args)
+            docstring_str = "\n".join(f"        {arg.name} ({arg.type}): {arg.description}" for arg in command.args)
             docstring_str = "    Args:\n" + docstring_str if docstring_str != "" else ""
             arg_dict = "{" + ", ".join(f"'{arg.name}': {arg.name}" for arg in command.args) + "}"
             function_args = ", ".join(f"{arg.name}={arg.alias or arg.name}" for arg in command.args if not arg.exclude_param)
@@ -296,13 +294,29 @@ def generate_cli_structure(commands: CommandsFile, base_path: Path):
         else:
             cmd_function = f"client.{command.function}"
 
-        
-        load_item_definition = "\n".join([f"        if isinstance({arg.alias or arg.name}, ItemDefinition):\n            {arg.alias or arg.name} = definition.load_from_path(format=format).to_dict()" for arg in command.args if "ItemDefinition" in arg.type])
+        load_item_definition = "\n".join(
+            [
+                f"        if isinstance({arg.alias or arg.name}, ItemDefinition):\n            {arg.alias or arg.name} = definition.load_from_path(format=format).to_dict()"
+                for arg in command.args
+                if "ItemDefinition" in arg.type
+            ]
+        )
 
-        complex_type_to_dict_str = "\n".join([f"        if isinstance({arg.alias or arg.name}, ComplexType):\n            {arg.alias or arg.name} = {arg.alias or arg.name}.to_dict()" for arg in command.args if any(complex_type in arg.type for complex_type in complex_types) and "ItemDefinition" not in arg.type])    
+        complex_type_to_dict_str = "\n".join(
+            [
+                f"        if isinstance({arg.alias or arg.name}, ComplexType):\n            {arg.alias or arg.name} = {arg.alias or arg.name}.to_dict()"
+                for arg in command.args
+                if any(complex_type in arg.type for complex_type in complex_types) and "ItemDefinition" not in arg.type
+            ]
+        )
 
-        save_item_to_path_str = "\n".join([f"        save_item_to_path(result, {arg.alias or arg.name}.file_path) if {arg.alias or arg.name}.file_path else None" for arg in command.args if "OutFile" in arg.type])
-
+        save_item_to_path_str = "\n".join(
+            [
+                f"        save_item_to_path(result, {arg.alias or arg.name}.file_path) if {arg.alias or arg.name}.file_path else None"
+                for arg in command.args
+                if "OutFile" in arg.type
+            ]
+        )
 
         command_content = TEMPLATE_COMMAND.format(
             name=command_snake_case,
@@ -317,9 +331,9 @@ def generate_cli_structure(commands: CommandsFile, base_path: Path):
             cmd_function=cmd_function,
             complex_type_to_dict=complex_type_to_dict_str,
             load_item_definition=load_item_definition,
-            save_item_to_path=save_item_to_path_str
+            save_item_to_path=save_item_to_path_str,
         )
-        
+
         with open(parent_path / f"{command_snake_case}.py", "w") as f:
             f.write(command_content)
 
@@ -328,11 +342,13 @@ def generate_cli_structure(commands: CommandsFile, base_path: Path):
         area_path = commands_dir / area.name
         process_area(area, area_path)
 
+
 if __name__ == "__main__":
-    import shutil # noqa
-    import os # noqa
-    import json # noqa
-    import rich # noqa
+    import shutil  # noqa
+    import os  # noqa
+    import json  # noqa
+    import rich  # noqa
+
     base_path = Path("cli")
     commands_output_path = base_path / "commands"
     if os.path.exists(commands_output_path):
@@ -343,10 +359,10 @@ if __name__ == "__main__":
 
     try:
         commands = CommandsFile.model_validate(commands_data)
-    except ValidationError as e:
+    except ValidationError:
         raise Exception from None
-        #rich.print(f"[bold red][Error]:[/bold red]\\n{{str(e)}}\\n\\nIf this error is unexpected, please run the command again with the --debug flag\\nCopy the output, and create an issue at: https://github.com/mrjsj/msfabricutils/issues")
+        # rich.print(f"[bold red][Error]:[/bold red]\\n{{str(e)}}\\n\\nIf this error is unexpected, please run the command again with the --debug flag\\nCopy the output, and create an issue at: https://github.com/mrjsj/msfabricutils/issues")
         # sys.exit(1)
-    
+
     rich.print([command for command in commands.areas[0].commands[0].commands if command.name == "external-data-shares"])
     generate_cli_structure(commands, base_path)
