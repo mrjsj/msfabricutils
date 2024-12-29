@@ -29,6 +29,8 @@ dependencies = [
     "polars-lts-cpu==1.16.0 ; sys_platform == 'darwin'",
     "polars==1.16.0 ; sys_platform == 'win32' or sys_platform == 'linux'",
     "typer>=0.15.1",
+    "cyclopts>=3.1.2",
+    "msfabricpysdkcore>=0.2.1",
 ]
 
 [project.urls]
@@ -55,7 +57,7 @@ msfu = "msfabricutils.cli.cli:main"
 [tool.setuptools_scm]
 
 [tool.ruff]
-line-length = 100
+line-length = 150
 
 [tool.ruff.lint]
 extend-select = ["Q001", "I001"]
