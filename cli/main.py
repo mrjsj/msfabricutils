@@ -1,10 +1,9 @@
 from cyclopts import App
-# from rich.console import Console
+import rich
 from rich.tree import Tree
 from typing import Annotated, List
 from cyclopts import Parameter
 
-from console import console
 
 
 def show_command_tree(commands: Annotated[List[str], Parameter(help="Space delimited list of commands to filter the command tree by. Example: `msfu tree lakehouse`, `msfu tree lakehouse tables`.", consume_multiple=True)] = None) -> None:
@@ -36,7 +35,7 @@ def show_command_tree(commands: Annotated[List[str], Parameter(help="Space delim
                 add_commands_to_tree(cmd._commands, cmd_node, filter_args)
     
     add_commands_to_tree(_app._commands, tree, commands)
-    console.print(tree, markup=True)
+    rich.print(tree, markup=True)
 
 
 
@@ -71,8 +70,9 @@ In short the following authentication methods are supported:
 
 def main():
     from rich.status import Status
-    with Status("Running ...", spinner="bouncingBall", console=console):
+    with Status("Running ...", spinner="bouncingBall"):
         app = create_app()
+    with Status("Running ...", spinner="bouncingBall"):
         app()
 
 

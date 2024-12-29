@@ -2,9 +2,8 @@ import json
 import sys
 from typing import Annotated, Literal
 
-from console import console
+import rich
 from cyclopts import Group, Parameter
-from msfabricpysdkcore.item import Item
 
 from msfabricutils.types import (
     ComplexType,
@@ -29,7 +28,7 @@ def load_command(
     help: Annotated[bool, Parameter(group=global_args, help="Show this help and exit")] = False,
     verbose: Annotated[bool, Parameter(group=global_args, help="Show verbose output")] = False,
     debug: Annotated[bool, Parameter(group=global_args, help="Show debug output")] = False,
-    output: Annotated[Literal["json", "yaml", "csv", "table"], Parameter(group=global_args, help="Output format")] = "json",
+    output: Annotated[Literal["json", "none"], Parameter(group=global_args, help="Output format")] = "json",
 ):
     """Execute load command
 
@@ -45,11 +44,11 @@ def load_command(
         recursive (bool): Whether to load recursively
         wait_for_completion (bool): Whether to wait for the operation to complete
     """
+
     try:
         if isinstance(format_options, ComplexType):
             format_options = format_options.to_dict()
 
-        # time.sleep(1)
         from msfabricpysdkcore import FabricClientCore
 
         client = FabricClientCore()
@@ -65,14 +64,24 @@ def load_command(
             recursive=recursive,
             wait_for_completion=wait_for_completion,
         )
-        if isinstance(result, Item):
+
+        if output == "none":
+            sys.exit(0)
+
+        # Not pretty
+        if isinstance(result, list):
+            result = [json.loads(str(item)) for item in result]
+            result = json.dumps(result)
+        elif isinstance(result, dict):
             result = str(result)
-        if isinstance(result, dict):
-            result = json.dumps(result, indent=2)
-        console.print_json(result)
+
+        rich.print_json(result)
         sys.exit(0)
     except Exception as e:
         if debug:
+            from rich.console import Console
+
+            console = Console()
             console.print_exception()
             from importlib.metadata import version
 
@@ -80,12 +89,12 @@ def load_command(
 
             msfabricpysdkcore_version = version("msfabricpysdkcore")
 
-            console.print("")
-            console.print("[bold yellow]Dependency versions:[/bold yellow]")
-            console.print(f"msfabricutils=={msfabricutils_version}")
-            console.print(f"msfabricpysdkcore=={msfabricpysdkcore_version}")
+            rich.print("")
+            rich.print("[bold yellow]Dependency versions:[/bold yellow]")
+            rich.print(f"msfabricutils=={msfabricutils_version}")
+            rich.print(f"msfabricpysdkcore=={msfabricpysdkcore_version}")
             sys.exit(1)
-        console.print(
+        rich.print(
             f"[bold red][Error]:[/bold red]\n{str(e)}\n\nIf this error is unexpected, please run the command again with the --debug flag\nCopy the output, and create an issue at: https://github.com/mrjsj/msfabricutils/issues"
         )
         sys.exit(1)
