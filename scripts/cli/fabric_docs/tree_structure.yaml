@@ -1,0 +1,1192 @@
+commands:
+  Microsoft Fabric REST API documentation:
+    function: microsoft_fabric_rest_api_documentation
+    args: []
+  overview:
+    commands:
+      usingthe-microsoft-fabricrestap-is:
+        function: usingthe_microsoft_fabricrestap_is_overview
+        args: []
+      fabricrestapidocumentationstructure:
+        function: fabricrestapidocumentationstructure_overview
+        args: []
+      identitysupport:
+        function: identitysupport_overview
+        args: []
+      scopes:
+        function: scopes_overview
+        args: []
+      throttling:
+        function: throttling_overview
+        args: []
+      longrunningoperation:
+        function: longrunningoperation_overview
+        args: []
+      pagination:
+        function: pagination_overview
+        args: []
+  getstarted:
+    commands:
+      fabricapiquickstart:
+        function: fabricapiquickstart_getstarted
+        args: []
+      createa-microsoft-entraidapp:
+        function: createa_microsoft_entraidapp_getstarted
+        args: []
+      deploya-powerbiprojectusing-fabricap-is:
+        function: deploya_powerbiprojectusing_fabricap_is_getstarted
+        args: []
+  itemmanagement:
+    commands:
+      overview:
+        function: overview_itemmanagement
+        args: []
+      itemdefinitions:
+        commands:
+          overview:
+            function: overview_itemdefinitions
+            args: []
+          eventhouseitemdefinition:
+            function: eventhouseitemdefinition_itemdefinitions
+            args: []
+          eventstreamdefinition:
+            function: eventstreamdefinition_itemdefinitions
+            args: []
+          kql-dashboarditemdefinition:
+            function: kql_dashboarditemdefinition_itemdefinitions
+            args: []
+          kql-databaseitemdefinition:
+            function: kql_databaseitemdefinition_itemdefinitions
+            args: []
+          kql-querysetitemdefinition:
+            function: kql_querysetitemdefinition_itemdefinitions
+            args: []
+          mirroreddatabaseitemdefinition:
+            function: mirroreddatabaseitemdefinition_itemdefinitions
+            args: []
+          notebookdefinition:
+            function: notebookdefinition_itemdefinitions
+            args: []
+          reflexitemdefinition:
+            function: reflexitemdefinition_itemdefinitions
+            args: []
+          reportdefinition:
+            function: reportdefinition_itemdefinitions
+            args: []
+          semanticmodeldefinition:
+            function: semanticmodeldefinition_itemdefinitions
+            args: []
+          sparkjobdefinition:
+            function: sparkjobdefinition_itemdefinitions
+            args: []
+      itempayloads:
+        commands:
+          overview:
+            function: overview_itempayloads
+            args: []
+          kql-databasepayload:
+            function: kql_databasepayload_itempayloads
+            args: []
+  admin:
+    commands:
+      domains:
+        commands:
+          overview:
+            function: overview_domains
+            args: []
+          assign-domain-workspaces-by-capacities:
+            function: assign_domain_workspaces_by_capacities_domains
+            args: []
+          assign-domain-workspaces-by-ids:
+            function: assign_domain_workspaces_by_ids_domains
+            args: []
+          assign-domain-workspaces-by-principals:
+            function: assign_domain_workspaces_by_principals_domains
+            args: []
+          create-domain:
+            function: create_domain_domains
+            args: []
+          delete-domain:
+            function: delete_domain_domains
+            args: []
+          get-domain:
+            function: get_domain_domains
+            args: []
+          list-domain-workspaces:
+            function: list_domain_workspaces_domains
+            args: []
+          list-domains:
+            function: list_domains_domains
+            args: []
+          role-assignments-bulk-assign:
+            function: role_assignments_bulk_assign_domains
+            args: []
+          role-assignments-bulk-unassign:
+            function: role_assignments_bulk_unassign_domains
+            args: []
+          unassign-all-domain-workspaces:
+            function: unassign_all_domain_workspaces_domains
+            args: []
+          unassign-domain-workspaces-by-ids:
+            function: unassign_domain_workspaces_by_ids_domains
+            args: []
+          update-domain:
+            function: update_domain_domains
+            args: []
+      external-data-shares:
+        commands:
+          overview:
+            function: overview_external_data_shares
+            args: []
+          list-external-data-shares:
+            function: list_external_data_shares_external_data_shares
+            args: []
+          revoke-external-data-share:
+            function: revoke_external_data_share_external_data_shares
+            args: []
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          get-item:
+            function: get_item_items
+            args: []
+          list-item-access-details:
+            function: list_item_access_details_items
+            args: []
+          list-items:
+            function: list_items_items
+            args: []
+      labels:
+        commands:
+          overview:
+            function: overview_labels
+            args: []
+          bulk-remove-labels:
+            function: bulk_remove_labels_labels
+            args: []
+          bulk-set-labels:
+            function: bulk_set_labels_labels
+            args: []
+      tenants:
+        commands:
+          overview:
+            function: overview_tenants
+            args: []
+          list-capacities-tenant-settings-overrides:
+            function: list_capacities_tenant_settings_overrides_tenants
+            args: []
+          list-tenant-settings:
+            function: list_tenant_settings_tenants
+            args: []
+      users:
+        commands:
+          overview:
+            function: overview_users
+            args: []
+          list-access-entities:
+            function: list_access_entities_users
+            args: []
+      workspaces:
+        commands:
+          overview:
+            function: overview_workspaces
+            args: []
+          get-workspace:
+            function: get_workspace_workspaces
+            args: []
+          list-git-connections:
+            function: list_git_connections_workspaces
+            args: []
+          list-workspace-access-details:
+            function: list_workspace_access_details_workspaces
+            args: []
+          list-workspaces:
+            function: list_workspaces_workspaces
+            args: []
+          restore-workspace:
+            function: restore_workspace_workspaces
+            args: []
+  core:
+    commands:
+      capacities:
+        commands:
+          overview:
+            function: overview_capacities
+            args: []
+          list-capacities:
+            function: list_capacities_capacities
+            args: []
+      connections:
+        commands:
+          overview:
+            function: overview_connections
+            args: []
+          add-connection-role-assignment:
+            function: add_connection_role_assignment_connections
+            args: []
+          create-connection:
+            function: create_connection_connections
+            args: []
+          delete-connection:
+            function: delete_connection_connections
+            args: []
+          delete-connection-role-assignment:
+            function: delete_connection_role_assignment_connections
+            args: []
+          get-connection:
+            function: get_connection_connections
+            args: []
+          get-connection-role-assignment:
+            function: get_connection_role_assignment_connections
+            args: []
+          list-connection-role-assignments:
+            function: list_connection_role_assignments_connections
+            args: []
+          list-connections:
+            function: list_connections_connections
+            args: []
+          list-supported-connection-types:
+            function: list_supported_connection_types_connections
+            args: []
+          update-connection:
+            function: update_connection_connections
+            args: []
+          update-connection-role-assignment:
+            function: update_connection_role_assignment_connections
+            args: []
+      deployment-pipelines:
+        commands:
+          overview:
+            function: overview_deployment_pipelines
+            args: []
+          deploy-stage-content:
+            function: deploy_stage_content_deployment_pipelines
+            args: []
+          get-deployment-pipeline:
+            function: get_deployment_pipeline_deployment_pipelines
+            args: []
+          list-deployment-pipeline-stage-items:
+            function: list_deployment_pipeline_stage_items_deployment_pipelines
+            args: []
+          list-deployment-pipeline-stages:
+            function: list_deployment_pipeline_stages_deployment_pipelines
+            args: []
+          list-deployment-pipelines:
+            function: list_deployment_pipelines_deployment_pipelines
+            args: []
+      external-data-shares:
+        commands:
+          overview:
+            function: overview_external_data_shares
+            args: []
+          create-external-data-share:
+            function: create_external_data_share_external_data_shares
+            args: []
+          get-external-data-share:
+            function: get_external_data_share_external_data_shares
+            args: []
+          list-external-data-shares-in-item:
+            function: list_external_data_shares_in_item_external_data_shares
+            args: []
+          revoke-external-data-share:
+            function: revoke_external_data_share_external_data_shares
+            args: []
+      gateways:
+        commands:
+          overview:
+            function: overview_gateways
+            args: []
+          add-gateway-role-assignment:
+            function: add_gateway_role_assignment_gateways
+            args: []
+          create-gateway:
+            function: create_gateway_gateways
+            args: []
+          delete-gateway:
+            function: delete_gateway_gateways
+            args: []
+          delete-gateway-member:
+            function: delete_gateway_member_gateways
+            args: []
+          delete-gateway-role-assignment:
+            function: delete_gateway_role_assignment_gateways
+            args: []
+          get-gateway:
+            function: get_gateway_gateways
+            args: []
+          get-gateway-role-assignment:
+            function: get_gateway_role_assignment_gateways
+            args: []
+          list-gateway-members:
+            function: list_gateway_members_gateways
+            args: []
+          list-gateway-role-assignments:
+            function: list_gateway_role_assignments_gateways
+            args: []
+          list-gateways:
+            function: list_gateways_gateways
+            args: []
+          update-gateway:
+            function: update_gateway_gateways
+            args: []
+          update-gateway-member:
+            function: update_gateway_member_gateways
+            args: []
+          update-gateway-role-assignment:
+            function: update_gateway_role_assignment_gateways
+            args: []
+      git:
+        commands:
+          overview:
+            function: overview_git
+            args: []
+          commit-to-git:
+            function: commit_to_git_git
+            args: []
+          connect:
+            function: connect_git
+            args: []
+          disconnect:
+            function: disconnect_git
+            args: []
+          get-connection:
+            function: get_connection_git
+            args: []
+          get-my-git-credentials:
+            function: get_my_git_credentials_git
+            args: []
+          get-status:
+            function: get_status_git
+            args: []
+          initialize-connection:
+            function: initialize_connection_git
+            args: []
+          update-from-git:
+            function: update_from_git_git
+            args: []
+          update-my-git-credentials:
+            function: update_my_git_credentials_git
+            args: []
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-item:
+            function: create_item_items
+            args: []
+          delete-item:
+            function: delete_item_items
+            args: []
+          get-item:
+            function: get_item_items
+            args: []
+          get-item-definition:
+            function: get_item_definition_items
+            args: []
+          list-item-connections:
+            function: list_item_connections_items
+            args: []
+          list-items:
+            function: list_items_items
+            args: []
+          update-item:
+            function: update_item_items
+            args: []
+          update-item-definition:
+            function: update_item_definition_items
+            args: []
+      job-scheduler:
+        commands:
+          overview:
+            function: overview_job_scheduler
+            args: []
+          cancel-item-job-instance:
+            function: cancel_item_job_instance_job_scheduler
+            args: []
+          create-item-schedule:
+            function: create_item_schedule_job_scheduler
+            args: []
+          get-item-job-instance:
+            function: get_item_job_instance_job_scheduler
+            args: []
+          get-item-schedule:
+            function: get_item_schedule_job_scheduler
+            args: []
+          list-item-job-instances:
+            function: list_item_job_instances_job_scheduler
+            args: []
+          list-item-schedules:
+            function: list_item_schedules_job_scheduler
+            args: []
+          run-on-demand-item-job:
+            function: run_on_demand_item_job_job_scheduler
+            args: []
+          update-item-schedule:
+            function: update_item_schedule_job_scheduler
+            args: []
+      long-running-operations:
+        commands:
+          overview:
+            function: overview_long_running_operations
+            args: []
+          get-operation-result:
+            function: get_operation_result_long_running_operations
+            args: []
+          get-operation-state:
+            function: get_operation_state_long_running_operations
+            args: []
+      managed-private-endpoints:
+        commands:
+          overview:
+            function: overview_managed_private_endpoints
+            args: []
+          create-workspace-managed-private-endpoint:
+            function: create_workspace_managed_private_endpoint_managed_private_endpoints
+            args: []
+          delete-workspace-managed-private-endpoint:
+            function: delete_workspace_managed_private_endpoint_managed_private_endpoints
+            args: []
+          get-workspace-managed-private-endpoint:
+            function: get_workspace_managed_private_endpoint_managed_private_endpoints
+            args: []
+          list-workspace-managed-private-endpoints:
+            function: list_workspace_managed_private_endpoints_managed_private_endpoints
+            args: []
+      one-lake-data-access-security:
+        commands:
+          overview:
+            function: overview_one_lake_data_access_security
+            args: []
+          create-or-update-data-access-roles:
+            function: create_or_update_data_access_roles_one_lake_data_access_security
+            args: []
+          list-data-access-roles:
+            function: list_data_access_roles_one_lake_data_access_security
+            args: []
+      one-lake-shortcuts:
+        commands:
+          overview:
+            function: overview_one_lake_shortcuts
+            args: []
+          create-shortcut:
+            function: create_shortcut_one_lake_shortcuts
+            args: []
+          delete-shortcut:
+            function: delete_shortcut_one_lake_shortcuts
+            args: []
+          get-shortcut:
+            function: get_shortcut_one_lake_shortcuts
+            args: []
+          list-shortcuts:
+            function: list_shortcuts_one_lake_shortcuts
+            args: []
+      workspaces:
+        commands:
+          overview:
+            function: overview_workspaces
+            args: []
+          add-workspace-role-assignment:
+            function: add_workspace_role_assignment_workspaces
+            args: []
+          assign-to-capacity:
+            function: assign_to_capacity_workspaces
+            args: []
+          create-workspace:
+            function: create_workspace_workspaces
+            args: []
+          delete-workspace:
+            function: delete_workspace_workspaces
+            args: []
+          delete-workspace-role-assignment:
+            function: delete_workspace_role_assignment_workspaces
+            args: []
+          deprovision-identity:
+            function: deprovision_identity_workspaces
+            args: []
+          get-workspace:
+            function: get_workspace_workspaces
+            args: []
+          get-workspace-role-assignment:
+            function: get_workspace_role_assignment_workspaces
+            args: []
+          list-workspace-role-assignments:
+            function: list_workspace_role_assignments_workspaces
+            args: []
+          list-workspaces:
+            function: list_workspaces_workspaces
+            args: []
+          provision-identity:
+            function: provision_identity_workspaces
+            args: []
+          unassign-from-capacity:
+            function: unassign_from_capacity_workspaces
+            args: []
+          update-workspace:
+            function: update_workspace_workspaces
+            args: []
+          update-workspace-role-assignment:
+            function: update_workspace_role_assignment_workspaces
+            args: []
+  dashboard:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          list-dashboards:
+            function: list_dashboards_items
+            args: []
+  datamart:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          list-datamarts:
+            function: list_datamarts_items
+            args: []
+  data-pipeline:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-data-pipeline:
+            function: create_data_pipeline_items
+            args: []
+          delete-data-pipeline:
+            function: delete_data_pipeline_items
+            args: []
+          get-data-pipeline:
+            function: get_data_pipeline_items
+            args: []
+          list-data-pipelines:
+            function: list_data_pipelines_items
+            args: []
+          update-data-pipeline:
+            function: update_data_pipeline_items
+            args: []
+  environment:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-environment:
+            function: create_environment_items
+            args: []
+          delete-environment:
+            function: delete_environment_items
+            args: []
+          get-environment:
+            function: get_environment_items
+            args: []
+          list-environments:
+            function: list_environments_items
+            args: []
+          update-environment:
+            function: update_environment_items
+            args: []
+      spark-compute:
+        commands:
+          overview:
+            function: overview_spark_compute
+            args: []
+          get-published-settings:
+            function: get_published_settings_spark_compute
+            args: []
+          get-staging-settings:
+            function: get_staging_settings_spark_compute
+            args: []
+          update-staging-settings:
+            function: update_staging_settings_spark_compute
+            args: []
+      spark-libraries:
+        commands:
+          overview:
+            function: overview_spark_libraries
+            args: []
+          cancel-publish:
+            function: cancel_publish_spark_libraries
+            args: []
+          delete-staging-library:
+            function: delete_staging_library_spark_libraries
+            args: []
+          get-published-libraries:
+            function: get_published_libraries_spark_libraries
+            args: []
+          get-staging-libraries:
+            function: get_staging_libraries_spark_libraries
+            args: []
+          publish-environment:
+            function: publish_environment_spark_libraries
+            args: []
+          upload-staging-library:
+            function: upload_staging_library_spark_libraries
+            args: []
+  eventhouse:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-eventhouse:
+            function: create_eventhouse_items
+            args: []
+          delete-eventhouse:
+            function: delete_eventhouse_items
+            args: []
+          get-eventhouse:
+            function: get_eventhouse_items
+            args: []
+          get-eventhouse-definition:
+            function: get_eventhouse_definition_items
+            args: []
+          list-eventhouses:
+            function: list_eventhouses_items
+            args: []
+          update-eventhouse:
+            function: update_eventhouse_items
+            args: []
+          update-eventhouse-definition:
+            function: update_eventhouse_definition_items
+            args: []
+  eventstream:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-eventstream:
+            function: create_eventstream_items
+            args: []
+          delete-eventstream:
+            function: delete_eventstream_items
+            args: []
+          get-eventstream:
+            function: get_eventstream_items
+            args: []
+          get-eventstream-definition:
+            function: get_eventstream_definition_items
+            args: []
+          list-eventstreams:
+            function: list_eventstreams_items
+            args: []
+          update-eventstream:
+            function: update_eventstream_items
+            args: []
+          update-eventstream-definition:
+            function: update_eventstream_definition_items
+            args: []
+  kql-dashboard:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          createkql-dashboard:
+            function: createkql_dashboard_items
+            args: []
+          deletekql-dashboard:
+            function: deletekql_dashboard_items
+            args: []
+          getkql-dashboard:
+            function: getkql_dashboard_items
+            args: []
+          getkql-dashboard-definition:
+            function: getkql_dashboard_definition_items
+            args: []
+          listkql-dashboards:
+            function: listkql_dashboards_items
+            args: []
+          updatekql-dashboard:
+            function: updatekql_dashboard_items
+            args: []
+          updatekql-dashboard-definition:
+            function: updatekql_dashboard_definition_items
+            args: []
+  kql-database:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          createkql-database:
+            function: createkql_database_items
+            args: []
+          deletekql-database:
+            function: deletekql_database_items
+            args: []
+          getkql-database:
+            function: getkql_database_items
+            args: []
+          getkql-database-definition:
+            function: getkql_database_definition_items
+            args: []
+          listkql-databases:
+            function: listkql_databases_items
+            args: []
+          updatekql-database:
+            function: updatekql_database_items
+            args: []
+          updatekql-database-definition:
+            function: updatekql_database_definition_items
+            args: []
+  kql-queryset:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          createkql-queryset:
+            function: createkql_queryset_items
+            args: []
+          deletekql-queryset:
+            function: deletekql_queryset_items
+            args: []
+          getkql-queryset:
+            function: getkql_queryset_items
+            args: []
+          getkql-queryset-definition:
+            function: getkql_queryset_definition_items
+            args: []
+          listkql-querysets:
+            function: listkql_querysets_items
+            args: []
+          updatekql-queryset:
+            function: updatekql_queryset_items
+            args: []
+          updatekql-queryset-definition:
+            function: updatekql_queryset_definition_items
+            args: []
+  lakehouse:
+    commands:
+      background-jobs:
+        commands:
+          overview:
+            function: overview_background_jobs
+            args: []
+          run-on-demand-table-maintenance:
+            function: run_on_demand_table_maintenance_background_jobs
+            args: []
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-lakehouse:
+            function: create_lakehouse_items
+            args: []
+          delete-lakehouse:
+            function: delete_lakehouse_items
+            args: []
+          get-lakehouse:
+            function: get_lakehouse_items
+            args: []
+          list-lakehouses:
+            function: list_lakehouses_items
+            args: []
+          update-lakehouse:
+            function: update_lakehouse_items
+            args: []
+      tables:
+        commands:
+          overview:
+            function: overview_tables
+            args: []
+          list-tables:
+            function: list_tables_tables
+            args: []
+          load-table:
+            function: load_table_tables
+            args: []
+  mirrored-database:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-mirrored-database:
+            function: create_mirrored_database_items
+            args: []
+          delete-mirrored-database:
+            function: delete_mirrored_database_items
+            args: []
+          get-mirrored-database:
+            function: get_mirrored_database_items
+            args: []
+          get-mirrored-database-definition:
+            function: get_mirrored_database_definition_items
+            args: []
+          list-mirrored-databases:
+            function: list_mirrored_databases_items
+            args: []
+          update-mirrored-database:
+            function: update_mirrored_database_items
+            args: []
+          update-mirrored-database-definition:
+            function: update_mirrored_database_definition_items
+            args: []
+      mirroring:
+        commands:
+          overview:
+            function: overview_mirroring
+            args: []
+          get-mirroring-status:
+            function: get_mirroring_status_mirroring
+            args: []
+          get-tables-mirroring-status:
+            function: get_tables_mirroring_status_mirroring
+            args: []
+          start-mirroring:
+            function: start_mirroring_mirroring
+            args: []
+          stop-mirroring:
+            function: stop_mirroring_mirroring
+            args: []
+  mirrored-warehouse:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          list-mirrored-warehouses:
+            function: list_mirrored_warehouses_items
+            args: []
+  ml-experiment:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          createml-experiment:
+            function: createml_experiment_items
+            args: []
+          deleteml-experiment:
+            function: deleteml_experiment_items
+            args: []
+          getml-experiment:
+            function: getml_experiment_items
+            args: []
+          listml-experiments:
+            function: listml_experiments_items
+            args: []
+          updateml-experiment:
+            function: updateml_experiment_items
+            args: []
+  ml-model:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          createml-model:
+            function: createml_model_items
+            args: []
+          deleteml-model:
+            function: deleteml_model_items
+            args: []
+          getml-model:
+            function: getml_model_items
+            args: []
+          listml-models:
+            function: listml_models_items
+            args: []
+          updateml-model:
+            function: updateml_model_items
+            args: []
+  notebook:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-notebook:
+            function: create_notebook_items
+            args: []
+          delete-notebook:
+            function: delete_notebook_items
+            args: []
+          get-notebook:
+            function: get_notebook_items
+            args: []
+          get-notebook-definition:
+            function: get_notebook_definition_items
+            args: []
+          list-notebooks:
+            function: list_notebooks_items
+            args: []
+          update-notebook:
+            function: update_notebook_items
+            args: []
+          update-notebook-definition:
+            function: update_notebook_definition_items
+            args: []
+  paginated-report:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          list-paginated-reports:
+            function: list_paginated_reports_items
+            args: []
+          update-paginated-report:
+            function: update_paginated_report_items
+            args: []
+  reflex:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-reflex:
+            function: create_reflex_items
+            args: []
+          delete-reflex:
+            function: delete_reflex_items
+            args: []
+          get-reflex:
+            function: get_reflex_items
+            args: []
+          get-reflex-definition:
+            function: get_reflex_definition_items
+            args: []
+          list-reflexes:
+            function: list_reflexes_items
+            args: []
+          update-reflex:
+            function: update_reflex_items
+            args: []
+          update-reflex-definition:
+            function: update_reflex_definition_items
+            args: []
+  report:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-report:
+            function: create_report_items
+            args: []
+          delete-report:
+            function: delete_report_items
+            args: []
+          get-report:
+            function: get_report_items
+            args: []
+          get-report-definition:
+            function: get_report_definition_items
+            args: []
+          list-reports:
+            function: list_reports_items
+            args: []
+          update-report:
+            function: update_report_items
+            args: []
+          update-report-definition:
+            function: update_report_definition_items
+            args: []
+  semantic-model:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-semantic-model:
+            function: create_semantic_model_items
+            args: []
+          delete-semantic-model:
+            function: delete_semantic_model_items
+            args: []
+          get-semantic-model:
+            function: get_semantic_model_items
+            args: []
+          get-semantic-model-definition:
+            function: get_semantic_model_definition_items
+            args: []
+          list-semantic-models:
+            function: list_semantic_models_items
+            args: []
+          update-semantic-model:
+            function: update_semantic_model_items
+            args: []
+          update-semantic-model-definition:
+            function: update_semantic_model_definition_items
+            args: []
+  spark:
+    commands:
+      custom-pools:
+        commands:
+          overview:
+            function: overview_custom_pools
+            args: []
+          create-workspace-custom-pool:
+            function: create_workspace_custom_pool_custom_pools
+            args: []
+          delete-workspace-custom-pool:
+            function: delete_workspace_custom_pool_custom_pools
+            args: []
+          get-workspace-custom-pool:
+            function: get_workspace_custom_pool_custom_pools
+            args: []
+          list-workspace-custom-pools:
+            function: list_workspace_custom_pools_custom_pools
+            args: []
+          update-workspace-custom-pool:
+            function: update_workspace_custom_pool_custom_pools
+            args: []
+      workspace-settings:
+        commands:
+          overview:
+            function: overview_workspace_settings
+            args: []
+          get-spark-settings:
+            function: get_spark_settings_workspace_settings
+            args: []
+          update-spark-settings:
+            function: update_spark_settings_workspace_settings
+            args: []
+  spark-job-definition:
+    commands:
+      background-jobs:
+        commands:
+          overview:
+            function: overview_background_jobs
+            args: []
+          run-on-demand-spark-job-definition:
+            function: run_on_demand_spark_job_definition_background_jobs
+            args: []
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-spark-job-definition:
+            function: create_spark_job_definition_items
+            args: []
+          delete-spark-job-definition:
+            function: delete_spark_job_definition_items
+            args: []
+          get-spark-job-definition:
+            function: get_spark_job_definition_items
+            args: []
+          get-spark-job-definition-definition:
+            function: get_spark_job_definition_definition_items
+            args: []
+          list-spark-job-definitions:
+            function: list_spark_job_definitions_items
+            args: []
+          update-spark-job-definition:
+            function: update_spark_job_definition_items
+            args: []
+          update-spark-job-definition-definition:
+            function: update_spark_job_definition_definition_items
+            args: []
+  sql-endpoint:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          listsql-endpoints:
+            function: listsql_endpoints_items
+            args: []
+  warehouse:
+    commands:
+      items:
+        commands:
+          overview:
+            function: overview_items
+            args: []
+          create-warehouse:
+            function: create_warehouse_items
+            args: []
+          delete-warehouse:
+            function: delete_warehouse_items
+            args: []
+          get-warehouse:
+            function: get_warehouse_items
+            args: []
+          list-warehouses:
+            function: list_warehouses_items
+            args: []
+          update-warehouse:
+            function: update_warehouse_items
+            args: []
+  workload-development:
+    commands:
+      workloadapi:
+        commands:
+          endpoint-resolution:
+            commands:
+              overview:
+                function: overview_endpoint_resolution
+                args: []
+              resolve:
+                function: resolve_endpoint_resolution
+                args: []
+          item-lifecycle:
+            commands:
+              overview:
+                function: overview_item_lifecycle
+                args: []
+              create-item:
+                function: create_item_item_lifecycle
+                args: []
+              delete-item:
+                function: delete_item_item_lifecycle
+                args: []
+              get-item-payload:
+                function: get_item_payload_item_lifecycle
+                args: []
+              update-item:
+                function: update_item_item_lifecycle
+                args: []
+          jobs:
+            commands:
+              overview:
+                function: overview_jobs
+                args: []
+              cancel-item-job-instance:
+                function: cancel_item_job_instance_jobs
+                args: []
+              create-item-job-instance:
+                function: create_item_job_instance_jobs
+                args: []
+              get-item-job-instance-state:
+                function: get_item_job_instance_state_jobs
+                args: []
+      workload-controlapi:
+        commands:
+          workload-control:
+            commands:
+              overview:
+                function: overview_workload_control
+                args: []
+              resolve-item-permissions:
+                function: resolve_item_permissions_workload_control
+                args: []

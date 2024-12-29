@@ -1,0 +1,4390 @@
+areas:
+- name: admin
+  client: FabricClientAdmin
+  commands:
+    - name: admin
+      commands:
+        - name: domains
+          commands:
+            - name: assign-workspaces-by-capacities
+              function: assign_domain_workspaces_by_capacities
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: capacities_ids
+                required: true
+                default: null
+                type: List[str]
+                description: The list of capacity IDs
+              - name: wait_for_completion
+                required: false
+                default: true
+                type: bool
+                description: Whether to wait for the operation to complete
+            - name: assign-workspaces-by-ids
+              function: assign_domain_workspaces_by_ids
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: workspaces_ids
+                required: true
+                default: null
+                type: List[str]
+                description: The list of workspace IDs
+            - name: assign-workspaces-by-principals
+              function: assign_domains_workspaces_by_principals
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: principals
+                required: true
+                default: null
+                type: List[Principal]
+                description: The list of principal IDs
+              - name: wait_for_completion
+                required: false
+                default: true
+                type: bool
+                description: Whether to wait for the operation to complete
+            - name: create
+              function: create_domain
+              args:
+              - name: display_name
+                required: true
+                default: null
+                type: str
+                description: The display name of the domain
+              - name: description
+                required: false
+                default: null
+                type: str
+                description: The description of the domain
+              - name: parent_domain_id
+                required: false
+                default: null
+                type: str
+                description: The parent domain ID
+            - name: delete
+              function: delete_domain
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+            - name: get
+              function: get_domain
+              args:
+              - name: domain_id
+                required: false
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: domain_name
+                required: false
+                default: null
+                type: str
+                description: The name of the domain
+            - name: list-workspaces
+              function: list_domain_workspaces
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: workspace_objects
+                required: false
+                default: false
+                type: bool
+                description: Whether to return as objects
+            - name: list
+              function: list_domains
+              args:
+              - name: nonEmptyOnly
+                required: false
+                default: false
+                type: bool
+                description: Whether to list only non-empty domains
+            - name: bulk-assign-role-assignments
+              function: role_assignments_bulk_assign
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: type
+                required: true
+                default: null
+                type: Literal["Admins", "Contributors"]
+                description: The type of the role assignment
+              - name: principals
+                required: true
+                default: null
+                type: List[Principal]
+                description: The list of principals
+            - name: bulk-unassign-role-assignments
+              function: role_assignments_bulk_unassign
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: type
+                required: true
+                default: null
+                type: Literal["Admins", "Contributors"]
+                description: The type of the role assignment
+              - name: principals
+                required: true
+                default: null
+                type: List[Principal]
+                description: The list of principals
+            - name: unassign-all-workspaces
+              function: unassign_all_domain_workspaces
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+            - name: unassign-workspaces-by-ids
+              function: unassign_domain_workspaces_by_ids
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: workspace_ids
+                required: true
+                default: null
+                type: List[str]
+                description: The list of workspace IDs
+            - name: update
+              function: update_domain
+              args:
+              - name: domain_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the domain
+              - name: description
+                required: false
+                default: null
+                type: str
+                description: The description of the domain
+              - name: display_name
+                required: false
+                default: null
+                type: str
+                description: The display name of the domain
+              - name: contributors_scope
+                required: false
+                default: null
+                type: Literal["AdminsOnly", "AllTenant", "SpecificUsersAndGroups"]
+                description: The contributors scope of the domain
+              - name: return_item
+                required: false
+                default: false
+                type: bool
+                description: Whether to return the domain
+        - name: external-data-shares
+          commands:
+            - name: list
+              function: list_external_data_shares
+              args: []
+            - name: revoke
+              function: revoke_external_data_share
+              args:
+              - name: external_data_share_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the external data share
+              - name: item_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the item
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+        - name: items
+          commands:
+            - name: get
+              function: get_item
+              args:
+              - name: item_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the item
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: type
+                required: false
+                default: null
+                type: ItemType
+                description: The type of the item
+            - name: list-access-details
+              function: list_item_access_details
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: item_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the item
+              - name: type
+                required: false
+                default: null
+                type: ItemType
+                description: The type of the item
+            - name: list
+              function: list_items
+              args:
+              - name: workspace_id
+                required: false
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: capacity_id
+                required: false
+                default: null
+                type: str
+                description: The ID of the capacity
+              - name: type
+                required: false
+                default: null
+                type: ItemType
+                description: The type of the item
+              - name: state
+                required: false
+                default: null
+                type: Literal["Active"]
+                description: The state of the item
+        - name: labels
+          commands:
+            - name: bulk-remove
+              function: bulk_remove_labels
+              args:
+              - name: items
+                required: true
+                default: null
+                type: List[ItemInfo]
+                description: The list of item IDs
+            - name: bulk-set
+              function: bulk_set_labels
+              args:
+              - name: items
+                required: true
+                default: null
+                type: List[ItemInfo]
+                description: The list of item IDs
+              - name: label_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the label
+              - name: assignment_method
+                required: false
+                default: null
+                type: Literal["Priviledged", "Standard"]
+                description: The assignment method
+              - name: delegated_principal
+                required: false
+                default: null
+                type: Principal
+                description: The delegated principal
+        - name: tenants
+          commands:
+            - name: list-capacities-tenant-settings-overrides
+              function: list_capacities_tenant_settings_overrides
+              args: []
+            - name: list-tenant-settings
+              function: list_tenant_settings
+              args: []
+        - name: users
+          commands:
+            - name: list-access-entities
+              function: list_access_entities
+              args:
+              - name: user_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the user
+              - name: type
+                required: false
+                default: null
+                type: ItemType
+                description: The type of the access entity
+        - name: workspaces
+          commands:
+            - name: get
+              function: get_workspace
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+            - name: list-git-connections
+              function: discover_git_connections
+              args: []
+            - name: list-workspace-access-details
+              function: list_workspace_access_details
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+            - name: list
+              function: list_workspaces
+              args:
+              - name: capacity_id
+                required: false
+                default: null
+                type: str
+                description: The ID of the capacity
+              - name: name
+                required: false
+                default: null
+                type: str
+                description: The name of the workspace
+              - name: state
+                required: false
+                default: null 
+                type: Literal["Active", "Deleted"]
+                description: The state of the workspace
+              - name: type
+                required: false
+                default: null
+                type: Literal["Workspace", "AdminWorkspace", "Personal"]
+                description: The type of the workspace
+              # - name: continuationToken
+              #   required: false
+              #   default: null
+              #   type: str
+              #   description: The continuation token
+            - name: restore
+              function: restore_workspace
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: new_workspace_admin_principal
+                required: true
+                default: null
+                type: Principal
+                description: The principal of the workspace admin
+              - name: new_workspace_name
+                required: false
+                default: null
+                type: str
+                description: The name of the workspace
+- name: core
+  client: FabricClientCore
+  commands:
+    - name: capacities
+      commands:
+        - name: list
+          function: list_capacities
+          args: []
+    - name: connections
+      commands:
+        - name: add-role-assignment
+          function: add_connection_role_assignment
+          args:
+          - name: connection_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the connection
+          - name: principal
+            required: true
+            default: null
+            type: str
+            description: The principal
+          - name: role
+            required: true
+            default: null
+            type: str
+            description: The role
+        - name: create
+          function: create_connection
+          args:
+          - name: connection_request
+            description: "json string or json file path. Should be one of: CreateCloudConnectionRequest, CreateOnpremisesConnectionRequest, CreateVirtualNetworkGatewayConnectionRequest. If json string, quotes must be escaped, e.g. {\\\\\"key\\\\\": \\\\\\\"value\\\\\"}"
+            required: true
+            default: null
+            type: Annotated[ConnectionRequest, Parameter(name="*")]
+        - name: delete
+          function: delete_connection
+          args:
+          - name: connection_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the connection
+        - name: delete-role-assignment
+          function: delete_connection_role_assignment
+          args:
+          - name: connection_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the connection
+          - name: connection_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the role assignment
+        - name: get
+          function: get_connection
+          args:
+          - name: connection_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the connection
+          - name: connection_name
+            required: false
+            default: null
+            type: str
+            description: The name of the connection
+        - name: get-role-assignment
+          function: get_connection_role_assignment
+          args:
+          - name: connection_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the connection
+          - name: connection_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the role assignment
+        - name: list-role-assignments
+          function: list_connection_role_assignments
+          args:
+          - name: connection_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the connection
+        - name: list
+          function: list_connections
+          args: []
+        - name: list-supported-connection-types
+          function: list_supported_connection_types
+          args:
+          - name: gateway_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the gateway
+          - name: show_all_creation_methods
+            required: false
+            default: null
+            type: bool
+            description: Whether to show all creation methods
+        - name: update
+          function: update_connection
+          args:
+          - name: connection_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the connection
+          - name: connection_request
+            required: true
+            default: null
+            type: ConnectionRequest
+            description: The connection request
+        - name: update-role-assignment
+          function: update_connection_role_assignment
+          args:
+          - name: connection_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the connection
+          - name: connection_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the role assignment
+          - name: role
+            required: true
+            default: null
+            type: str
+            description: The role
+    - name: deployment-pipelines
+      commands:
+        - name: deploy-stage-content
+          function: deploy_stage_content
+          args:
+          - name: deployment_pipeline_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the deployment pipeline
+          - name: source_stage_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the source stage
+          - name: target_stage_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the target stage
+          - name: created_workspace_details
+            required: false
+            default: null
+            type: list
+            description: A list of created workspace details
+          - name: items
+            required: false
+            default: null
+            type: list
+            description: A list of items
+          - name: note
+            required: false
+            default: null
+            type: str
+            description: A note
+          - name: wait_for_completion
+            required: false
+            default: true
+            type: bool
+            description: Whether to wait for the deployment to complete
+        - name: get
+          function: get_deployment_pipeline
+          args:
+          - name: deployment_pipeline_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the deployment pipeline
+        - name: list-stage-items
+          function: list_deployment_pipeline_stages_items
+          args:
+          - name: deployment_pipeline_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the deployment pipeline
+          - name: stage_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the deployment stage
+          - name: stage_name
+            required: false
+            default: null
+            type: str
+            description: The name of the deployment stage
+        - name: list-stages
+          function: list_deployment_pipeline_stages
+          args:
+          - name: deployment_pipeline_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the deployment pipeline
+        - name: list-deployment-pipelines
+          function: list_deployment_pipelines
+          args: []
+    - name: external-data-shares
+      commands:
+        - name: create
+          function: create_external_data_share
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: paths
+            required: true
+            default: null
+            type: list
+            description: The paths to share
+          - name: recipient
+            required: true
+            default: null
+            type: str
+            description: The recipient of the share
+        - name: get
+          function: get_external_data_share
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: external_data_share_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the external data share
+        - name: list-in-item
+          function: list_external_data_shares_in_item
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+        - name: revoke
+          function: revoke_external_data_share
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: external_data_share_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the external data share
+    - name: gateways
+      commands:
+        - name: add-role-assignment
+          function: add_gateway_role_assignment
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+          - name: principal
+            required: true
+            default: null
+            type: str
+            description: The principal
+          - name: role
+            required: true
+            default: null
+            type: str
+            description: The role
+        - name: create
+          function: create_gateway
+          args:
+          - name: gateway_request
+            required: true
+            default: null
+            type: GatewayRequest
+            description: The gateway request
+        - name: delete
+          function: delete_gateway
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+        - name: delete-member
+          function: delete_gateway_member
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+          - name: gateway_member_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway member
+        - name: delete-role-assignment
+          function: delete_gateway_role_assignment
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+          - name: gateway_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway role assignment
+        - name: get
+          function: get_gateway
+          args:
+          - name: gateway_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the gateway
+          - name: gateway_name
+            required: false
+            default: null
+            type: str
+            description: The name of the gateway
+        - name: get-role-assignment
+          function: get_gateway_role_assignment
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The
+          - name: gateway_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway role assignment
+        - name: list-members
+          function: list_gateway_members
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+        - name: list-role-assignments
+          function: list_gateway_role_assignments
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+        - name: list
+          function: list_gateways
+          args: []
+        - name: update
+          function: update_gateway
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+          - name: gateway_request
+            required: true
+            default: null
+            type: GatewayRequest
+            description: The gateway request
+        - name: update-member
+          function: update_gateway_member
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+          - name: gateway_member_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway member
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the gateway member
+          - name: enabled
+            required: true
+            default: null
+            type: bool
+            description: Whether the gateway member is enabled
+        - name: update-role-assignment
+          function: update_gateway_role_assignment
+          args:
+          - name: gateway_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway
+          - name: gateway_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the gateway role assignment
+          - name: role
+            required: true
+            default: null
+            type: str
+            description: The role
+    - name: git
+      commands:
+        - name: commit
+          function: commit_to_git
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: mode
+            required: true
+            default: null
+            type: str
+            description: The mode of the commit
+          - name: comment
+            required: false
+            default: null
+            type: str
+            description: The comment of the commit
+          - name: items
+            required: false
+            default: null
+            type: list
+            description: The list of items
+          - name: workspace_head
+            required: false
+            default: null
+            type: str
+            description: The workspace head
+        - name: connect
+          function: git_connect
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: git_provider_details
+            required: true
+            default: null
+            type: Annotated[GitProviderDetails, Parameter(name="*")]
+            description: The git provider details
+          # - name: my_git_credentials
+          #   required: false
+          #   default: null
+          #   type: Annotated[GitCredentials, Parameter(name="*")]
+          #   description: User-specific Git credentials for authentication to the GitProvider. Required for GitHub.
+        - name: disconnect
+          function: git_disconnect
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+        - name: get-connection
+          function: git_get_connection
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+        - name: get-my-git-credentials
+          function: get_my_git_credentials
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+        - name: get-status
+          function: git_get_status
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+        - name: initialize-connection
+          function: git_initialize_connection
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: initialization_strategy
+            required: true
+            default: null
+            type: Literal["None", "PreferRemote", "PreferWorkspace"]
+            description: The initialization strategy
+        - name: update-from-git
+          function: update_from_git
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: remote_commit_hash
+            required: true
+            default: null
+            type: str
+            description: The remote commit hash
+          - name: conflict_resolution
+            required: false
+            default: null
+            type: Annotated[GitConflictResolution, Parameter(name="*")]
+            description: The conflict resolution
+          - name: options
+            required: false
+            default: null
+            type: Annotated[GitUpdateOptions, Parameter(name="*")]
+            description: ''
+          - name: workspace_head
+            required: false
+            default: null
+            type: str
+            description: The workspace head
+        - name: update-my-git-credentials
+          function: update_my_git_credentials
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: git_credentials
+            required: true
+            default: null
+            type: Annotated[GitUpdateCredentials, Parameter(name="*")]
+            description: The git credentials
+    - name: items
+      commands:
+        - name: create
+          function: create_item
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the item
+          - name: type
+            required: true
+            default: null
+            type: ItemType
+            description: The type of the item
+          - name: definition
+            required: false
+            default: null
+            type: ItemDefinition
+            description: The definition of the item
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[str, Parameter(help="The format of the item")]
+            description: The format of the item  
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the item
+          - name: wait_for_completion
+            required: false
+            default: true
+            type: bool
+            description: Whether to wait for the item to be created
+          # - name: kwargs
+          #   required: true
+          #   default: null
+          #   type: dixct
+          #   description: The keyword arguments
+        - name: delete
+          function: delete_item
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: type
+            required: false
+            default: null
+            type: ItemType
+            description: The type of the item
+        - name: get
+          function: get_item
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the item
+          - name: item_name
+            required: false
+            default: null
+            type: str
+            description: The name of the item
+          - name: item_type
+            required: false
+            default: null
+            type: str
+            description: The type of the item
+        - name: get-definition
+          function: get_item_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: type
+            required: false
+            default: null
+            type: ItemType
+            description: The type of the item
+          - name: item_path
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the item
+        - name: list-connections
+          function: list_item_connections
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+        - name: list
+          function: list_items
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+          - name: type
+            required: false
+            default: null
+            type: ItemType
+            description: The type of the item
+        - name: update
+          function: update_item
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the item
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the item
+          - name: type
+            required: false
+            default: null
+            type: ItemType
+            description: The type of the item
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: update_item_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the item
+          - name: type
+            required: false
+            default: null
+            type: ItemType
+            description: The type of the item
+          - name: wait_for_completion
+            required: false
+            default: true
+            type: bool
+            description: Whether to wait for the item to be updated
+          # - name: kwargs
+          #   required: true
+          #   default: null
+          #   type: dixct
+          #   description: The keyword arguments
+    - name: job-scheduler
+      commands:
+        - name: cancel-item-job-instance
+          function: cancel_item_job_instance
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: job_instance_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the job instance
+        - name: create-item-schedule
+          function: create_item_schedule
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: job_type
+            required: true
+            default: null
+            type: str
+            description: The type of the job
+          - name: configuration
+            required: true
+            default: null
+            type: Annotated[ScheduleConfig, Parameter(name="*")]
+            description: The configuration of the schedule
+          - name: enabled
+            required: true
+            default: null
+            type: bool
+            description: Whether the schedule is enabled
+        - name: get-item-job-instance
+          function: get_item_job_instance
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: job_instance_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the job instance
+        - name: get-item-schedule
+          function: get_item_schedule
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: job_type
+            required: true
+            default: null
+            type: str
+            description: The type of the job
+          - name: schedule_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the schedule
+        - name: list-item-job-instances
+          function: list_item_job_instances
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+        - name: list-item-schedules
+          function: list_item_schedules
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: job_type
+            required: true
+            default: null
+            type: str
+            description: The type of the job
+        - name: run-on-demand-item-job
+          function: run_on_demand_item_job
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: job_type
+            required: true
+            default: null
+            type: str
+            description: The type of the job
+          - name: execution_data
+            required: false
+            default: null
+            type: ExecutionData
+            description: The execution data of the job
+        - name: update-item-schedule
+          function: update_item_schedule
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: job_type
+            required: true
+            default: null
+            type: str
+            description: The type of the job
+          - name: schedule_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the schedule
+          - name: configuration
+            required: true
+            default: null
+            type: ScheduleConfig
+            description: The configuration of the schedule
+          - name: enabled
+            required: true
+            default: null
+            type: bool
+            description: Whether the schedule is enabled
+    - name: long-running-operations
+      commands:
+        - name: get-result
+          function: get_operation_results
+          args:
+          - name: operation_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the operation
+        - name: get-state
+          function: get_operation_state
+          args:
+          - name: operation_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the operation
+    - name: managed-private-endpoints
+      commands:
+        - name: create
+          function: create_workspace_managed_private_endpoint
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: name
+            required: true
+            default: null
+            type: str
+            description: The name of the managed private endpoint
+          - name: target_private_link_resource_id
+            required: true
+            default: null
+            type: str
+            description: The target private link resource ID
+          - name: target_subresource_type
+            required: true
+            default: null
+            type: str
+            description: The target subresource type
+          - name: request_message
+            required: false
+            default: null
+            type: str
+            description: The request message
+        - name: delete
+          function: delete_workspace_managed_private_endpoint
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: managed_private_endpoint_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the managed private endpoint
+        - name: get
+          function: get_workspace_managed_private_endpoint
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: managed_private_endpoint_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the managed private endpoint
+        - name: list
+          function: list_workspace_managed_private_endpoints
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+    - name: one-lake-data-access-security
+      commands:
+        - name: create-or-update-data-access-roles
+          function: create_or_update_data_access_roles
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: data_access_roles
+            required: true
+            default: null
+            type: DataAccessRole
+            description: "json string or json file path in format of list of DataAccessRole. If json string, quotes must be escaped, e.g. {\\\\\"key\\\\\": \\\\\\\"value\\\\\"}"
+          - name: dryrun
+            alias: dry_run
+            required: false
+            default: false
+            type: bool
+            description: Whether to run a dry run
+          - name: etag_match
+            required: false
+            default: null
+            type: Literal["If-Match", "If-None-Match"]
+            description: The etag match
+        - name: list-data-access-roles
+          function: list_data_access_roles
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+    - name: one-lake-shortcuts
+      commands:
+        - name: create
+          function: create_shortcut
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: path
+            required: true
+            default: null
+            type: str
+            description: The path of the shortcut
+          - name: name
+            required: true
+            default: null
+            type: str
+            description: The name of the shortcut
+          - name: target
+            required: true
+            default: null
+            type: str
+            description: The target of the shortcut
+        - name: delete
+          function: delete_shortcut
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: path
+            required: true
+            default: null
+            type: str
+            description: The path of the shortcut
+          - name: name
+            required: true
+            default: null
+            type: str
+            description: The name of the shortcut
+        - name: get
+          function: get_shortcut
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: path
+            required: true
+            default: null
+            type: str
+            description: The path of the shortcut
+          - name: name
+            required: true
+            default: null
+            type: str
+            description: The name of the shortcut
+        - name: list
+          function: list_shortcuts
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the item
+          - name: parent_path
+            required: false
+            default: null
+            type: str
+            description: The starting path from which to retrieve the shortcuts
+    - name: workspaces
+      commands:
+        - name: add-role-assignment
+          function: add_workspace_role_assignment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: role
+            required: true
+            default: null
+            type: str
+            description: The role to assign
+          - name: principal
+            required: true
+            default: null
+            type: str
+            description: The principal to assign the role to
+        - name: assign-to-capacity
+          function: assign_to_capacity
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: capacity_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the capacity
+          - name: wait_for_completion
+            required: false
+            default: true
+            type: bool
+            description: Whether to wait for the operation to complete
+        - name: create
+          function: create_workspace
+          args:
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the workspace
+          - name: capacity_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the capacity to assign the workspace to
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the workspace
+          - name: exists_ok
+            required: false
+            default: true
+            type: bool
+            description: Whether to return the existing workspace if it already exists
+        - name: delete
+          function: delete_workspace
+          args:
+          - name: workspace_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the workspace
+        - name: delete-role-assignment
+          function: delete_workspace_role_assignment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: workspace_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the role assignment
+        - name: deprovision-identity
+          function: deprovision_identity
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+        - name: get
+          function: get_workspace
+          args:
+          - name: id
+            alias: workspace_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: name
+            alias: workspace_name
+            required: false
+            default: null
+            type: str
+            description: The name of the workspace
+        - name: get-role-assignment
+          function: get_workspace_role_assignment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: workspace_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the role assignment
+        - name: list-role-assignments
+          function: list_workspace_role_assignments
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+        - name: list
+          function: list_workspaces
+          args: []
+        - name: provision-identity
+          function: provision_identity
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+        - name: unassign-from-capacity
+          function: unassign_from_capacity
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: wait_for_completion
+            required: false
+            default: true
+            type: bool
+            description: Whether to wait for the operation to complete
+        - name: update
+          function: update_workspace
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the workspace
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the workspace
+        - name: update-role-assignment
+          function: update_workspace_role_assignment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: role
+            required: true
+            default: null
+            type: str
+            description: The role to assign
+          - name: workspace_role_assignment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the role assignment
+    - name: dashboard
+      commands:
+        # - name: items
+        #   commands:
+        - name: list
+          function: list_dashboards
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+    - name: datamart
+      commands:
+        # - name: items
+        #   commands:
+        - name: list
+          function: list_datamarts
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+    - name: data-pipeline
+      commands:
+        # - name: items
+        #   commands:
+        - name: create
+          function: create_data_pipeline
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the data pipeline
+          - name: definition
+            required: false
+            default: null
+            type: ItemDefinition
+            description: The definition of the data pipeline
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the data pipeline
+        - name: delete
+          function: delete_data_pipeline
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: data_pipeline_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the data pipeline
+        - name: get
+          function: get_data_pipeline
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: data_pipeline_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the data pipeline
+          - name: data_pipeline_name
+            required: false
+            default: null
+            type: str
+            description: The name of the data pipeline
+        - name: list
+          function: list_data_pipelines
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_data_pipeline
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: data_pipeline_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the data pipeline
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the data pipeline
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the data pipeline
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+    - name: environment
+      commands:
+        # - name: items
+        #   commands:
+        - name: create
+          function: create_environment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the environment
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the environment
+        - name: delete
+          function: delete_environment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: environment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the environment
+        - name: get
+          function: get_environment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: environment_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the environment
+          - name: environment_name
+            required: false
+            default: null
+            type: str
+            description: The name of the environment
+        - name: list
+          function: list_environments
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_environment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: environment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the environment
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the environment
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the environment
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: spark-compute
+          commands:
+            - name: get-published-settings
+              function: get_published_settings
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+            - name: get-staging-settings
+              function: get_staging_settings
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+            - name: update-staging-settings
+              function: update_staging_settings
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+              - name: driver_cores
+                required: false
+                default: null
+                type: int
+                description: The number of driver cores
+              - name: driver_memory
+                required: false
+                default: null
+                type: str
+                description: The memory for the driver
+              - name: dynamic_executor_allocation
+                required: false
+                default: null
+                type: bool
+                description: Whether to dynamically allocate executors
+              - name: executor_cores
+                required: false
+                default: null
+                type: int
+                description: The number of executor cores
+              - name: executor_memory
+                required: false
+                default: null
+                type: str
+                description: The memory for the executor
+              - name: instance_pool
+                required: false
+                default: null
+                type: str
+                description: The instance pool
+              - name: runtime_version
+                required: false
+                default: null
+                type: str
+                description: The runtime version
+              - name: spark_properties
+                required: false
+                default: null
+                type: SparkProperties
+                description: The spark properties as JSON string
+        - name: spark-libraries
+          commands:
+            - name: cancel-publish
+              function: cancel_publish
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+            - name: delete-staging-library
+              function: delete_staging_library
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+              - name: library_to_delete
+                required: true
+                default: null
+                type: str
+                description: The library to delete
+            - name: get-published-libraries
+              function: get_published_libraries
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+            - name: get-staging-libraries
+              function: get_staging_libraries
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+            - name: publish-environment
+              function: publish_environment
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+            - name: upload-staging-library
+              function: upload_staging_library
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: environment_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the environment
+              - name: file_path
+                required: true
+                default: null
+                type: str
+                description: The file path to upload
+    - name: eventhouse
+      commands:
+        # - name: items
+        #   commands:
+        - name: create
+          function: create_eventhouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the eventhouse
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the eventhouse
+        - name: delete
+          function: delete_eventhouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: eventhouse_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the eventhouse
+        - name: get
+          function: get_eventhouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: eventhouse_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the eventhouse
+          - name: eventhouse_name
+            required: false
+            default: null
+            type: str
+            description: The name of the eventhouse
+        - name: get-definition
+          function: partial(get_item_definition, type="eventhouses")
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            alias: eventhouse_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the eventhouse
+          - name: item_path
+            required: false
+            exclude_param: true
+            default: null
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the eventhouse definition           
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the eventhouse
+        - name: list
+          function: list_eventhouses
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_eventhouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: eventhouse_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the eventhouse
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the eventhouse
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the eventhouse
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: partial(update_item_definition, type="eventhouses")
+          args: []
+    - name: eventstream
+      commands:
+        # - name: items
+        #   commands:
+        - name: create
+          function: create_eventstream
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the eventstream
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the eventstream
+        - name: delete
+          function: delete_eventstream
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: eventstream_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the eventstream
+        - name: get
+          function: get_eventstream
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: eventstream_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the eventstream
+          - name: eventstream_name
+            required: false
+            default: null
+            type: str
+            description: The name of the eventstream
+        - name: get-definition
+          function: partial(get_item_definition, type="eventstreams")
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            alias: eventstream_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the eventstream
+          - name: item_path
+            required: false
+            exclude_param: true
+            default: null
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item            
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the eventstream
+        - name: list
+          function: list_eventstreams
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_eventstream
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: eventstream_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the eventstream
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the eventstream
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the eventstream
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: partial(update_item_definition, type="eventstreams")
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            alias: eventstream_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the eventstream
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the eventstream
+          - name: update_metadata
+            required: false
+            default: null
+            type: bool
+            description: Whether to update the metadata
+    - name: kql-dashboard
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_kql_dashboard
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the kql dashboard
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the kql dashboard
+        - name: delete
+          function: delete_kql_dashboard
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_dashboard_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql dashboard
+        - name: get
+          function: get_kql_dashboard
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_dashboard_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the kql dashboard
+          - name: kql_dashboard_name
+            required: false
+            default: null
+            type: str
+            description: The name of the kql dashboard
+        - name: get-definition
+          function: get_kql_dashboard_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_dashboard_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql dashboard
+          - name: item_path
+            required: false
+            default: null
+            exclude_param: true
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item            
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the kql dashboard
+        - name: list
+          function: list_kql_dashboards
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_kql_dashboard
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_dashboard_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql dashboard
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the kql dashboard
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the kql dashboard
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: update_kql_dashboard_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_dashboard_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql dashboard
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the kql dashboard
+          - name: update_metadata
+            required: false
+            default: null
+            type: bool
+            description: Whether to update the metadata
+    - name: kql-database
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_kql_database
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: creation_payload
+            required: true
+            default: null
+            type: CreationPayload
+            description: The creation payload
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the kql database
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the kql database
+        - name: delete
+          function: delete_kql_database
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_database_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql database
+        - name: get
+          function: get_kql_database
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_database_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the kql database
+          - name: kql_database_name
+            required: false
+            default: null
+            type: str
+            description: The name of the kql database
+        - name: get-definition
+          function: partial(get_item_definition, type="kqlDatabases")
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            alias: kql_database_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql database
+          - name: item_path
+            required: false
+            default: null
+            exclude_param: true
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item            
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the kql database
+        - name: list
+          function: list_kql_databases
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_kql_database
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_database_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql database
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the kql database
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the kql database
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: partial(update_item_definition, type="kqlDatabases")
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: item_id
+            alias: kql_database_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql database
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the kql database
+          - name: wait_for_completion
+            required: false
+            default: false
+            type: bool
+            description: Whether to wait for the operation to complete
+          - name: update_metadata
+            required: false
+            default: null
+            type: bool
+            description: Whether to update the metadata
+    - name: kql-queryset
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_kql_queryset
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the kql queryset
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the kql queryset
+          - name: definition
+            required: false
+            default: null
+            type: ItemDefinition
+            description: The definition of the kql queryset
+        - name: delete
+          function: delete_kql_queryset
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_queryset_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql queryset
+        - name: get
+          function: get_kql_queryset
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_queryset_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the kql queryset
+          - name: kql_queryset_name
+            required: false
+            default: null
+            type: str
+            description: The name of the kql queryset
+        - name: get-definition
+          function: get_kql_queryset_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_queryset_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql queryset
+          - name: item_path
+            required: false
+            default: null
+            exclude_param: true
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item            
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the kql queryset
+        - name: list
+          function: list_kql_querysets
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_kql_queryset
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_queryset_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql queryset
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the kql queryset
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the kql queryset
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: update_kql_queryset_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: kql_queryset_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the kql queryset
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the kql queryset
+          - name: update_metadata
+            required: false
+            default: null
+            type: bool
+            description: Whether to update the metadata
+    - name: lakehouse
+      commands:
+        - name: background-jobs
+          commands:
+            - name: run-on-demand-table-maintenance
+              function: run_on_demand_table_maintenance
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: lakehouse_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the lakehouse
+              - name: execution_data
+                required: false
+                default: null
+                type: Annotated[ExecutionData, Parameter(name="*")]
+                description: The execution data
+              - name: job_type
+                required: false
+                default: TableMaintenance
+                type: Literal["TableMaintenance"]
+                description: The job type
+              - name: wait_for_completion
+                required: false
+                default: false
+                type: bool
+                description: Whether to wait for the operation to complete
+        # - name: items
+        #   commands:
+        - name: create
+          function: create_lakehouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the lakehouse
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the lakehouse
+        - name: delete
+          function: delete_lakehouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: lakehouse_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the lakehouse
+        - name: get
+          function: get_lakehouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: lakehouse_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the lakehouse
+          - name: lakehouse_name
+            required: false
+            default: null
+            type: str
+            description: The name of the lakehouse
+        - name: list
+          function: list_lakehouses
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_lakehouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: lakehouse_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the lakehouse
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the lakehouse
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the lakehouse
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: tables
+          commands:
+            - name: list
+              function: list_tables
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: lakehouse_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the lakehouse
+            - name: load
+              function: load_table
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: lakehouse_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the lakehouse
+              - name: table_name
+                required: true
+                default: null
+                type: str
+                description: The name of the table
+              - name: path_type
+                required: true
+                default: null
+                type: str
+                description: The path type
+              - name: relative_path
+                required: true
+                default: null
+                type: str
+                description: The relative path
+              - name: file_extension
+                required: false
+                default: null
+                type: str
+                description: The file extension
+              - name: format_options
+                required: false
+                default: null
+                type: Annotated[FileFormatOptions, Parameter(name="*")]
+                description: The format options
+              - name: mode
+                required: false
+                default: null
+                type: Literal["Append", "Overwrite"]
+                description: The mode
+              - name: recursive
+                required: false
+                default: null
+                type: bool
+                description: Whether to load recursively
+              - name: wait_for_completion
+                required: false
+                default: true
+                type: bool
+                description: Whether to wait for the operation to complete
+    - name: mirrored-database
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_mirrored_database
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the mirrored database
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the mirrored database
+          - name: definition
+            required: false
+            default: null
+            type: ItemDefinition
+            description: The definition of the mirrored database
+        - name: delete
+          function: delete_mirrored_database
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: mirrored_database_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the mirrored database
+        - name: get
+          function: get_mirrored_database
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: mirrored_database_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the mirrored database
+          - name: mirrored_database_name
+            required: false
+            default: null
+            type: str
+            description: The name of the mirrored database
+        - name: get-definition
+          function: get_mirrored_database_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: mirrored_database_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the mirrored database
+          - name: item_path
+            required: false
+            default: null
+            exclude_param: true
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[str, Parameter(help="The format of the item", show=False)]
+            description: The format of the item
+        - name: list
+          function: list_mirrored_databases
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_mirrored_database
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: mirrored_database_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the mirrored database
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the mirrored database
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the mirrored database
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: update_mirrored_database_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: mirrored_database_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the mirrored database
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the mirrored database
+        - name: mirroring
+          commands:
+            - name: get-status
+              function: get_mirroring_status
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: mirrored_database_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the mirrored database
+            - name: get-tables-status
+              function: get_tables_mirroring_status
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: mirrored_database_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the mirrored database
+            - name: start
+              function: start_mirroring
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: mirrored_database_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the mirrored database
+            - name: stop
+              function: stop_mirroring
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: mirrored_database_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the mirrored database
+    - name: mirrored-warehouse
+      commands:
+        # - name: items 
+        #   commands:
+        - name: list
+          function: list_mirrored_warehouses
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+    - name: ml-experiment
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_ml_experiment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the ml experiment
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the ml experiment
+        - name: delete
+          function: delete_ml_experiment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: ml_experiment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the ml experiment
+        - name: get
+          function: get_ml_experiment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: ml_experiment_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the ml experiment
+          - name: ml_experiment_name
+            required: false
+            default: null
+            type: str
+            description: The name of the ml experiment
+        - name: list
+          function: list_ml_experiments
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_ml_experiment
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: ml_experiment_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the ml experiment
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the ml experiment
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the ml experiment
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+    - name: ml-model
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_ml_model
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the ml model
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the ml model
+        - name: delete
+          function: delete_ml_model
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: ml_model_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the ml model
+        - name: get
+          function: get_ml_model
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: ml_model_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the ml model
+          - name: ml_model_name
+            required: false
+            default: null
+            type: str
+            description: The name of the ml model
+        - name: list
+          function: list_ml_models
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_ml_model
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: ml_model_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the ml model
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the ml model
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the ml model
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+    - name: notebook
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_notebook
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the notebook
+          - name: definition
+            required: false
+            default: null
+            type: Annotated[ItemDefinition, Parameter(name="*")]
+            description: The definition of the notebook
+          - name: format
+            exclude_param: true
+            # required: false
+            # default: null
+            type: Annotated[Literal["ipynb"], Parameter(help="The format of the notebook")] = None
+            description: The format of the notebook
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the notebook
+        - name: delete
+          function: delete_notebook
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: notebook_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the notebook
+        - name: get
+          function: get_notebook
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: notebook_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the notebook
+          - name: notebook_name
+            required: false
+            default: null
+            type: str
+            description: The name of the notebook
+        - name: get-definition
+          function: get_notebook_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: notebook_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the notebook
+          - name: item_path
+            required: false
+            default: null
+            exclude_param: true
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item
+          - name: format
+            # required: false
+            # default: null
+            type: Annotated[Literal["ipynb"], Parameter(help="The format of the definition")] = None
+            description: The format of the definition
+        - name: list
+          function: list_notebooks
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_notebook
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: notebook_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the notebook
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the notebook
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the notebook
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: update_notebook_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: notebook_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the notebook
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the notebook
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[Literal["ipynb"], Parameter(help="The format of the notebook")]
+            description: The format of the notebook  
+    - name: paginated-report
+      commands:
+        # - name: items 
+        #   commands:
+        - name: list
+          function: list_paginated_reports
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+        - name: update
+          function: update_paginated_report
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: paginated_report_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the paginated report
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the paginated report
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the paginated report
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+    - name: report
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_report
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the report
+          - name: definition
+            required: false
+            default: null
+            type: ItemDefinition
+            description: The definition of the report
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[str, Parameter(help="The format of the report")]
+            description: The format of the report  
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the report
+        - name: delete
+          function: delete_report
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: report_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the report
+        - name: get
+          function: get_report
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: report_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the report
+          - name: report_name
+            required: false
+            default: null
+            type: str
+            description: The name of the report
+        - name: get-definition
+          function: get_report_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: report_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the report
+          - name: item_path
+            required: false
+            default: null
+            exclude_param: true
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item            
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the definition
+        - name: list
+          function: list_reports
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update-definition
+          function: update_report_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: report_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the report
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the report
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[str, Parameter(help="The format of the report")]
+            description: The format of the report  
+    - name: semantic-model
+      commands:
+        # - name: items 
+        #   commands:
+        - name: create
+          function: create_semantic_model
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the semantic model
+          - name: definition
+            required: false
+            default: null
+            type: ItemDefinition
+            description: The definition of the semantic model
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[str, Parameter(help="The format of the semantic model")]
+            description: The format of the semantic model  
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the semantic model
+        - name: delete
+          function: delete_semantic_model
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: semantic_model_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the semantic model
+        - name: get
+          function: get_semantic_model
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: semantic_model_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the semantic model
+          - name: semantic_model_name
+            required: false
+            default: null
+            type: str
+            description: The name of the semantic model
+        - name: get-definition
+          function: get_semantic_model_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: semantic_model_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the semantic model
+          - name: item_path
+            required: false
+            default: null
+            exclude_param: true
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item            
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the definition
+        - name: list
+          function: list_semantic_models
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_semantic_model
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: semantic_model_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the semantic model
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the semantic model
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the semantic model
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: update_semantic_model_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: semantic_model_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the semantic model
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the semantic model
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[str, Parameter(help="The format of the semantic model")]
+            description: The format of the semantic model  
+    - name: spark
+      commands:
+        - name: custom-pools
+          commands:
+            - name: create
+              function: create_workspace_custom_pool
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: name
+                required: true
+                default: null
+                type: str
+                description: The name of the pool
+              - name: node_family
+                required: true
+                default: null
+                type: str
+                description: The node family
+              - name: node_size
+                required: true
+                default: null
+                type: str
+                description: The node size
+              - name: auto_scale
+                required: true
+                default: null
+                type: bool
+                description: Whether to auto scale
+              - name: dynamic_executor_allocation
+                required: true
+                default: null
+                type: bool
+                description: Whether to use dynamic executor allocation
+            - name: delete
+              function: delete_workspace_custom_pool
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: pool_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the pool
+            - name: get
+              function: get_workspace_custom_pool
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: pool_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the pool
+            - name: list
+              function: list_workspace_custom_pools
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+            - name: update
+              function: update_workspace_custom_pool
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: pool_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the pool
+              - name: name
+                required: false
+                default: null
+                type: str
+                description: The name of the pool
+              - name: node_family
+                required: false
+                default: null
+                type: str
+                description: The node family
+              - name: node_size
+                required: false
+                default: null
+                type: str
+                description: The node size
+              - name: auto_scale
+                required: false
+                default: null
+                type: bool
+                description: Whether to auto scale
+              - name: dynamic_executor_allocation
+                required: false
+                default: null
+                type: bool
+                description: Whether to use dynamic executor allocation
+              - name: return_item
+                required: false
+                default: false
+                type: bool
+                description: Whether to return the item
+        - name: spark-settings
+          commands:
+            - name: get
+              function: get_spark_settings
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+            - name: update
+              function: update_spark_settings
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: automatic_log
+                required: false
+                default: null
+                type: bool
+                description: Whether to automatically log
+              - name: environment
+                required: false
+                default: null
+                type: str
+                description: The environment
+              - name: high_concurrency
+                required: false
+                default: null
+                type: bool
+                description: Whether to use high concurrency
+              - name: pool
+                required: false
+                default: null
+                type: Annotated[PoolProperties, Parameter(help="The pool properties")]
+                description: The pool
+    - name: spark-job-definition
+      commands:
+        - name: background-jobs
+          commands:
+            - name: run-on-demand
+              function: run_on_demand_spark_job_definition
+              args:
+              - name: workspace_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the workspace
+              - name: spark_job_definition_id
+                required: true
+                default: null
+                type: str
+                description: The ID of the spark job definition
+              - name: job_type
+                required: false
+                default: sparkjob
+                type: Annotated[Literal["sparkjob"], Parameter(help="The job type")]
+                description: The job type
+        # - name: items
+        #   commands:
+        - name: create
+          function: create_spark_job_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the spark job definition
+          - name: definition
+            required: false
+            default: null
+            type: ItemDefinition
+            description: The definition of the spark job definition
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[Literal["SparkJobDefinitionV1"], Parameter(help="The format of the spark job definition")]
+            description: The format of the spark job definition  
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the spark job definition
+        - name: delete
+          function: delete_spark_job_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: spark_job_definition_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the spark job definition
+        - name: get
+          function: get_spark_job_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: spark_job_definition_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the spark job definition
+          - name: spark_job_definition_name
+            required: false
+            default: null
+            type: str
+            description: The name of the spark job definition
+        - name: get-definition
+          function: get_spark_job_definition_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: spark_job_definition_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the spark job definition
+          - name: item_path
+            required: false
+            default: null
+            exclude_param: true
+            type: Annotated[OutFile, Parameter(name="*")]
+            description: The path of the item            
+          - name: format
+            required: false
+            default: null
+            type: str
+            description: The format of the definition
+        - name: list
+          function: list_spark_job_definitions
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_spark_job_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: spark_job_definition_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the spark job definition
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the spark job definition
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the spark job definition
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+        - name: update-definition
+          function: update_spark_job_definition_definition
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: spark_job_definition_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the spark job definition
+          - name: definition
+            required: true
+            default: null
+            type: ItemDefinition
+            description: The definition of the spark job definition
+          - name: format
+            exclude_param: true
+            required: false
+            default: null
+            type: Annotated[Literal["SparkJobDefinitionV1"], Parameter(help="The format of the spark job definition")]
+            description: The format of the spark job definition  
+    - name: sql-endpoint
+      commands:
+        # - name: items 
+        #   commands:
+        - name: list
+          function: list_sql_endpoints
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+    - name: warehouse
+      commands:
+        # - name: items
+        #   commands:
+        - name: create
+          function: create_warehouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: display_name
+            required: true
+            default: null
+            type: str
+            description: The display name of the warehouse
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the warehouse
+        - name: delete
+          function: delete_warehouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: warehouse_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the warehouse
+        - name: get
+          function: get_warehouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: warehouse_id
+            required: false
+            default: null
+            type: str
+            description: The ID of the warehouse
+          - name: warehouse_name
+            required: false
+            default: null
+            type: str
+            description: The name of the warehouse
+        - name: list
+          function: list_warehouses
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: with_properties
+            required: false
+            default: false
+            type: bool
+            description: Whether to get the item object with properties
+        - name: update
+          function: update_warehouse
+          args:
+          - name: workspace_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the workspace
+          - name: warehouse_id
+            required: true
+            default: null
+            type: str
+            description: The ID of the warehouse
+          - name: display_name
+            required: false
+            default: null
+            type: str
+            description: The display name of the warehouse
+          - name: description
+            required: false
+            default: null
+            type: str
+            description: The description of the warehouse
+          - name: return_item
+            required: false
+            default: false
+            type: bool
+            description: Whether to return the item
+    # - name: workload-development
+    #   commands:
+    #     - name: workloadapi
+    #       commands:
+    #         - name: endpoint-resolution
+    #           commands: null
+    #         - name: item-lifecycle
+    #           commands: null
+    #         - name: jobs
+    #           commands: null
+    #     - name: workload-controlapi
+    #       commands:
+    #         - name: workload-control
+    #           commands: null
