@@ -11,7 +11,6 @@ class CreationPayload(ComplexType):
     source_cluster_uri: str
     source_database_name: str
 
-
     def to_dict(self):
         payload = {}
         if self.database_type:

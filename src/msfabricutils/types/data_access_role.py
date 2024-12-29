@@ -1,7 +1,9 @@
-from .complex_type import ComplexType, load_json_payload
-from typing import Annotated
-from cyclopts import Parameter
 from dataclasses import dataclass
+from typing import Annotated
+
+from cyclopts import Parameter
+
+from .complex_type import ComplexType, load_json_payload
 
 
 @dataclass

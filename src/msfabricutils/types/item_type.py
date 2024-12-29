@@ -22,5 +22,5 @@ ItemType = Literal[
     "SQLEndpoint",
     "SemanticModel",
     "SparkJobDefinition",
-    "Warehouse"
+    "Warehouse",
 ]

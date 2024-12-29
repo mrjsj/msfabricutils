@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from typing import Annotated, Literal
-from .complex_type import ComplexType
+
 from cyclopts import Parameter
+
+from .complex_type import ComplexType
 
 
 @dataclass

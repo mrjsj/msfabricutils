@@ -1,8 +1,10 @@
+from dataclasses import dataclass
 from typing import Annotated, Literal
 
 from cyclopts import Parameter
-from dataclasses import dataclass
+
 from .complex_type import ComplexType
+
 
 @dataclass
 class FileFormatOptions(ComplexType):
@@ -21,4 +23,3 @@ class FileFormatOptions(ComplexType):
             payload["header"] = self.header
 
         return payload
-

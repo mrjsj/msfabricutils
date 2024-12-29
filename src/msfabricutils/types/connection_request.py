@@ -1,7 +1,10 @@
-from .complex_type import ComplexType, load_json_payload
 from dataclasses import dataclass
 from typing import Annotated
+
 from cyclopts import Parameter
+
+from .complex_type import ComplexType, load_json_payload
+
 
 @dataclass
 class ConnectionRequest(ComplexType):
@@ -9,4 +12,3 @@ class ConnectionRequest(ComplexType):
 
     def to_dict(self):
         return load_json_payload(self.connection_request)
-

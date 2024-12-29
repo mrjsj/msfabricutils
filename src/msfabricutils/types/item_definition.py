@@ -1,13 +1,14 @@
 import base64
 import os
-from typing import Annotated
-from cyclopts import Parameter
 from dataclasses import dataclass
+from typing import Annotated
+
+from cyclopts import Parameter
 from msfabricpysdkcore.item import Item
 
 
 @dataclass
-class ItemDefinitionPart():
+class ItemDefinitionPart:
     path: Annotated[str, Parameter(help="The path of the item definition part.")]
     payload: Annotated[str, Parameter(help="The payload of the item definition part.")]
     payload_type: Annotated[str, Parameter(help="The type of the payload.")]
@@ -24,7 +25,7 @@ class ItemDefinitionPart():
 
 
 @dataclass
-class ItemDefinition():
+class ItemDefinition:
     item_path: Annotated[str, Parameter(help="The file or folder path of the item definition.")]
     format: Annotated[str, Parameter(help="The format of the item definition.", show=False)] = None
     parts: Annotated[list[ItemDefinitionPart], Parameter(help="The parts of the item definition.", show=False)] = None
@@ -39,15 +40,17 @@ class ItemDefinition():
 
     # @classmethod
     def load_from_path(self, format: str = None, payload_type: str = "InlineBase64") -> "ItemDefinition":
-        
         self.format = format
-        path = self.in_file
+        path = self.item_path
         parts = []
         if os.path.isfile(path):
             dirs = [(os.path.dirname(path), None, [os.path.basename(path)])]
 
         if os.path.isdir(path):
             dirs = os.walk(path)
+
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"The path {path} does not exist.")
 
         for root, _, files in dirs:
             for file in files:
@@ -59,10 +62,11 @@ class ItemDefinition():
                 with open(file_path, "r") as f:
                     endoded_payload = base64.b64encode(f.read().encode()).decode()
                 parts.append(ItemDefinitionPart(path=rel_path, payload=endoded_payload, payload_type=payload_type))
-        return ItemDefinition(in_file=path, format=format, parts=parts)
+        return ItemDefinition(item_path=path, format=format, parts=parts)
+
 
 @dataclass
-class OutFile():
+class OutFile:
     item_path: Annotated[str, Parameter(help="The path to save the item definition.")]
 
 

@@ -9,6 +9,7 @@ class ComplexType(ABC):
 
 def load_json_payload(payload: str):
     import json
+
     if payload.endswith(".json") or payload.endswith(".jsonl"):
         with open(payload, "r") as f:
             return json.load(f)

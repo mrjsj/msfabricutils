@@ -1,7 +1,10 @@
 from dataclasses import dataclass
-from .complex_type import ComplexType, load_json_payload
 from typing import Annotated, Literal
+
 from cyclopts import Parameter
+
+from .complex_type import ComplexType
+
 
 @dataclass
 class PoolProperties(ComplexType):
@@ -36,6 +39,5 @@ class PoolProperties(ComplexType):
                 payload["starterPool"]["maxNodeCount"] = self.starter_pool_max_node_count
             if self.starter_pool_max_executors:
                 payload["starterPool"]["maxExecutors"] = self.starter_pool_max_executors
-        
-        return payload
 
+        return payload
