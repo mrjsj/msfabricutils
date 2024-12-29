@@ -1,9 +1,8 @@
-from cyclopts import App
-import rich
-from rich.tree import Tree
 from typing import Annotated, List
-from cyclopts import Parameter
 
+import rich
+from cyclopts import App, Parameter
+from rich.tree import Tree
 
 
 def show_command_tree(commands: Annotated[List[str], Parameter(help="Space delimited list of commands to filter the command tree by. Example: `msfu tree lakehouse`, `msfu tree lakehouse tables`.", consume_multiple=True)] = None) -> None:
