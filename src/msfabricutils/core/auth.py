@@ -111,4 +111,4 @@ def get_storage_options() -> dict[str, str]:
         {"bearer_token": "your_token_here"}
         ```
     """
-    return {"bearer_token": get_azure_storage_access_token()}
+    return {"bearer_token": get_azure_storage_access_token(), "allow_invalid_certificates": "true"}
