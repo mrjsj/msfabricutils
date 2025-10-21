@@ -31,13 +31,14 @@ jobs:
 
         if [ "${{ matrix.dependency-set }}" = "fabric" ]; then
           echo "Installing fabric dependencies..."
-          pip install \ 
+          pip install \
             polars==1.6.0 \
             deltalake==0.18.2 \
             duckdb==1.2.0 \
             azure-identity==1.17.1 \
             pyarrow==17.0.0 \
             sqlglot==25.18.0
+          pip install -e .[dev]
         else
           echo "Installing latest dependencies..."
           pip install -e .[dev]
