@@ -28,6 +28,7 @@ dependencies = [
     "sqlglot>=25.18",
     "polars>=1.6.0",
     "typer>=0.15.1",
+    "pyarrow>=17.0.0",
 ]
 
 [project.urls]
