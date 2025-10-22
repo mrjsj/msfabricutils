@@ -158,6 +158,8 @@ def upsert_cdf(
     if delta_merge_options is None:
         delta_merge_options = {}
 
+    data = df.lazy().collect()
+    
     if isinstance(table_or_uri, str):
         dt = get_or_create_delta_table(table_or_uri, df.schema)
     else:
@@ -165,7 +167,6 @@ def upsert_cdf(
 
     merge_predicate = build_merge_predicate(primary_key_columns)
 
-    data = df.lazy().collect()
 
     table_merger = (
         dt.merge(
