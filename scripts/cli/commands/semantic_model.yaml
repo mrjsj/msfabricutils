@@ -140,7 +140,7 @@ subcommands:
 
   get-definition:
     endpoint: workspaces/{workspace_id}/semanticModels/{semantic_model_id}/getDefinition
-    method: get
+    method: post
     description: Get the definition of a semantic model.
     panel: Semantic model definition
     args:
