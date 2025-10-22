@@ -133,7 +133,7 @@ def upsert_cdf(
         change_type_insert (str): The value of the `insert` change type in the dataframe.
         change_type_update (str): The value of the `update` change type in the dataframe.
         change_type_delete (str): The value of the `delete` change type in the dataframe.
-        delta_write_options (dict[str, Any] | None): Additional keyword arguments while writing a Delta lake Table.
+        delta_merge_options (dict[str, Any] | None): Additional keyword arguments while writing a Delta lake Table.
 
     Returns:
         Result of the merge operation.
