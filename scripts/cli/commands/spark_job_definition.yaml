@@ -134,7 +134,7 @@ subcommands:
 
   get-definition:
     endpoint: workspaces/{workspace_id}/sparkJobDefinitions/{spark_job_definition_id}/getDefinition
-    method: get
+    method: post
     description: Get the definition of a spark job definition.
     panel: Spark Job Definition
     args:

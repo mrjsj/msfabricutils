@@ -135,7 +135,7 @@ subcommands:
 
   get-definition:
     endpoint: workspaces/{workspace_id}/notebooks/{notebook_id}/getDefinition
-    method: get
+    method: post
     description: Get the definition of a notebook.
     panel: NotebookDefinition
     args:

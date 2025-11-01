@@ -134,7 +134,7 @@ subcommands:
 
   get-definition:
     endpoint: workspaces/{workspace_id}/eventstreams/{eventstream_id}/getDefinition
-    method: get
+    method: post
     description: Get the definition of an eventstream.
     panel: EventstreamDefinition
     args:
