@@ -134,7 +134,7 @@ subcommands:
 
   get-definition:
     endpoint: workspaces/{workspace_id}/reflexes/{reflex_id}/getDefinition
-    method: get
+    method: post
     description: Get the definition of a reflex.
     panel: reflexDefinition
     args:

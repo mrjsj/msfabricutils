@@ -315,7 +315,7 @@ def notebook_get_definition(
         url = f"{url}format={format}&"
     url = url.rstrip("&?")
 
-    method = "get"
+    method = "post"
     token = get_fabric_bearer_token()
     headers = {"Content-Type": "application/json", "Authorization": f"Bearer {token}"}
 

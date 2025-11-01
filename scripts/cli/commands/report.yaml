@@ -140,7 +140,7 @@ subcommands:
 
   get-definition:
     endpoint: workspaces/{workspace_id}/reports/{report_id}/getDefinition
-    method: get
+    method: post
     description: Get the definition of a report.
     panel: reportDefinition
     args:
