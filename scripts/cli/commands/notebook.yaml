@@ -153,7 +153,7 @@ subcommands:
         type: str
         required: false
         arg_type: query
-        description: The format of the Notebook definition. Supported format is \"ipynb\".
+        description: The format of the Notebook definition. Supported format is \"ipynb\" and \"fabricGitSource\".
       - name: await-lro
         type: bool
         required: false
