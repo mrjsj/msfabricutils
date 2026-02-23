@@ -223,7 +223,7 @@ from msfabricutils.rest_api import {{ module_name | replace('-', '_') }}_{{ name
 {%- endfor %}
 
 app = typer.Typer(
-    help="[bold]{{ (subcommands.keys() | list)[:5] | join(', ') }}[/bold]",
+    help="[bold]{{ (subcommands.keys() | list)[:5] | join(', ') }}{% if (subcommands.keys() | list) | length > 5 %}, and more ... {% endif %}[/bold]",
     rich_markup_mode="rich",
 )
 
@@ -394,7 +394,7 @@ def generate_module():
         f.write("\n")
         f.write("COMMANDS = {\n")
         for module, subcommands in sorted(modules):
-            f.write(f"    '{module}': {module.replace('-', '_')}_app,\n")
+            f.write(f"""    "{module}": {module.replace("-", "_")}_app,\n""")
         f.write("}")
 
     for module, subcommands in sorted(modules):
