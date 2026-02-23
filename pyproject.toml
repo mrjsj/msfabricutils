@@ -34,21 +34,6 @@ dependencies = [
 [project.urls]
 Repository = "https://github.com/mrjsj/msfabricutils"
 
-[project.optional-dependencies]
-docs = [
-    "mkdocs==1.6.1",
-    "mkdocs-material==9.5.47",
-    "mkdocs-gen-files==0.5.0",
-    "mkdocstrings-python",
-    "mkdocs-include-dir-to-nav==1.2.0",
-]
-dev = [
-    "pytest>=6.2.5",
-    "ruff>=0.8.1",
-    "freezegun>=1.5.1",
-    "python-dotenv>=1.0.0",
-]
-
 [project.scripts]
 msfu = "msfabricutils.cli.cli:main"
 
@@ -65,3 +50,20 @@ pythonpath = [
   "src",
 ]
 addopts = "--ignore=tests/internal"
+
+[dependency-groups]
+dev = [
+    "jinja2>=3.1.6",
+    "pydantic>=2.12.5",
+    "pyyaml>=6.0.3",
+    "ruff==0.13.0",
+    "pytest>=6.2.5",
+    "ruff>=0.8.1",
+    "freezegun>=1.5.1",
+    "python-dotenv>=1.0.0",
+    "mkdocs==1.6.1",
+    "mkdocs-material==9.5.47",
+    "mkdocs-gen-files==0.5.0",
+    "mkdocstrings-python",
+    "mkdocs-include-dir-to-nav==1.2.0"    
+]
