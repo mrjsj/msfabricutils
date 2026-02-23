@@ -5,6 +5,7 @@ from .datamart import app as datamart_app
 from .environment import app as environment_app
 from .eventhouse import app as eventhouse_app
 from .eventstream import app as eventstream_app
+from .folder import app as folder_app
 from .kql_dashboard import app as kql_dashboard_app
 from .kql_database import app as kql_database_app
 from .kql_queryset import app as kql_queryset_app
@@ -32,6 +33,7 @@ COMMANDS = {
     "environment": environment_app,
     "eventhouse": eventhouse_app,
     "eventstream": eventstream_app,
+    "folder": folder_app,
     "kql-dashboard": kql_dashboard_app,
     "kql-database": kql_database_app,
     "kql-queryset": kql_queryset_app,

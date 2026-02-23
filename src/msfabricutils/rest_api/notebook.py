@@ -54,7 +54,7 @@ def notebook_create(
     data["description"] = description
     custom_payload = {
         "definition": {
-            "format": "ipynb",
+            "format": "fabricGitSource",
             "parts": [
                 {
                     "path": "notebook-content.py",
@@ -300,7 +300,7 @@ def notebook_get_definition(
     Args:
         workspace_id (str): The id of the workspace to get the notebook definition from.
         notebook_id (str): The id of the notebook to get the definition from.
-        format (str | None): The format of the Notebook definition. Supported format is \"ipynb\".
+        format (str | None): The format of the Notebook definition. Supported format is \"ipynb\" and \"fabricGitSource\".
         await_lro (bool | None): Whether to await the long running operation.
         timeout (int): Timeout for the long running operation (seconds). Defaults to 5 minutes.
         preview (bool): Whether to preview the request. You will be asked to confirm the request before it is executed. Defaults to True.
@@ -392,7 +392,7 @@ def notebook_update_definition(
     data = {}
     custom_payload = {
         "definition": {
-            "format": "ipynb",
+            "format": "fabricGitSource",
             "parts": [
                 {
                     "path": "notebook-content.py",
