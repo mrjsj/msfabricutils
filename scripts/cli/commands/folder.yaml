@@ -1,0 +1,129 @@
+command: folder
+subcommands:
+  create:
+    endpoint: workspaces/{workspace_id}/folders
+    method: post
+    description: Create a folder.
+    panel: Folder
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The workspace id.    
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the folder.
+      - name: parent-folder-id
+        type: str
+        required: false
+        arg_type: payload
+        description: The parent folder ID. If not specified or null, the folder is created with the workspace as its parent folder.      
+  
+  get:
+    endpoint: workspaces/{workspace_id}/folders/{folder_id}
+    method: get
+    description: Get a folder.
+    panel: Folder
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The workspace id.
+      - name: folder-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the folder to get.
+
+  list:
+    endpoint: workspaces/{workspace_id}/folders
+    method: get
+    description: List folders.
+    panel: Folder
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The workspace id.
+      - name: recursive
+        type: bool
+        required: false
+        default: true
+        arg_type: query
+        description: Lists folders in a folder and its nested folders, or just a folder only. True - All folders in the folder and its nested folders are listed, False - Only folders in the folder are listed.
+      - name: root-folder-id
+        type: str
+        required: false
+        arg_type: query
+        description: This parameter allows users to filter folders based on a specific root folder. If not provided, the workspace is used as the root folder.
+      - name: continuation-token
+        type: str
+        required: false
+        arg_type: query
+        description: A token for retrieving the next page of results.
+
+  update:
+    endpoint: workspaces/{workspace_id}/folders/{folder_id}
+    method: patch
+    description: Update a folder.
+    panel: Folder
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The workspace id.
+      - name: folder-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the folder to update.
+      - name: display-name
+        type: str
+        required: true
+        arg_type: payload
+        description: The display name of the folder.
+
+  delete:
+    endpoint: workspaces/{workspace_id}/folders/{folder_id}
+    method: delete
+    description: Delete a folder.
+    panel: Folder
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The workspace id.    
+      - name: folder-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the folder to delete.
+
+  move:
+    endpoint: workspaces/{workspace_id}/folders/{folder_id}/move
+    method: post
+    description: Moves the specified folder within the same workspace.
+    panel: Folder
+    args:
+      - name: workspace-id
+        type: str
+        required: true
+        arg_type: path
+        description: The workspace id.    
+      - name: folder-id
+        type: str
+        required: true
+        arg_type: path
+        description: The id of the folder to delete.
+      - name: target-folder-id
+        type: str
+        required: false
+        arg_type: payload
+        description: The destination folder ID. If not provided, the workspace is used as the destination folder.
