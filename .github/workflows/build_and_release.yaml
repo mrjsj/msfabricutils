@@ -26,23 +26,23 @@ jobs:
       with:
         python-version: '3.11'
 
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -e .[dev]
-        pip install setuptools wheel build toml
+        uv sync --dev
 
     - name: Run lint
       run: |
-        ruff check     
+        uv run ruff check     
 
     - name: Run tests
       run: |
-        pip install pytest
-        pytest -vvvv
+        uv run pytest -vvvv -s
             
     - name: Build package
-      run: python -m build --wheel
+      run: uv build --wheel
 
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
