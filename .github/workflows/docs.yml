@@ -31,4 +31,5 @@ jobs:
           mv README.md docs/index.md
           mv assets/images docs/assets/images
 
-      - run: mkdocs gh-deploy --force
+      - name: Deploy docs
+        run: uv run mkdocs gh-deploy --force
