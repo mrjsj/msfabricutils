@@ -727,6 +727,15 @@ def update_role_assignment(
             help="The workspace role assignment ID.",
         ),
     ],
+    role: Annotated[
+        str,
+        typer.Option(
+            "--role",
+            rich_help_panel="Arguments",
+            show_default=False,
+            help="The workspace role of the principal.",
+        ),
+    ],
     no_preview: Annotated[
         bool,
         typer.Option(
@@ -754,6 +763,7 @@ def update_role_assignment(
     response = workspace_update_role_assignment(
         workspace_id=workspace_id,
         role_assignment_id=role_assignment_id,
+        role=role,
         preview=not no_preview,
     )
 

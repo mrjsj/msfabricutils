@@ -490,6 +490,7 @@ def workspace_list_role_assignments(
 def workspace_update_role_assignment(
     workspace_id: str,
     role_assignment_id: str,
+    role: str,
     preview: bool = True,
 ) -> requests.Response:
     """
@@ -498,6 +499,7 @@ def workspace_update_role_assignment(
     Args:
         workspace_id (str): The workspace ID.
         role_assignment_id (str): The workspace role assignment ID.
+        role (str): The workspace role of the principal.
         preview (bool): Whether to preview the request. You will be asked to confirm the request before it is executed. Defaults to True.
 
     Returns:
@@ -513,6 +515,7 @@ def workspace_update_role_assignment(
     headers = {"Content-Type": "application/json", "Authorization": f"Bearer {token}"}
 
     data = {}
+    data["role"] = role
 
     data = remove_none(data)
 

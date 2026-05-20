@@ -190,6 +190,11 @@ subcommands:
         required: true
         arg_type: path
         description: The workspace role assignment ID.
+      - name: role
+        type: str
+        required: true
+        arg_type: payload
+        description: The workspace role of the principal.
 
   delete-role-assignment:
     endpoint: workspaces/{workspace_id}/roleAssignments/{role_assignment_id}
